@@ -1,0 +1,21 @@
+<template name="authorization">
+  <div class="auth">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#auth" aria-controls="auth" role="tab" data-toggle="tab">Авторизация</a></li>
+      <li role="presentation"><a href="#registration" aria-controls="registration" role="tab" data-toggle="tab">Регистрация</a></li>
+      <li role="presentation"><a href="#forgot-password" aria-controls="forgot-password" role="tab" data-toggle="tab">Забыли пароль?</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="auth">
+        {{>login}}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="registration">
+        {{>registration}}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="forgot-password">
+        {{>forgotPassword}}
+      </div>
+    </div>
+  </div>
+</template>

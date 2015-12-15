@@ -1,0 +1,59 @@
+body {
+  padding: 0 5%;
+  background: #fff;
+}
+.navbar {
+  margin-top: 20px;
+}
+.auth {
+  width: 600px;
+  margin: 0 auto;
+  padding: 50px;
+  border: #eee 1px solid;
+  border-radius: 4px;
+  box-shadow: 0 0 10px #eee;
+}
+.nav-tabs {
+  margin-bottom: 25px;
+}
+.form-auth input[type="text"],
+.form-auth input[type="email"],
+.form-auth input[type="password"],
+.form-auth input[type="phone"],
+
+.form-widget input[type="text"],
+.form-widget input[type="email"],
+.form-widget input[type="password"],
+.form-widget input[type="phone"],
+.form-widget input[type="url"],
+.form-widget select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 7px 15px;
+  background: #fff;
+  border: #eee 1px solid;
+}
+
+.widget-item {
+  width: 100%;
+  margin-bottom: 25px;
+  padding-top: 20px;
+  box-shadow: 0 0 10px #eee;
+}
+.widget-item ul {
+  margin:  0 20px 25px;
+  padding: 0;
+  list-style: none;
+  border: #eee 1px solid;
+}
+.widget-item li {
+  padding: 10px 20px;
+  border-top: #eee 1px solid;
+}
+.widget-item li:first-child {
+  border-top: 0 none;
+}
+.widget-item .action {
+  padding: 20px;
+  border-top: #eee 1px solid;
+}

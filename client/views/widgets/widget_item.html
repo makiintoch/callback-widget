@@ -1,0 +1,17 @@
+<template name="widgetItem">
+  <div class="widget-item">
+    <ul>
+      <li><b>Имя</b>: {{name}}</li>
+      <li><b>Сайт</b>: {{url}}</li>
+      <li><b>Статус</b>: Активен</li>
+      <li><b>Дата окончания</b>: {{endDateWorkWidget}}</li>
+      <li><b>Код виджета</b>: {{widgetCode}}</li>
+    </ul>
+
+    <div class="action">
+      <a href="{{pathFor 'widgetEdit'}}">Редактировать</a>
+      <a href="#">Оплатить</a>
+      <a class="widget-delete" href="#">Удалить</a>
+    </div>
+  </div>
+</template>

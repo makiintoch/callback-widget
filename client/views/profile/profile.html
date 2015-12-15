@@ -1,0 +1,23 @@
+<template name="profile">
+  <div class="profile">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#profile-show" aria-controls="profile-show" role="tab" data-toggle="tab">Смотреть профиль</a></li>
+      <li role="presentation"><a href="#profile-edit" aria-controls="profile-edit" role="tab" data-toggle="tab">Изменить профиль</a></li>
+      <li role="presentation"><a href="#change-password" aria-controls="change-password" role="tab" data-toggle="tab">Изменить пароль</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="profile-show">
+        {{>profileShow}}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="profile-edit">
+        {{>profileEdit}}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="change-password">
+        {{>changePassword}}
+      </div>
+    </div>
+  </div>
+</template>

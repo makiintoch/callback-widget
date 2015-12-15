@@ -1,0 +1,13 @@
+<template name="profileEdit">
+  <form class="form form-auth">
+    <div>
+      <label for="name">Имя</label>
+      <input id="name" type="text" name="name" value="{{#if name}}{{name}}{{/if}}">
+    </div>
+    <div>
+      <label for="phone">Телефон</label>
+      <input id="phone" type="phone" name="phone" value="{{#if phone}}{{phone}}{{/if}}">
+    </div>
+    <input type="submit" id="profile-edit-button" class="btn btn-default" value="Сохранить">
+  </form>
+</template>

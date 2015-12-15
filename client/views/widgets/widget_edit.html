@@ -1,0 +1,55 @@
+<template name="widgetEdit">
+  <form class="form form-widget">
+    <div>
+      <label for="name">Имя</label>
+      <input name="name" id="name" type="text" value="{{widget.name}}" placeholder="Имя виджета">
+    </div>
+    <div>
+      <label for="color">Цвет (выберете цвет)</label>
+      <input name="color" id="color" type="text" value="{{widget.color}}" placeholder="Выберите цвет">
+    </div>
+    <div>
+      <label for="color-scheme">Цветовая схема меню (выберете схему)</label>
+    </div>
+
+    <div>
+      <label for="url">URL вашего сайта (с которого будут приходить уведомления)</label>
+      <input name="url" id="url" type="url" value="{{widget.url}}" placeholder="URL вашего сайта">
+    </div>
+    <div>
+      <label for="email">E-mail (на который будут приходить уведомления)</label>
+      {{#each emails}}
+        <input name="email" class="email" type="email" value="{{this}}" placeholder="E-mail">
+      {{/each}}
+    </div>
+    <div>
+      <label for="email-short-notice">Короткий тип E-mail уведомления (подходит для СМС-рассылки)</label>
+      <p>Выключен <input class="switch" type="checkbox" name="email-short-notice" checked="{{widget.emailShortNotice}}"> Включен</p>
+    </div>
+    <div>
+      <label for="position">Расположение виджета (позиция)</label>
+      <input name="position" id="position" type="text" value="{{widget.position}}" placeholder="Расположение виджета">
+    </div>
+    <div>
+      <label for="scenario">Сценарии (доступные сценарии виджета)</label>
+    </div>
+    <div>
+      <label for="utp">УТП (уникальное торговое предложение, выводится при попытки уйти с сайта)</label>
+    </div>
+    <div>
+      <h2>Цели (помогут ослеживать конверсию виджета)</h2>
+      <h3>Google analitics</h3>
+      <label for="ga-category">Категория</label>
+      <input name="ga-category" id="ga-category" type="text" value="{{widget.target.google.category}}" placeholder="Категория">
+      <label for="ga-event">Событие</label>
+      <input name="ga-event" id="ga-event" type="text" value="{{widget.target.google.event}}" placeholder="Событие">
+    </div>
+
+    <div>
+      <label for="sound">Звук (включить/выключить звук виджета)</label>
+      <p>Выключен <input class="switch" type="checkbox" name="sound" checked="{{widget.sound}}"> Включен</p>
+    </div>
+
+    <input type="submit" value="Сохранить" class="btn btn-primary">
+  </form>
+</template>

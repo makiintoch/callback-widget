@@ -1,0 +1,25 @@
+<template name="widgetAdd">
+  <form class="form form-widget">
+    <div>
+      <label for="type">Тип</label>
+      <select id="type" name="type">
+        <option value="callback">Обратный звонок</option>
+        <option value="chat" disabled>Чат</option>
+      </select>
+    </div>
+    <div>
+      <label for="name">Имя</label>
+      <input name="name" id="name" type="text" placeholder="Имя виджета">
+    </div>
+    <div>
+      <label for="url">URL вашего сайта (с которого будут приходить уведомления)</label>
+      <input name="url" id="url" type="url" placeholder="URL вашего сайта">
+    </div>
+    <div>
+      <label for="emails">E-mail (на который будут приходить уведомления)</label>
+      <input name="emails[]" class="emails" type="email" placeholder="E-mail">
+      <a class="email-add" href="#">Добавить email</a>
+    </div>
+    <input type="submit" value="Сохранить" class="btn btn-primary">
+  </form>
+</template>

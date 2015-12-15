@@ -1,0 +1,21 @@
+<template name="ordersList">
+  <table class="table table-orders">
+    <thead>
+      <tr>
+        <th>Телефон</th>
+        <th>Имя</th>
+        <th>Время звонка</th>
+        <th>Сообщение</th>
+        <th>E-mail</th>
+        <th>URL сайта</th>
+        <th>Дата</th>
+        <th>Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each orders}}
+        {{> orderItem}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>

@@ -1,0 +1,7 @@
+<template name="widgetsList">
+  <a href="{{pathFor 'widgetAdd'}}">Добавить виджет</a>
+
+  {{#each widgets}}
+    {{> widgetItem}}
+  {{/each}}
+</template>
