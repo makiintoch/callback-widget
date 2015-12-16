@@ -21,5 +21,7 @@ Template.profileEdit.events({
     };
 
     Meteor.users.update(Meteor.userId(), {$set: {profile: profileEdit}});
+
+    throwMessage('Profile update.');
   }
 });

@@ -11,7 +11,7 @@ Template.changePassword.events({
       if (error) {
         throwError(error.reason);
       } else {
-        Meteor.logout();
+        throwMessage('Password has been changed.');
       }
     });
   }
