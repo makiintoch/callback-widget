@@ -38,8 +38,7 @@ ApiV1.addCollection(Widgets, {
           headers: {
             'Content-Type': 'text/html'
           },
-          //body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<link href="https://d3bo29fbxwvbwx.cloudfront.net/widgets/v2.35/css/tracker.css" rel="stylesheet"/><script src="https://yastatic.net/angularjs/1.3.16/angular.min.js"></script><script type="text/javascript" charset="utf-8" src="https://d3bo29fbxwvbwx.cloudfront.net/widgets/v2.35/js/tracker.js"></script>\'),addHtml(\'<div ng-app="widgetApp"><widget scallback="" scountrycode="ua" ssocialcounters="12;11;25;4;8" sutpbtncolor="" sutpstatus="" sutpimg="" sutpcoord=";" syastatus="" syacounter="" syatarget="" sgastatus="" sgacategory="" sgaevent="" ssound="" stheme="1" scolor="rgb(0,163,255)" spoints="5," spmenu="0" spwidget="right:3" sworktime="9:00 - 19:00" key="07bc3e8540a57ea98b1bdeb99536c4b4"></widget></div>\');'
-          body: 'alert("Hello")'
+          body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<link href="'+ Meteor.absoluteUrl() +'widgets/callback/css/style.css" rel="stylesheet"><script src="https://code.jquery.com/jquery-1.11.3.min.js"></script><script type="text/javascript" charset="utf-8" src="'+ Meteor.absoluteUrl() +'widgets/callback/js/app.js"></script>\'),addHtml(\'<div class="wf-widget" data-color="'+ widget.color +'" data-widget-position-hor="'+ widget.position.hor +'" data-widget-position-ver="'+ widget.position.ver +'" data-sound="'+ widget.sound +'"></div>\');'
         };
       }
     }
@@ -48,5 +47,7 @@ ApiV1.addCollection(Widgets, {
 });
 
 ApiV1.addRoute('/widget-get', {
-  get: function () {}
+  get: function () {
+    return 'Hello';
+  }
 });

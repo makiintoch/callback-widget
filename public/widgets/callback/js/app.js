@@ -2,6 +2,17 @@
   "use strict";
 
   var widget = {
+    getOptions: function() {
+      var widgetTag = $('.wf-widget');
+
+      var color = widgetTag.data('color'),
+          sound = widgetTag.data('sound');
+
+      return {
+        color: color,
+        sound: sound
+      }
+    },
     getWidgetIconElem: function() {
       return $(".wf-widget-icon");
     },
@@ -69,7 +80,12 @@
         $('.wf-widget-content').css('right', '-350px');
       });
     },
+    createWidget: function() {
+      var widgetOptions = widget.getOptions();
+      $('.wf-widget').append('<div class="wf-widget-call" style="top: 0; right: 75px;"><div class="wf-widget-bg" style="background: '+ widgetOptions.color +';"><span class="wf-widget-triangle" style="border-color: transparent transparent transparent '+ widgetOptions.color +';"></span></div><span class="wf-widget-icon wf-widget-name-icon wf-rotate-icon"></span><span class="wf-widget-icon wf-widget-phone-icon"></span></div>')
+    },
     run: function() {
+      widget.createWidget();
       widget.setHeightWindow();
       widget.setWidgetPosition();
       widget.rotateButtons();
