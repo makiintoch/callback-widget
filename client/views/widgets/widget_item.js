@@ -7,7 +7,7 @@ Template.widgetItem.helpers({
   widgetCode: function() {
     var widget = Widgets.findOne({_id: this._id});
 
-    return '<script type="text/javascript" charset="utf-8" src="http://localhost:3000/widget-get?key='+ widget.key +'"></script>';
+    return '<script type="text/javascript" charset="utf-8" src="' + location.href + 'api/v1/widgets/widget-get?key='+ widget.key +'"></script>';
   }
 });
 
@@ -19,7 +19,7 @@ Template.widgetItem.events({
       if (error) {
         throwError(error.reason);
       } else {
-        throwMessage('Widget deleted');
+        throwMessage('The widget has been removed');
       }
     });
   }

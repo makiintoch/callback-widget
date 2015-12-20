@@ -19,6 +19,7 @@ Template.widgetAdd.events({
       if (error) {
         throwError(error.reason);
       }
+      throwMessage('The widget was added.');
       Router.go('widgetsList');
     });
   },
