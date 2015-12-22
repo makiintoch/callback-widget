@@ -1,6 +1,14 @@
 Template.widgetEdit.helpers({
   widget: function() {
     return Widgets.findOne({_id: this._id});
+  },
+  absoluteUrl: function() {
+    return Meteor.absoluteUrl();
+  },
+  getActiveClass: function(item, position) {
+    if(item == position) {
+      return 'active';
+    }
   }
 });
 
@@ -21,7 +29,7 @@ Template.widgetEdit.events({
       url: $(e.target).find('[name=url]').val(),
       emails: emails,
       emailShortNotice: $(e.target).find('[name=email-short-notice]').is(':checked') ? true : false,
-      position: {ver: 'bottom', hor: 'right'},
+      position: $(e.target).find('[name=position]').val(),
       sound: $(e.target).find('[name=sound]').is(':checked') ? true : false
     };
 
@@ -31,6 +39,15 @@ Template.widgetEdit.events({
       }
       Router.go('widgetsList');
     });
+  },
+  'click .widget-position .widget-position-item .item': function(e) {
+    e.preventDefault();
+
+    $('.widget-position .widget-position-item .item').removeClass('active');
+    $(e.target).addClass('active');
+
+    var pos = $(e.target).data('position');
+    $('.widget-position').val(pos);
   }
 });
 

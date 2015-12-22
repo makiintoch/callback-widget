@@ -28,7 +28,21 @@
     </div>
     <div>
       <label for="position">Расположение виджета (позиция)</label>
-      <input name="position" id="position" type="text" value="{{widget.position}}" placeholder="Расположение виджета">
+      <input class="widget-position" type="hidden" name="position">
+
+      <div class="widget-position">
+        <img src="{{absoluteUrl}}img/imac.png" alt="Расположение виджета" width="500">
+
+        <div class="widget-position-item">
+          <img class="{{getActiveClass 'left-top' widget.position}} item position-left left-top" data-position="left-top" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
+          <img class="{{getActiveClass 'left-center' widget.position}} item position-left left-center" data-position="left-center" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
+          <img class="{{getActiveClass 'left-bottom' widget.position}} item position-left left-bottom" data-position="left-bottom" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
+
+          <img class="{{getActiveClass 'right-top' widget.position}} item position-right right-top" data-position="right-top" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
+          <img class="{{getActiveClass 'right-center' widget.position}} item position-right right-center" data-position="right-center" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
+          <img class="{{getActiveClass 'right-bottom' widget.position}} item position-right right-bottom" data-position="right-bottom" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
+        </div>
+      </div>
     </div>
     <div>
       <label for="scenario">Сценарии (доступные сценарии виджета)</label>
