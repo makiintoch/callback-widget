@@ -177,14 +177,18 @@
   margin-bottom: 7px;
   padding: 6px 10px;
   font: 14px 'Roboto', sans-serif;
-  background-color: rgba(0,0,0,.1)!important;
+  background-color: rgba(0,0,0,.1);
   border: 1px solid transparent;
   outline: 0;
   border-radius: 5px;
   box-sizing: border-box;
   box-shadow: none;
+  -webkit-transition: all .4s cubic-bezier(.19, 1, .22, 1);
+  transition: all .4s cubic-bezier(.19, 1, .22, 1);
 }
-
+.wf-text form .error {
+  background: rgba(255,0,0,.37) !important;
+}
 .wf-text form textarea {
   height: 60px;
   resize: none;

@@ -123,12 +123,65 @@
       }
     },
     sendForm: function() {
-      $('.wf-text form input[type="submit"]').on('click', function(e) {
-        e.preventDefault();
-        var params = {name: 'name', email: 'email', url: 'url'};
+      function validateForm(form) {
+        var elem = $(form).find('.required');
+        var error;
 
-        var info = widget.addOrder(params);
-        console.log(info);
+        elem.each(function(index) {
+          if(!this.value || this.value == this.defaultValue ) {
+            $(this).addClass('error');
+            error = true;
+          } else {
+            $(this).removeClass('error');
+          }
+        });
+
+        if (error) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+
+      $('.wf-text form .required').keyup(function(e) {
+        if(!this.value || this.value == this.defaultValue ) {
+          $(this).addClass('error');
+        } else {
+          $(this).removeClass('error');
+        }
+      });
+
+      $('.wf-text-phone form').submit(function(e) {
+        e.preventDefault();
+
+        var valid = validateForm(e.target);
+
+        if(valid) {
+          var order = {
+            time: 'time',
+            phone: $(e.target).find('input[name="phone"]').val(),
+            type: 'call'
+          };
+
+          //var info = widget.addOrder(params);
+        }
+      });
+
+      $('.wf-text-subscribe form').submit(function(e) {
+        e.preventDefault();
+
+        var valid = validateForm(e.target);
+
+        if(valid) {
+          var order = {
+            email: $(e.target).find('input[name="email"]').val(),
+            phone: $(e.target).find('input[name="phone"]').val(),
+            message: $(e.target).find('textarea[name="message"]').val(),
+            type: 'email'
+          };
+
+          //var info = widget.addOrder(order);
+        }
       });
     },
     createWidget: function() {
@@ -136,7 +189,7 @@
 
       //var positionHor = (widgetOptions.positionHor == 'right') ? 'left' : 'right';
 
-      $('.wf-widget').append('<div class="wf-widget-wrapper"><div class="wf-widget-call" style="top: 0; '+ widgetOptions.positionHor +': 75px;"><div class="wf-widget-bg" style="background: '+ widgetOptions.color +';"><span class="wf-widget-triangle"></span></div><span class="wf-widget-icon wf-widget-name-icon wf-rotate-icon"></span><span class="wf-widget-icon wf-widget-phone-icon"></span></div><div class="wf-widget-content" style="background: rgba(204, 204, 204, .95);"><div class="wf-arrow"><span class="wf-arrow-top"></span><span class="wf-arrow-bottom"></span></div><span class="wf-close"></span> <div class="wf-icons"> <div class="wf-icon wf-icon-phone wf-active"> <span class="wf-img"></span> <span>Звонок</span> </div><div class="wf-icon wf-icon-subscribe"> <span class="wf-img"></span> <span>Письмо</span> </div></div><div class="wf-body"><div class="wf-text wf-text-phone"> <span>— Хотите,</span> чтобы мы перезвонили Вам и ответили на ваши вопросы? <form> <div class="wf-select-time"><span class="wf-day"></span> в <span class="wf-time"></span></div><input type="text" name="phone" placeholder="Ваш телефон"> <input type="submit" value="Отправить"> </form> </div><div class="wf-text wf-text-subscribe" style="display: none;"> <span>— Приветствую вас!</span> хотите мы напишем Вам письмо? <form> <textarea name="" name="question" placeholder="Напишите вопрос"></textarea> <input type="text" name="email" placeholder="Ваш E-mail(для ответа)"> <input type="text" name="phone" placeholder="Ваш телефон(по желанию)"> <input type="submit" value="Отправить"> </form> </div></div><div class="wf-powered-by"> <a href="">Установите виджет к себе на сайт</a> </div></div></div>');
+      $('.wf-widget').append('<div class="wf-widget-wrapper"><div class="wf-widget-call" style="top: 0; '+ widgetOptions.positionHor +': 75px;"><div class="wf-widget-bg" style="background: '+ widgetOptions.color +';"><span class="wf-widget-triangle"></span></div><span class="wf-widget-icon wf-widget-name-icon wf-rotate-icon"></span><span class="wf-widget-icon wf-widget-phone-icon"></span></div><div class="wf-widget-content" style="background: rgba(204, 204, 204, .95);"><div class="wf-arrow"><span class="wf-arrow-top"></span><span class="wf-arrow-bottom"></span></div><span class="wf-close"></span> <div class="wf-icons"> <div class="wf-icon wf-icon-phone wf-active"> <span class="wf-img"></span> <span>Звонок</span> </div><div class="wf-icon wf-icon-subscribe"> <span class="wf-img"></span> <span>Письмо</span> </div></div><div class="wf-body"><div class="wf-text wf-text-phone"> <span>— Хотите,</span> чтобы мы перезвонили Вам и ответили на ваши вопросы? <form> <div class="wf-select-time"><span class="wf-day"></span> в <span class="wf-time"></span></div><input class="required" type="text" name="phone" placeholder="Ваш телефон" value=""> <input type="submit" value="Отправить"></form></div><div class="wf-text wf-text-subscribe" style="display: none;"> <span>— Приветствую вас!</span> хотите мы напишем Вам письмо? <form> <textarea class="required" name="message" placeholder="Напишите вопрос"  value=""></textarea> <input class="required" type="text" name="email" placeholder="Ваш E-mail(для ответа)" value=""> <input type="text" name="phone" placeholder="Ваш телефон(по желанию)"><input type="submit" value="Отправить"></form></div></div><div class="wf-powered-by"><a href="">Установите виджет к себе на сайт</a></div></div></div>');
 
       if(widgetOptions.positionHor == 'right') {
         $('.wf-widget').css('right', 0);
