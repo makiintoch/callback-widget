@@ -7,7 +7,7 @@ Template.widgetItem.helpers({
   widgetCode: function() {
     var widget = Widgets.findOne({_id: this._id});
 
-    return '<script type="text/javascript" charset="utf-8" src="' + location.href + 'api/v1/widgets/widget-get?key='+ widget.key +'"></script>';
+    return '<script type="text/javascript" charset="utf-8" src="' + Meteor.absoluteUrl() + 'api/v1/widgets/widget-get?key='+ widget.key +'"></script>';
   }
 });
 

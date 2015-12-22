@@ -49,7 +49,6 @@
   margin-top: -11.97px;
   display: block;
   position: absolute;
-  left: 83.7px;
   top: 50%;
   -moz-border-bottom-colors: none;
   -moz-border-left-colors: none;
@@ -160,7 +159,7 @@
 }
 .wf-body {
   margin-bottom: 40px;
-  padding: 0 50px;
+  padding: 0 70px 0 50px;
 }
 .wf-text {
   font: 16px 'Roboto', sans-serif;
@@ -168,6 +167,72 @@
 .wf-text span {
   display: block;
   font-size: 24px;
+}
+.wf-text form {
+  margin-top: 20%;
+}
+.wf-text form input[type="text"],
+.wf-text form textarea {
+  width: 100%;
+  margin-bottom: 7px;
+  padding: 6px 10px;
+  font: 14px 'Roboto', sans-serif;
+  background-color: rgba(0,0,0,.1)!important;
+  border: 1px solid transparent;
+  outline: 0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: none;
+}
+
+.wf-text form textarea {
+  height: 60px;
+  resize: none;
+}
+
+.wf-text form input[type="text"]::-webkit-input-placeholder {color:#333;}
+.wf-text form input[type="text"]::-moz-placeholder {color:#333;}
+.wf-text form input[type="text"]:-moz-placeholder {color:#333;}
+.wf-text form input[type="text"]:-ms-input-placeholder {color:#333;}
+.wf-text form textarea::-webkit-input-placeholder {color:#333;}
+.wf-text form textarea::-moz-placeholder {color:#333;}
+.wf-text form textarea:-moz-placeholder {color:#333;}
+.wf-text form textarea:-ms-input-placeholder {color:#333;}
+
+.wf-text form input[type="text"]:focus::-webkit-input-placeholder {color:transparent;}
+.wf-text form input[type="text"]:focus:-moz-placeholder {color:transparent;}
+.wf-text form input[type="text"]:focus::-moz-placeholder {color:transparent;}
+.wf-text form input[type="text"]:focus:-ms-input-placeholder {color:transparent;}
+.wf-text form textarea:focus::-webkit-input-placeholder {color:transparent;}
+.wf-text form textarea:focus::-moz-placeholder {color:transparent;}
+.wf-text form textarea:focus:-moz-placeholder {color:transparent;}
+.wf-text form textarea:focus:-ms-input-placeholder {color:transparent;}
+
+.wf-text form input[type="submit"] {
+  width: 100%;
+  margin: 3px 0 7px;
+  padding: 17px 0;
+  font: 300 18px 'Roboto', sans-serif;
+  text-align: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, .5);
+  outline: 0 none;
+  border: 0 none;
+  border-radius: 7px;
+  cursor: pointer;
+  -webkit-transition: all .5s cubic-bezier(.19,1,.22,1);
+  transition: all .5s cubic-bezier(.19,1,.22,1);
+}
+.wf-text form .wf-select-time {
+  margin-bottom: 7px;
+  font: 15px 'Roboto', sans-serif;
+}
+.wf-text form .wf-select-time span {
+  display: inline-block;
+  font: 15px 'Roboto', sans-serif;
+}
+.wf-text form input[type="submit"]:hover {
+  background: rgba(0, 0, 0, .6);
 }
 .wf-powered-by {
   width: 100%;

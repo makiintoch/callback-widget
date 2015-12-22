@@ -15,6 +15,7 @@ Template.widgetEdit.events({
     });
 
     var widget = {
+      id: this._id,
       name: $(e.target).find('[name=name]').val(),
       color: $(e.target).find('[name=color]').val(),
       url: $(e.target).find('[name=url]').val(),
