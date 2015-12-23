@@ -13,7 +13,7 @@ Template.widgetEdit.helpers({
   showEmails: function() {
     var widget = Widgets.findOne({_id: this._id});
     var emails = widget.emails;
-    var emailsElem;
+    var emailsElem = '';
 
     for(var i = 0; i < emails.length; i++) {
       if(i == 0) {
