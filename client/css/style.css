@@ -74,6 +74,23 @@ body {
 .form-widget .widget-position .active {
   opacity: 1;
 }
+.form-widget .emails p {
+  position: relative;
+}
+.form-widget .remove-email {
+  width: 14px;
+  height: 14px;
+  display: block;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  opacity: .7;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAABNmlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjarY6xSsNQFEDPi6LiUCsEcXB4kygotupgxqQtRRCs1SHJ1qShSmkSXl7VfoSjWwcXd7/AyVFwUPwC/0Bx6uAQIYODCJ7p3MPlcsGo2HWnYZRhEGvVbjrS9Xw5+8QMUwDQCbPUbrUOAOIkjvjB5ysC4HnTrjsN/sZ8mCoNTIDtbpSFICpA/0KnGsQYMIN+qkHcAaY6addAPAClXu4vQCnI/Q0oKdfzQXwAZs/1fDDmADPIfQUwdXSpAWpJOlJnvVMtq5ZlSbubBJE8HmU6GmRyPw4TlSaqo6MukP8HwGK+2G46cq1qWXvr/DOu58vc3o8QgFh6LFpBOFTn3yqMnd/n4sZ4GQ5vYXpStN0ruNmAheuirVahvAX34y/Axk/96FpPYgAAACBjSFJNAAB6JQAAgIMAAPn/AACA6AAAUggAARVYAAA6lwAAF2/XWh+QAAAAtUlEQVR42ozRoW7DMBAG4C+GHd2IDYqHi/sQGy4e7qMEDwfvJYaLyysd2nBpSqypypykh2xLn333u8s5b/ETEVcPVCllh3PCG46llM0DaI8PvCZ81vNFXNEBQ0ScUm2xX8IT9A0JlnALQTeO4/3NGxzrtseuhf7BCX7Ccwv9tXpfte1TRb91bRXWmd4x4DwXWFpKLyIGXFo4raWHr1baaQXNflWXc55FM2lDn7BdQ5OXr3i5DQA2p2e+vJgyVwAAAABJRU5ErkJggg==) center center no-repeat;
+  cursor: pointer;
+}
+.form-widget .remove-email:hover {
+  opacity: 1;
+}
 .widget-item {
   width: 100%;
   margin-bottom: 25px;

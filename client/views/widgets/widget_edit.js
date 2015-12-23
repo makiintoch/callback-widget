@@ -9,6 +9,21 @@ Template.widgetEdit.helpers({
     if(item == position) {
       return 'active';
     }
+  },
+  showEmails: function() {
+    var widget = Widgets.findOne({_id: this._id});
+    var emails = widget.emails;
+    var emailsElem;
+
+    for(var i = 0; i < emails.length; i++) {
+      if(i == 0) {
+        emailsElem += '<p><input name="emails[]" class="email" type="email" value="'+ emails[i] +'" placeholder="E-mail"></p>';
+      } else {
+        emailsElem += '<p><span class="remove-email"></span><input name="emails[]" class="email" type="email" value="'+ emails[i] +'" placeholder="E-mail"></p>';
+      }
+    }
+
+    return emailsElem;
   }
 });
 
@@ -18,8 +33,10 @@ Template.widgetEdit.events({
 
     var emails = [];
 
-    $('.emails').each(function(index) {
-      emails.push( $(this).val() );
+    $('.form-widget .emails .email').each(function(index) {
+      if(this.value) {
+        emails.push(this.value);
+      }
     });
 
     var widget = {
@@ -48,6 +65,14 @@ Template.widgetEdit.events({
 
     var pos = $(e.target).data('position');
     $('.widget-position').val(pos);
+  },
+  'click .email-add': function(e) {
+    e.preventDefault();
+
+    $('<p><span class="remove-email"></span><input name="emails[]" class="email" type="email" placeholder="E-mail"></p>').insertBefore('.form-widget .emails .email-add');
+  },
+  'click .remove-email': function(e) {
+    $(e.target).parent('p').remove();
   }
 });
 

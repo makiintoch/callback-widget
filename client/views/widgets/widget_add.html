@@ -15,9 +15,10 @@
       <label for="url">URL вашего сайта (с которого будут приходить уведомления)</label>
       <input name="url" id="url" type="url" placeholder="URL вашего сайта">
     </div>
-    <div>
-      <label for="emails">E-mail (на который будут приходить уведомления)</label>
-      <input name="emails[]" class="emails" type="email" placeholder="E-mail">
+    <div class="emails">
+      <label for="email">E-mail (на который будут приходить уведомления)</label>
+      <p><input name="emails[]" class="email" type="email" placeholder="E-mail"></p>
+
       <a class="email-add" href="#">Добавить email</a>
     </div>
     <input type="submit" value="Сохранить" class="btn btn-primary">

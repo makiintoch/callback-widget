@@ -16,11 +16,12 @@
       <label for="url">URL вашего сайта (с которого будут приходить уведомления)</label>
       <input name="url" id="url" type="url" value="{{widget.url}}" placeholder="URL вашего сайта">
     </div>
-    <div>
+    <div class="emails">
       <label for="email">E-mail (на который будут приходить уведомления)</label>
-      {{#each emails}}
-        <input name="email" class="email" type="email" value="{{this}}" placeholder="E-mail">
-      {{/each}}
+
+      {{{showEmails}}}
+
+      <a class="email-add" href="#">Добавить email</a>
     </div>
     <div>
       <label for="email-short-notice">Короткий тип E-mail уведомления (подходит для СМС-рассылки)</label>

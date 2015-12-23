@@ -4,8 +4,10 @@ Template.widgetAdd.events({
 
     var emails = [];
 
-    $('.emails').each(function(index) {
-      emails.push( $(this).val() );
+    $('.form-widget .emails .email').each(function(index) {
+      if(this.value) {
+        emails.push(this.value);
+      }
     });
 
     var widget = {
@@ -26,6 +28,9 @@ Template.widgetAdd.events({
   'click .email-add': function(e) {
     e.preventDefault();
 
-    //$(e.target).parent('div').find('input:first').clone(false).insertBefore($(e.target));
+    $('<p><span class="remove-email"></span><input name="emails[]" class="email" type="email" placeholder="E-mail"></p>').insertBefore('.form-widget .emails .email-add');
+  },
+  'click .remove-email': function(e) {
+    $(e.target).parent('p').remove();
   }
 });
