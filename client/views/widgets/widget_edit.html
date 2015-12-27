@@ -27,6 +27,11 @@
       <label for="email-short-notice">Короткий тип E-mail уведомления (подходит для СМС-рассылки)</label>
       <p>Выключен <input class="switch" type="checkbox" name="email-short-notice" checked="{{widget.emailShortNotice}}"> Включен</p>
     </div>
+    <div class="work-time">
+      <label for="time">Рабочее время (установить время для уведомлений)</label>
+
+      {{{getTimeWork}}}
+    </div>
     <div>
       <label for="position">Расположение виджета (позиция)</label>
       <input class="widget-position" type="hidden" name="position" value="{{widget.position}}">

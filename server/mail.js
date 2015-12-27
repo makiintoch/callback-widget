@@ -3,7 +3,7 @@ Meteor.startup(function () {
 });
 
 Meteor.methods({
-  sendEmail: function(params, html) {
-    Email.send({to: 'archibald@email.ua', from: 'meteor@meteor.com', subject: 'Тестовое письмо', html: 'Тестовое сообщение'});
+  sendEmail: function(params) {
+    Email.send({to: params.email, from: 'callback@widget.com', subject: params.subject, html: params.message});
   }
 });

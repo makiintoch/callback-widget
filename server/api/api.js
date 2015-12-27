@@ -12,36 +12,56 @@ ApiV1.addCollection(Orders, {
     post: {
       action: function() {
         var params = this.bodyParams;
-        //var widget = Widgets.findOne({'url': this.bodyParams.url});
-        check(params, {
+        var message = '';
+
+        var widget = Widgets.findOne({'url': this.bodyParams.url});
+        /*check(params, {
           name: String,
           type: String,
           url: String,
           email: String
+        });*/
+
+        var order = _.extend(params, {
+          widgetId: widget._id,
+          userId: widget.userId,
+          createdAt: new Date(),
+          status: false
         });
 
+        var orderId = Orders.insert(order);
 
-        //Meteor.call('sendEmail', 'archibald@email.ua', 'Тестовое сообщение');
-
-        var orderId = Orders.insert(params);
-
-        Meteor.call('orderInsert', params, function(error) {
-          if (error) {
-            return {status: 'error', data: 'Order not added'};
+        if(orderId) {
+          if(params.type == 'email') {
+            message += '<h1>С Вашего сайта поступила заявка на email!</h1>';
+            message +=  '<table>';
+            message += '<tr><td><b>Источник:</b></td><td>'+ params.url +'</td></tr>';
+            message += '<tr><td><b>E-mail:</b></td><td>'+ params.email +'</td></tr>';
+            message += '<tr><td><b>Телефон:</b></td><td>'+ params.phone +'</td></tr>';
+            message += '<tr><td><b>Сообщение:</b></td><td>'+ params.message +'</td></tr>';
+            message += '</table>';
           } else {
-            return {status: 'success', data: params};
+            message += '<h1>С Вашего сайта поступила заявка на звонок!</h1>';
+            message +=  '<table>';
+            message += '<tr><td><b>Источник:</b></td><td>'+ params.url +'</td></tr>';
+            message += '<tr><td><b>Телефон:</b></td><td>'+ params.phone +'</td></tr>'
+            message += '<tr><td><b>Время звонка:</b></td><td>'+ params.time +'</td></tr>';
+            message += '</table>';
           }
-        });
 
-        return {status: 'success', data: params};
+          for (var i = 0; i < widget.emails.length; i++) {
+            var emailSend = {
+              subject: 'Заявка: '+ params.url,
+              email: widget.emails[i],
+              message: message
+            };
 
-        //var order = Orders.insert(params);
-
-        /*if(order) {
+            Meteor.call('sendEmail', emailSend);
+          };
           return {status: 'success', data: params};
         } else {
           return {status: 'error', data: 'Order not added'};
-        }*/
+        }
       }
     }
   },
@@ -55,7 +75,6 @@ ApiV1.addCollection(Widgets, {
       action: function() {
         var query = this.queryParams;
         var widget = Widgets.findOne({'key': query.key});
-
         var hasOwnProperty = Object.prototype.hasOwnProperty;
 
         function isEmpty(obj) {
@@ -71,17 +90,16 @@ ApiV1.addCollection(Widgets, {
         if(isEmpty(widget)) {
           return {status: 'error', data: 'Widget not found'};
         } else {
-          //if(widget.status != false && widget.url == query.url) {
           if(widget.status != false) {
             return {
               statusCode: 200,
               headers: {
                 'Content-Type': 'text/html'
               },
-              body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<link href="'+ Meteor.absoluteUrl() +'widgets/callback/css/style.css" rel="stylesheet"><script src="https://code.jquery.com/jquery-1.11.3.min.js"></script><script type="text/javascript" charset="utf-8" src="'+ Meteor.absoluteUrl() +'widgets/callback/js/app.js"></script>\'),addHtml(\'<div class="wf-widget" data-color="'+ widget.color +'"data-position="'+ widget.position +'" data-sound="'+ widget.sound +'"></div>\');'
+              body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<link href="'+ Meteor.absoluteUrl() +'widgets/callback/css/style.css" rel="stylesheet"><script src="https://code.jquery.com/jquery-1.11.3.min.js"></script><script type="text/javascript" charset="utf-8" src="'+ Meteor.absoluteUrl() +'widgets/callback/js/app.js"></script>\'),addHtml(\'<div class="wf-widget"data-color="'+ widget.color +'"data-position="'+ widget.position +'"data-time='+ JSON.stringify(widget.time) +' data-sound="'+ widget.sound +'"></div>\');'
             };
           } else {
-            return {status: 'error'}
+            return {status: 'Error'}
           }
         }
       }

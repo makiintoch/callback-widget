@@ -33,6 +33,26 @@ body {
   background: #fff;
   border: #eee 1px solid;
 }
+.form-widget > div {
+  margin-bottom: 20px;
+}
+.form-widget .work-time ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.form-widget .work-time li {
+  margin-bottom: 10px;
+}
+.form-widget .work-time .select-time,
+.form-widget .work-time .weekday-name {
+  width: 100px;
+  display: inline-block;
+}
+.form-widget .work-time .select-time {
+  margin: 0 15px;
+  cursor: pointer;
+}
 .form-widget .widget-position {
   position: relative;
 }
@@ -90,6 +110,9 @@ body {
 }
 .form-widget .remove-email:hover {
   opacity: 1;
+}
+.form-widget .time-input {
+  width: 150px !important;
 }
 .widget-item {
   width: 100%;

@@ -1,7 +1,6 @@
 Meteor.publish('orders', function() {
   if (this.userId) {
-    //return Orders.find({userId: this.userId});
-    return Orders.find();
+    return Orders.find({userId: this.userId});
   } else {
     this.ready();
   }

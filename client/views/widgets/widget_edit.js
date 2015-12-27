@@ -24,6 +24,38 @@ Template.widgetEdit.helpers({
     }
 
     return emailsElem;
+  },
+  getTimeWork: function() {
+    var widget = Widgets.findOne({_id: this._id});
+    var time = widget.time;
+
+    var showTime = '<ul>';
+    for(var key in time) {
+      showTime += '<li>';
+      showTime += '<input class="weekday-checkbox" type="checkbox" name="weekday[]" '+ (time[key].status ? 'checked' : '') +'>';
+      showTime += '<span class="weekday-name" data-day="'+ key +'">'+ time[key].name +'</span>'
+      showTime += ' с ';
+      showTime += '<select class="select-time" name="time-start">'+ showSelectTime(time[key].start) +'</select>';
+      showTime += ' до ';
+      showTime += '<select class="select-time" name="time-end">'+ showSelectTime(time[key].end) +'</select>';
+      showTime += '</li>';
+    }
+    showTime += '</ul>';
+
+    function showSelectTime(selectedTime) {
+      var date = new Date(0)
+      var option = '';
+
+      for(var i = 0; i < 1440; i = i+30) {
+        var time = (date.getUTCHours() < 10 ? '0'+date.getUTCHours() : date.getUTCHours()) +':'+ (date.getUTCMinutes() < 10 ? '0'+date.getUTCMinutes() : date.getUTCMinutes());
+        option += '<option '+ (selectedTime == time ? 'selected="selected"' : '') +'>'+ time +'</option>';
+        date.setMinutes(date.getMinutes() + 30);
+      }
+
+      return option;
+    }
+
+    return showTime;
   }
 });
 
@@ -32,11 +64,22 @@ Template.widgetEdit.events({
     e.preventDefault();
 
     var emails = [];
+    var time = {};
 
     $('.form-widget .emails .email').each(function(index) {
       if(this.value) {
         emails.push(this.value);
       }
+    });
+
+    $('.form-widget .work-time ul li').each(function(index) {
+      var day = $(this).find('.weekday-name').data('day'),
+          start = $(this).find('select[name="time-start"]').val(),
+          end = $(this).find('select[name="time-end"]').val(),
+          name = $(this).find('.weekday-name').text(),
+          status = ($($(this).find('.weekday-checkbox')).prop("checked")) ? true : false;
+
+      time[day] = {start: start, end: end, name: name, status: status};
     });
 
     var widget = {
@@ -46,6 +89,7 @@ Template.widgetEdit.events({
       url: $(e.target).find('[name=url]').val(),
       emails: emails,
       emailShortNotice: $(e.target).find('[name=email-short-notice]').is(':checked') ? true : false,
+      time: time,
       position: $(e.target).find('[name=position]').val(),
       sound: $(e.target).find('[name=sound]').is(':checked') ? true : false
     };

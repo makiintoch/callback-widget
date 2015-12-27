@@ -2,7 +2,7 @@ Template.widgetItem.helpers({
   endDateWorkWidget: function() {
     var widget = Widgets.findOne({_id: this._id});
 
-    return moment(widget.endDate).fromNow();;
+    return moment(widget.endDate).fromNow();
   },
   widgetCode: function() {
     var widget = Widgets.findOne({_id: this._id});
