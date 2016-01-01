@@ -16,6 +16,13 @@ body {
 .nav-tabs {
   margin-bottom: 25px;
 }
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="password"],
+.form input[type="phone"],
+.form textarea,
+
 .form-auth input[type="text"],
 .form-auth input[type="email"],
 .form-auth input[type="password"],
