@@ -1,0 +1,12 @@
+<template name="sidebar">
+  <a class="logo" href="{{pathFor 'widgetsList'}}">calling-all</a>
+
+  <ul class="menu">
+    <li><a href="{{pathFor 'widgetsList'}}">Виджеты</a></li>
+    <li><a href="{{pathFor 'ordersList'}}">Заявки</a></li>
+    <!--<li><a href="{{pathFor 'billing'}}">Платежи</a></li>-->
+    <li><a href="{{pathFor 'callback'}}">Поддержка</a></li>
+    <li><a href="{{pathFor 'profile'}}">Профиль</a></li>
+    <li><a href="{{pathFor 'profile'}}" class="logout">Выход</a></li>
+  </ul>
+</template>

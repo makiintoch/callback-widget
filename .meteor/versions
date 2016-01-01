@@ -46,6 +46,7 @@ iron:router@1.0.12
 iron:url@1.0.11
 jquery@1.11.4
 launch-screen@1.0.4
+less@2.5.1
 livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
@@ -64,6 +65,7 @@ npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
+peppelg:bootstrap-3-modal@1.0.4
 promise@0.5.1
 random@1.0.5
 rate-limit@1.0.0
@@ -91,3 +93,4 @@ underscore@1.0.4
 url@1.0.5
 webapp@1.2.3
 webapp-hashing@1.0.5
+zenorocha:clipboard@1.4.2

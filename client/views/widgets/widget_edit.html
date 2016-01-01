@@ -1,75 +1,96 @@
 <template name="widgetEdit">
+  <h1>Редактирование виджета</h1>
+
   <form class="form form-widget">
-    <div>
-      <label for="name">Имя</label>
-      <input name="name" id="name" type="text" value="{{widget.name}}" placeholder="Имя виджета">
-    </div>
-    <div>
-      <label for="color">Цвет (выберете цвет)</label>
-      <input name="color" id="color" type="text" value="{{widget.color}}" placeholder="Выберите цвет">
-    </div>
-    <div>
-      <label for="color-scheme">Цветовая схема меню (выберете схему)</label>
+    <div class="item">
+      <p class="title">Имя виджета</p>
+
+      <input name="name" type="text" value="{{widget.name}}" placeholder="Имя виджета">
     </div>
 
-    <div>
-      <label for="url">URL вашего сайта (с которого будут приходить уведомления)</label>
-      <input name="url" id="url" type="url" value="{{widget.url}}" placeholder="URL вашего сайта">
+    <div class="item">
+      <p class="title">Цвет <span>(выберете цвет)</span></p>
+
+      <input class="color" name="color" type="text" value="{{widget.color}}" placeholder="Выберите цвет">
+
+      <span class="color-show" style="background:{{widget.color}};"></span>
     </div>
-    <div class="emails">
-      <label for="email">E-mail (на который будут приходить уведомления)</label>
+
+    <div class="item">
+      <p class="title">Цветовая схема меню <span>(выберете схему)</span></p>
+    </div>
+
+    <div class="item">
+      <p class="title">URL вашего сайта <span>(с которого будут приходить уведомления)</span></p>
+
+      <input name="url" type="text" value="{{widget.url}}" placeholder="URL вашего сайта">
+    </div>
+
+    <div class="item emails">
+      <p class="title">E-mail <span>(на который будут приходить уведомления)</span></p>
 
       {{{showEmails}}}
 
-      <a class="email-add" href="#">Добавить email</a>
+      <a class="link email-add" href="#">Добавить email</a>
     </div>
-    <div>
-      <label for="email-short-notice">Короткий тип E-mail уведомления (подходит для СМС-рассылки)</label>
+
+    <div class="item">
+      <p class="title">Короткий тип E-mail уведомления <span>(подходит для СМС-рассылки)</span></p>
+
       <p>Выключен <input class="switch" type="checkbox" name="email-short-notice" checked="{{widget.emailShortNotice}}"> Включен</p>
     </div>
-    <div class="work-time">
-      <label for="time">Рабочее время (установить время для уведомлений)</label>
+
+    <div class="item work-time">
+      <p class="title">Рабочее время <span>(установить время для уведомлений)</span></p>
 
       {{{getTimeWork}}}
     </div>
-    <div>
-      <label for="position">Расположение виджета (позиция)</label>
+
+    <div class="item">
+      <p class="title">Расположение виджета <span>(позиция)</span></p>
+
       <input class="widget-position" type="hidden" name="position" value="{{widget.position}}">
 
       <div class="widget-position">
         <img src="{{absoluteUrl}}img/imac.png" alt="Расположение виджета" width="500">
 
         <div class="widget-position-item">
-          <img class="{{getActiveClass 'left-top' widget.position}} item position-left left-top" data-position="left-top" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
-          <img class="{{getActiveClass 'left-center' widget.position}} item position-left left-center" data-position="left-center" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
-          <img class="{{getActiveClass 'left-bottom' widget.position}} item position-left left-bottom" data-position="left-bottom" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
+          <img class="{{getActiveClass 'left-top' widget.position}} position-item position-left left-top" data-position="left-top" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
+          <img class="{{getActiveClass 'left-center' widget.position}} position-item position-left left-center" data-position="left-center" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
+          <img class="{{getActiveClass 'left-bottom' widget.position}} position-item position-left left-bottom" data-position="left-bottom" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
 
-          <img class="{{getActiveClass 'right-top' widget.position}} item position-right right-top" data-position="right-top" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
-          <img class="{{getActiveClass 'right-center' widget.position}} item position-right right-center" data-position="right-center" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
-          <img class="{{getActiveClass 'right-bottom' widget.position}} item position-right right-bottom" data-position="right-bottom" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
+          <img class="{{getActiveClass 'right-top' widget.position}} position-item position-right right-top" data-position="right-top" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
+          <img class="{{getActiveClass 'right-center' widget.position}} position-item position-right right-center" data-position="right-center" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
+          <img class="{{getActiveClass 'right-bottom' widget.position}} position-item position-right right-bottom" data-position="right-bottom" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
         </div>
       </div>
     </div>
-    <div>
-      <label for="scenario">Сценарии (доступные сценарии виджета)</label>
+
+    <div class="item">
+      <p class="title">Сценарии <span>(доступные сценарии виджета)</span></p>
     </div>
-    <div>
-      <label for="utp">УТП (уникальное торговое предложение, выводится при попытки уйти с сайта)</label>
-    </div>
-    <div>
-      <h2>Цели (помогут ослеживать конверсию виджета)</h2>
-      <h3>Google analitics</h3>
+
+    <!--<div class="item">
+      <p class="title">УТП <span>(уникальное торговое предложение, выводится при попытки уйти с сайта)</span></p>
+    </div>-->
+
+    <div class="item">
+      <p class="title">Цели <span>(помогут ослеживать конверсию виджета)</span></p>
+
+      <p class="subtitle">Google analitics</p>
+
       <label for="ga-category">Категория</label>
       <input name="ga-category" id="ga-category" type="text" value="{{widget.target.google.category}}" placeholder="Категория">
       <label for="ga-event">Событие</label>
       <input name="ga-event" id="ga-event" type="text" value="{{widget.target.google.event}}" placeholder="Событие">
     </div>
 
-    <div>
-      <label for="sound">Звук (включить/выключить звук виджета)</label>
+    <div class="item">
+      <p class="title">Звук <span>(включить/выключить звук виджета)</span></p>
+
       <p>Выключен <input class="switch" type="checkbox" name="sound" checked="{{widget.sound}}"> Включен</p>
     </div>
 
-    <input type="submit" value="Сохранить" class="btn btn-primary">
+    <input class="button" type="submit" value="Сохранить">
   </form>
 </template>

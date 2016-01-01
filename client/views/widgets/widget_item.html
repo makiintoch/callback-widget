@@ -1,17 +1,29 @@
 <template name="widgetItem">
   <div class="widget-item">
+    <h2>
+      {{name}}
+      {{#if status}}
+        <span class="widget-active"></span>
+      {{else}}
+        <span class="widget-not-active"></span>
+      {{/if}}
+    </h2>
+
     <ul>
-      <li><b>Имя</b>: {{name}}</li>
-      <li><b>Сайт</b>: {{url}}</li>
-      <li><b>Статус</b>: Активен</li>
-      <li><b>Дата окончания</b>: {{endDateWorkWidget}}</li>
-      <li><b>Код виджета</b>: {{widgetCode}}</li>
+      <li><span>Сайт:</span> <a target="_blank" href="{{url}}">{{url}}</a></li>
+      <li><span>Дата окончания:</span> {{endDateWorkWidget}}</li>
+      <li><span>Заказы:</span> {{widgetOrders}}</li>
+      <li>
+        <span>Код виджета:</span>
+        <a class="copy-code" data-clipboard-text="{{widgetCode}}" href="#">Скопировать</a>
+        <a class="show-code" href="#">Показать</a>
+      </li>
     </ul>
 
     <div class="action">
-      <a href="{{pathFor 'widgetEdit'}}">Редактировать</a>
-      <a href="#">Оплатить</a>
-      <a class="widget-delete" href="#">Удалить</a>
+      <a class="button" href="{{pathFor 'widgetEdit'}}">Редактировать</a>
+      <!--<a class="button" href="#">Оплатить</a>-->
+      <a class="button button-warning widget-modal" href="#">Удалить</a>
     </div>
   </div>
 </template>

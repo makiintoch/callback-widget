@@ -3,18 +3,15 @@
 
   <form class="form">
     <div>
-      <label for="name">Имя</label>
-      <input name="name" id="name" type="text" placeholder="Ваше имя">
+      <input class="required" name="name" type="text" placeholder="Ваше имя">
     </div>
     <div>
-      <label for="email">E-mail</label>
-      <input name="email" type="email" placeholder="Ваш e-mail">
+      <input class="required" name="email" type="text" placeholder="Ваш e-mail">
     </div>
     <div>
-      <label for="message">Сообщение</label>
-      <textarea name="message" id="message" placeholder="Ваше сообщение"></textarea>
+      <textarea class="required" name="message" placeholder="Ваше сообщение"></textarea>
     </div>
 
-    <input type="submit" value="Отправить" class="btn btn-primary">
+    <input class="button" type="submit" value="Отправить">
   </form>
 </template>

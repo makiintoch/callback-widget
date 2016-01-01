@@ -1,7 +1,14 @@
 <template name="layout">
-  {{>header}}
+  <div class="sidebar">
+    {{>sidebar}}
+  </div>
 
-  {{>yield}}
+  <div class="content">
+    <div class="main-content">
+      {{>yield}}
+    </div>
 
-  {{>footer}}
+
+    {{>footer}}
+  </div>
 </template>

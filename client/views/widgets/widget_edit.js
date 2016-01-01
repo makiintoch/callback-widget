@@ -17,9 +17,9 @@ Template.widgetEdit.helpers({
 
     for(var i = 0; i < emails.length; i++) {
       if(i == 0) {
-        emailsElem += '<p><input name="emails[]" class="email" type="email" value="'+ emails[i] +'" placeholder="E-mail"></p>';
+        emailsElem += '<p class="email-item"><input name="emails[]" class="email" type="text" value="'+ emails[i] +'" placeholder="E-mail"></p>';
       } else {
-        emailsElem += '<p><span class="remove-email"></span><input name="emails[]" class="email" type="email" value="'+ emails[i] +'" placeholder="E-mail"></p>';
+        emailsElem += '<p class="email-item"><span class="email-remove"></span><input name="emails[]" class="email" type="text" value="'+ emails[i] +'" placeholder="E-mail"></p>';
       }
     }
 
@@ -101,10 +101,10 @@ Template.widgetEdit.events({
       Router.go('widgetsList');
     });
   },
-  'click .widget-position .widget-position-item .item': function(e) {
+  'click .widget-position .widget-position-item .position-item': function(e) {
     e.preventDefault();
 
-    $('.widget-position .widget-position-item .item').removeClass('active');
+    $('.widget-position .widget-position-item .position-item').removeClass('active');
     $(e.target).addClass('active');
 
     var pos = $(e.target).data('position');
@@ -113,9 +113,9 @@ Template.widgetEdit.events({
   'click .email-add': function(e) {
     e.preventDefault();
 
-    $('<p><span class="remove-email"></span><input name="emails[]" class="email" type="email" placeholder="E-mail"></p>').insertBefore('.form-widget .emails .email-add');
+    $('<p class="email-item"><span class="email-remove"></span><input name="emails[]" class="email" type="text" placeholder="E-mail"></p>').insertBefore('.form-widget .emails .email-add');
   },
-  'click .remove-email': function(e) {
+  'click .email-remove': function(e) {
     $(e.target).parent('p').remove();
   }
 });
@@ -126,5 +126,7 @@ Template.widgetEdit.rendered = function() {
     var switchery = new Switchery(html);
   });
 
-  $('#color').colorpicker();
+  $('.color').colorpicker({align: 'right'}).on('changeColor.colorpicker', function(event) {
+    $('.color-show').css('backgroundColor', event.color);
+  });
 }

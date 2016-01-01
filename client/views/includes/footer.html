@@ -1,13 +1,5 @@
 <template name="footer">
   <footer class="footer">
-    <hr>
-    <div class="pull-left">
-      <p class="copyright">Copyright</p>
-    </div>
-    {{#if currentUser}}
-      <div class="pull-right">
-        Hello {{currentUser.username}}
-      </div>
-    {{/if}}
+    <p class="copyright">Copyright © 2015-{{getYear}}. Все права защищены.</p>
   </footer>
 </template>

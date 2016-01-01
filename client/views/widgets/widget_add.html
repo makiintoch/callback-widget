@@ -1,26 +1,30 @@
 <template name="widgetAdd">
+  <h1>Добавление виджета</h1>
+
   <form class="form form-widget">
-    <div>
-      <label for="type">Тип</label>
+    <!--<div class="item">
+      <p class="title">Тип виджета</p>
       <select id="type" name="type">
         <option value="callback">Обратный звонок</option>
         <option value="chat" disabled>Чат</option>
       </select>
+    </div>-->
+    <div class="item">
+      <p class="title">Имя виджета</p>
+      <input name="name" type="text" placeholder="Имя виджета">
     </div>
-    <div>
-      <label for="name">Имя</label>
-      <input name="name" id="name" type="text" placeholder="Имя виджета">
+    <div class="item">
+      <p class="title">URL вашего сайта <span>(с которого будут приходить уведомления)</span></p>
+      <input name="url" type="text" placeholder="URL вашего сайта">
     </div>
-    <div>
-      <label for="url">URL вашего сайта (с которого будут приходить уведомления)</label>
-      <input name="url" id="url" type="url" placeholder="URL вашего сайта">
-    </div>
-    <div class="emails">
-      <label for="email">E-mail (на который будут приходить уведомления)</label>
-      <p><input name="emails[]" class="email" type="email" placeholder="E-mail"></p>
+    <div class="item emails">
+      <p class="title">E-mail <span>(на который будут приходить уведомления)</span></p>
 
-      <a class="email-add" href="#">Добавить email</a>
+      <p class="email-item"><input name="emails[]" class="email" type="text" placeholder="E-mail"></p>
+
+      <a class="link email-add" href="#">Добавить email</a>
     </div>
-    <input type="submit" value="Сохранить" class="btn btn-primary">
+
+    <input class="button" type="submit" value="Сохранить">
   </form>
 </template>

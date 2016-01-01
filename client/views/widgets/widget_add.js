@@ -28,9 +28,9 @@ Template.widgetAdd.events({
   'click .email-add': function(e) {
     e.preventDefault();
 
-    $('<p><span class="remove-email"></span><input name="emails[]" class="email" type="email" placeholder="E-mail"></p>').insertBefore('.form-widget .emails .email-add');
+    $('<p class="email-item"><span class="email-remove"></span><input name="emails[]" class="email" type="text" placeholder="E-mail"></p>').insertBefore('.form-widget .emails .email-add');
   },
-  'click .remove-email': function(e) {
+  'click .email-remove': function(e) {
     $(e.target).parent('p').remove();
   }
 });

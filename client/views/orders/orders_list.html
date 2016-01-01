@@ -1,22 +1,32 @@
 <template name="ordersList">
-  <table class="table table-orders">
-    <thead>
-      <tr>
-        <th>Телефон</th>
-        <th>Время звонка</th>
-        <th>Сообщение</th>
-        <th>E-mail</th>
+  <div class="orders">
+    <h1>Полученные заявки</h1>
 
-        <th>Тип</th>
-        <th>Источник</th>
-        <th>Дата</th>
-        <th>Статус</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each orders}}
-        {{> orderItem}}
-      {{/each}}
-    </tbody>
-  </table>
+    {{#if orders}}
+      h
+    {{else}}
+      x
+    {{/if}}
+
+    <table class="table table-orders">
+      <thead>
+        <tr>
+          <th>Телефон</th>
+          <th>Время звонка</th>
+          <th>Сообщение</th>
+          <th>E-mail</th>
+
+          <th>Тип</th>
+          <th>Источник</th>
+          <th>Дата</th>
+          <th>Статус</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each orders}}
+          {{> orderItem}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </template>
