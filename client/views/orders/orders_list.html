@@ -2,31 +2,32 @@
   <div class="orders">
     <h1>Полученные заявки</h1>
 
-    {{#if orders}}
-      h
+    {{#if isOrders}}
+      <div class="orders-sort">
+        <span class="active">Все ({{ordersCount 'all'}})</span>
+        <span>Прочитанные ({{ordersCount 'read'}})</span>
+        <span>Новые ({{ordersCount 'new'}})</span>
+      </div>
+
+      <table class="table-orders">
+        <thead>
+          <tr>
+            <th>Номер</th>
+            <th>Тип</th>
+            <th>Источник</th>
+            <th>Дата</th>
+            <th>Статус</th>
+            <th>Подробнее</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each orders}}
+            {{> orderItem}}
+          {{/each}}
+        </tbody>
+      </table>
     {{else}}
-      x
+      <p>У Вас еще не ни одной заявки</p>
     {{/if}}
-
-    <table class="table table-orders">
-      <thead>
-        <tr>
-          <th>Телефон</th>
-          <th>Время звонка</th>
-          <th>Сообщение</th>
-          <th>E-mail</th>
-
-          <th>Тип</th>
-          <th>Источник</th>
-          <th>Дата</th>
-          <th>Статус</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each orders}}
-          {{> orderItem}}
-        {{/each}}
-      </tbody>
-    </table>
   </div>
 </template>

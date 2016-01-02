@@ -1,13 +1,10 @@
 <template name="orderItem">
   <tr>
-    <td>{{phone}}</td>
-    <td>{{time}}</td>
-    <td>{{message}}</td>
-    <td>{{email}}</td>
-
-    <td>{{getType type}}</td>
+    <td>1234</td>
+    <td>{{{getType type}}}</td>
     <td>{{url}}</td>
     <td>{{getDate createdAt}}</td>
     <td><input class="switch" type="checkbox" name="order-status" checked="{{status}}"></td>
+    <td><a class="button show-order" href="#">Подробнее</a></td>
   </tr>
 </template>

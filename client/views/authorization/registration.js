@@ -11,6 +11,8 @@ Template.registration.events({
     Accounts.createUser(registration, function(error) {
       if (error) {
         throwError(error.reason);
+      } else {
+        Router.go('profile');
       }
     });
   }

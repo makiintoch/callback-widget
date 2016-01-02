@@ -1,17 +1,17 @@
 <template name="registration">
-  <form class="form form-auth">
-    <div>
-      <label for="username">Логин</label>
-      <input id="username" type="text" name="username" required>
+  <form class="form form-auth" autocomplete="off">
+    <div class="item">
+      <input type="text" name="username" placeholder="Ваш логин">
     </div>
-    <div>
-      <label for="email">E-mail</label>
-      <input id="email" type="email" name="email" required>
+
+    <div class="item">
+      <input type="text" name="email" placeholder="Ваш e-mail">
     </div>
-    <div>
-      <label for="password">Пароль</label>
-      <input id="password" type="password" name="password" required>
+
+    <div class="item">
+      <input type="password" name="password" placeholder="Ваш пароль">
     </div>
-    <input type="submit" id="register-button" class="btn btn-default" value="Зарегистрироваться">
+
+    <input type="submit" class="button" value="Зарегистрироваться">
   </form>
 </template>

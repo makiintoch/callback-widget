@@ -1,0 +1,25 @@
+<template name="orderInfoModal">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Подробная информация</h3>
+        </div>
+
+        <div class="modal-body">
+          <ul>
+            {{#if order.email}}<li><span>E-mail:</span> {{order.email}}</li>{{/if}}
+            {{#if order.message}}<li><span>Сообщение:</span> {{order.message}}</li>{{/if}}
+            {{#if order.phone}}<li><span>Телефон:</span> {{order.phone}}</li>{{/if}}
+            {{#if order.time}}<li><span>Время звонка:</span> {{order.time}}</li>{{/if}}
+          </ul>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="button" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

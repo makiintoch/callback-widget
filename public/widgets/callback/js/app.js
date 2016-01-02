@@ -17,6 +17,7 @@
         },
         rotate: {time: 4000},
         color: '#1f86c2',
+        schema: 'gray',
         position: {hor: 'right', ver: 'bottom'},
         time: {
           mon: {start: '09:00', end: '19:00', status: true},
@@ -424,7 +425,7 @@
             widget += '<span class="wf-widget-icon wf-widget-name-icon wf-rotate-icon"></span>';
             widget += '<span class="wf-widget-icon wf-widget-phone-icon"></span>';
           widget += '</div>';
-          widget += '<div class="wf-widget-content" style="background: rgba(204, 204, 204, .95);">';
+          widget += '<div class="wf-widget-content">';
             widget += '<div class="wf-arrow"><span class="wf-arrow-top"></span><span class="wf-arrow-bottom"></span></div>';
             widget += '<span class="wf-close"></span>';
             widget += '<div class="wf-icons">';
@@ -477,7 +478,7 @@
         }
 
         $('#wf-widget .wf-widget-content').css(callbackSettings.options.position.hor, '-350px');
-
+        $('#wf-widget .wf-widget-content').addClass('wf-schema-'+callbackSettings.options.schema);
         $('#wf-widget .wf-text-phone .wf-text-item').append('<span>'+ callbackSettings.options.texts.call.text1.title +'</span> '+ callbackSettings.options.texts.call.text1.body);
         $('#wf-widget .wf-text-subscribe .wf-text-item').append('<span>'+ callbackSettings.options.texts.email.text1.title +'</span> '+ callbackSettings.options.texts.email.text1.body);
 
@@ -505,13 +506,14 @@
 
   var widgetTag = $('#wf-widget'),
     color = widgetTag.data('color'),
+    schema = widgetTag.data('schema'),
     pos = widgetTag.data('position'),
     positionHor = pos.split("-")[0],
     positionVer = pos.split("-")[1],
     time  = widgetTag.data('time'),
     sound = widgetTag.data('sound');
 
-  var wcb = $.widgetCallback({color: color, position: {hor: positionHor, ver: positionVer}, time: time, sound: sound});
+  var wcb = $.widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, sound: sound});
   wcb.on();
   wcb.rotate();
 

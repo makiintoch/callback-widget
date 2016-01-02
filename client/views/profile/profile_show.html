@@ -1,0 +1,9 @@
+<template name="profileShow">
+  <ul class="profile-list">
+    <li><span>Логин:</span> {{username}}</li>
+    <li><span>Email:</span> {{email}}</li>
+    {{#if name}}<li><span>Имя:</span> {{name}}</li>{{/if}}
+    {{#if phone}}<li><span>Телефон:</span> {{phone}}</li>{{/if}}
+    <li><span>Дата регистрации:</span> {{date}} в {{time}}</li>
+  </ul>
+</template>

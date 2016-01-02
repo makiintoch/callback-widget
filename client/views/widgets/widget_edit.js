@@ -28,12 +28,13 @@ Template.widgetEdit.helpers({
   getTimeWork: function() {
     var widget = Widgets.findOne({_id: this._id});
     var time = widget.time;
+    var weekDay = {mon: 'понедельник', tue: 'вторник', wed: 'среда', thu: 'четверг', fri: 'пятница', sat: 'суббота', sun: 'воскресенье'};
 
     var showTime = '<ul>';
     for(var key in time) {
       showTime += '<li>';
       showTime += '<input class="weekday-checkbox" type="checkbox" name="weekday[]" '+ (time[key].status ? 'checked' : '') +'>';
-      showTime += '<span class="weekday-name" data-day="'+ key +'">'+ time[key].name +'</span>'
+      showTime += '<span class="weekday-name" data-day="'+ key +'">'+ weekDay[key] +'</span>'
       showTime += ' с ';
       showTime += '<select class="select-time" name="time-start">'+ showSelectTime(time[key].start) +'</select>';
       showTime += ' до ';
@@ -56,6 +57,13 @@ Template.widgetEdit.helpers({
     }
 
     return showTime;
+  },
+  getActiveSchema: function(colorSchema) {
+    var widget = Widgets.findOne({_id: this._id});
+
+    if(colorSchema == widget.schemaColor) {
+      return 'active';
+    }
   }
 });
 
@@ -86,6 +94,7 @@ Template.widgetEdit.events({
       id: this._id,
       name: $(e.target).find('[name=name]').val(),
       color: $(e.target).find('[name=color]').val(),
+      schemaColor: $(e.target).find('.schema .active').data('schema'),
       url: $(e.target).find('[name=url]').val(),
       emails: emails,
       emailShortNotice: $(e.target).find('[name=email-short-notice]').is(':checked') ? true : false,
@@ -98,6 +107,7 @@ Template.widgetEdit.events({
       if (error) {
         throwError(error.reason);
       }
+      throwMessage('Изменения внесены в виджет');
       Router.go('widgetsList');
     });
   },
@@ -117,6 +127,10 @@ Template.widgetEdit.events({
   },
   'click .email-remove': function(e) {
     $(e.target).parent('p').remove();
+  },
+  'click .schema-color': function(e) {
+    $('.schema .schema-color').removeClass('active');
+    $(e.target).addClass('active');
   }
 });
 

@@ -3,6 +3,33 @@ Template.orderItem.helpers({
     return moment(date).fromNow()
   },
   getType: function(type) {
-    return (type == 'call') ? 'Звонок' : 'E-mail';
+    return (type == 'call') ? '<span class="type-call">Звонок</span>' : '<span class="type-email">E-mail</span>';
   }
 });
+
+Template.orderItem.events({
+  'change .switch': function(e) {
+    var status = '';
+    if ($(e.target).is(':checked')) {
+      status = true;
+    } else {
+      status = false;
+    }
+
+    Meteor.call('orderUpdate', this._id, {status: status}, function(error) {
+      if (error) {
+        throwError(error.reason);
+      }
+    });
+  },
+  'click .show-order': function(e) {
+    e.preventDefault();
+
+    Modal.show('orderInfoModal', {order: this});
+  }
+});
+
+Template.orderItem.rendered = function() {
+  var elem = this.find('.switch'),
+      init = new Switchery(elem);
+}
