@@ -11,7 +11,7 @@ Template.changePassword.events({
       if (error) {
         throwError(error.reason);
       } else {
-        throwMessage('Password has been changed.');
+        throwMessage('Пароль был успешно изменен');
       }
     });
   }

@@ -11,7 +11,7 @@ Template.forgotPassword.events({
       if (error) {
         throwError(error.reason);
       } else {
-        throwMessage('Email Sent. Check your mailbox.');
+        throwMessage('На Ваш e-mail было отправлено письмо с инструкциями для восстановления пароля');
       }
     });
   }

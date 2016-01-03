@@ -36,7 +36,7 @@ Template.widgetItem.events({
         if (error) {
           throwError(error.reason);
         } else {
-          throwMessage('The widget has been removed');
+          throwMessage('Ваш виджет успешно удален!');
         }
       });
     });
@@ -52,6 +52,6 @@ Template.widgetItem.events({
 
     new Clipboard('.copy-code');
 
-    throwMessage('The code has been copied to the clipboard');
+    throwMessage('Код виджета скопирован в буфер');
   }
 });

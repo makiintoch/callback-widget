@@ -107,7 +107,7 @@ Template.widgetEdit.events({
       if (error) {
         throwError(error.reason);
       }
-      throwMessage('Изменения внесены в виджет');
+      throwMessage('Ваш виджет успешно сохранен');
       Router.go('widgetsList');
     });
   },

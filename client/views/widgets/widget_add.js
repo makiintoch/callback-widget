@@ -14,15 +14,16 @@ Template.widgetAdd.events({
       name: $(e.target).find('[name=name]').val(),
       url: $(e.target).find('[name=url]').val(),
       emails: emails,
-      type: $(e.target).find('[name=type]').val(),
     };
 
     Meteor.call('widgetInsert', widget, function(error) {
       if (error) {
         throwError(error.reason);
+      } else {
+        throwMessage('Новый виджет успешно создан');
+        Router.go('widgetsList');
       }
-      throwMessage('The widget was added.');
-      Router.go('widgetsList');
+
     });
   },
   'click .email-add': function(e) {

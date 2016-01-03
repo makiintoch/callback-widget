@@ -113,6 +113,7 @@
   height: 100%;
   position: fixed;
   top: 0;
+  z-index: 9999;
   -webkit-transition: all .4s cubic-bezier(.19,1,.22,1);
   transition: all .4s cubic-bezier(.19,1,.22,1);
 }
@@ -265,6 +266,7 @@
 }
 #wf-widget .wf-text form .wf-select-time .wf-select-time-text {
   padding: 0 7px;
+  line-height: 40px;
 }
 #wf-widget .wf-text form .wf-select-time .wf-day .wf-day-item,
 #wf-widget .wf-text form .wf-select-time .wf-time .wf-time-item {
@@ -281,7 +283,7 @@
   margin-left: -35px;
   display: block;
   position: absolute;
-  top: 40px;
+  top: 50px;
   left: 50%;
   z-index: 999;
   background: #fff;

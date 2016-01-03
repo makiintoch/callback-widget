@@ -1,11 +1,11 @@
 throwError = function(message, title) {
-  toastr.error(message, title='Error',
+  toastr.error(message, title='Ошибка',
   {
     "closeButton": true,
     "debug": false,
     "newestOnTop": false,
     "progressBar": true,
-    "positionClass": "toast-top-right",
+    "positionClass": "toast-bottom-right",
     "preventDuplicates": false,
     "onclick": null,
     "showDuration": "300",

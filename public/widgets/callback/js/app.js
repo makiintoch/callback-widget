@@ -51,7 +51,7 @@
           body = 'email='+ encodeURIComponent(params.email) +'&phone=' + encodeURIComponent(params.phone) +'&message='+ encodeURIComponent(params.message) +'&type=email&url=' + encodeURIComponent(location.href);
         }
 
-        xhr.open("POST", "http://localhost:3000/api/v1/orders", true);
+        xhr.open("POST", callbackSettings.options.serverHost+"api/v1/orders", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send(body);
 
@@ -206,7 +206,7 @@
             tomorrow = ((dayOfWeek+1) > 6) ? 1 : (dayOfWeek+1),
             weekDay = callbackDate.settings.weekday,
             sortDayArray = callbackDate.getSortDayArray(),
-            day = [7, 1, 2, 3, 4, 5, 6],
+            //day = [7, 1, 2, 3, 4, 5, 6],
             afterTomorrow = ((tomorrow+1) > 6) ? 1 : (tomorrow+1),
             monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня","июля", "августа", "сентября", "октября", "ноября", "декабря"],
             selectDay = '',
@@ -214,7 +214,8 @@
 
         for(var i = 0; i < sortDayArray.length; i++) {
           var weekdayDate = new Date(),
-              dayIndex = (weekdayDate.getDay() > day[sortDayArray[i]] ? (day[sortDayArray[i]] + 7) : day[sortDayArray[i]]) - weekdayDate.getDay();
+              //dayIndex = (weekdayDate.getDay() > day[sortDayArray[i]] ? (day[sortDayArray[i]] + 7) : day[sortDayArray[i]]) - weekdayDate.getDay();
+              dayIndex = (weekdayDate.getDay() > sortDayArray[i] ? (sortDayArray[i] + 7) : sortDayArray[i]) - weekdayDate.getDay();
 
           weekdayDate.setDate(weekdayDate.getDate() + dayIndex);
 
@@ -373,26 +374,46 @@
         });
       },
 
-      rotateButtons: function(clear) {
-        var intervalId = setInterval(function() {
-          if($('#wf-widget .wf-widget-name-icon').hasClass('wf-rotate-icon')) {
-            $('#wf-widget .wf-widget-name-icon').removeClass('wf-rotate-icon');
-            $('#wf-widget .wf-widget-phone-icon').addClass('wf-rotate-icon');
-          } else {
-            $('#wf-widget .wf-widget-phone-icon').removeClass('wf-rotate-icon');
-            $('#wf-widget .wf-widget-name-icon').addClass('wf-rotate-icon');
-          }
-        }, callbackSettings.options.rotate.time);
+      rotateButtons: function(id) {
+        if(id) {
+          window.clearInterval(intervalId);
+          console.log(id);
+        } else {
+          var intervalId = window.setInterval(function() {
+            if($('#wf-widget .wf-widget-name-icon').hasClass('wf-rotate-icon')) {
+              $('#wf-widget .wf-widget-name-icon').removeClass('wf-rotate-icon');
+              $('#wf-widget .wf-widget-phone-icon').addClass('wf-rotate-icon');
+            } else {
+              $('#wf-widget .wf-widget-phone-icon').removeClass('wf-rotate-icon');
+              $('#wf-widget .wf-widget-name-icon').addClass('wf-rotate-icon');
+            }
+          }, callbackSettings.options.rotate.time);
 
-        if(clear) {
-          clearTimeout(intervalId);
+          return intervalId;
         }
+      },
+
+      hoverButton: function() {
+        /*$('#wf-widget .wf-widget-call').hover(function() {
+          console.log('hover');
+          callbackInit.rotateButtons(true);
+        }, function() {
+          console.log('unhover');
+          callbackInit.rotateButtons(false);
+        });*/
       },
 
       showWidgetContentBlock: function() {
         $('#wf-widget .wf-widget-call').on('click', function() {
           $(this).addClass('wf-hide');
           $('#wf-widget .wf-widget-content').css(callbackSettings.options.position.hor, 0);
+
+          if(callbackSettings.options.sound) {
+              var sound = document.getElementById("open-one-audio");
+
+              sound.volume = .2;
+              sound.play();
+          }
         });
       },
 
@@ -493,14 +514,15 @@
         callbackInit.showWidgetContentBlock();
         callbackInit.hideWidgetContentBlock();
         callbackInit.changeTab();
+        var id = callbackInit.rotateButtons();
+        callbackInit.hoverButton(id);
 
         callbackOrder.sendForm();
       }
     };
 
     return {
-      on: callbackInit.init,
-      rotate: callbackInit.rotateButtons
+      on: callbackInit.init
     };
   };
 
@@ -513,8 +535,7 @@
     time  = widgetTag.data('time'),
     sound = widgetTag.data('sound');
 
-  var wcb = $.widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, sound: sound});
+  var wcb = $.widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, sound: sound, serverHost: 'http://localhost:3000/'});
   wcb.on();
-  wcb.rotate();
 
 })(jQuery);
