@@ -1,9 +1,17 @@
-(function($){
-  $.widgetCallback = function(options) {
+(function() {
+  widgetCallback = function(options) {
     if ( typeof(options) == "undefined" || options == null ) { options = {}; };
 
+    function extend() {
+      for(var i=1; i<arguments.length; i++)
+        for(var key in arguments[i])
+          if(arguments[i].hasOwnProperty(key))
+            arguments[0][key] = arguments[i][key];
+      return arguments[0];
+    }
+
     var callbackSettings = {
-      options: $.extend({
+      options: extend({
         texts: {
           call: {
             text1: {title: '— Хотите,', body: 'чтобы мы перезвонили Вам и ответили на ваши вопросы?'}
@@ -33,47 +41,57 @@
       }, options),
 
       getWindowHeight: function() {
-        return $(window).height();
+        var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+        return height;
       },
 
       getDocumentHeightScrollTop: function() {
-        return document.body.scrollTop;
+        var top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+
+        return top;
       }
     };
 
     var callbackOrder = {
       addOrder: function(params) {
-        var xhr = new XMLHttpRequest();
-        var body = '';
+        var xhr = new XMLHttpRequest(),
+            body = '';
+
         if(params.type == 'call') {
-          body = 'time='+ encodeURIComponent(params.time) +'&phone=' + encodeURIComponent(params.phone) +'&type=call&url=' + encodeURIComponent(location.href);
+          body = 'time='+ encodeURIComponent(params.time) +'&phone=' + encodeURIComponent(params.phone) +'&key='+ callbackSettings.options.key +'&type=call&url=' + encodeURIComponent(location.host);
         } else {
-          body = 'email='+ encodeURIComponent(params.email) +'&phone=' + encodeURIComponent(params.phone) +'&message='+ encodeURIComponent(params.message) +'&type=email&url=' + encodeURIComponent(location.href);
+          body = 'email='+ encodeURIComponent(params.email) +'&phone=' + encodeURIComponent(params.phone) +'&message='+ encodeURIComponent(params.message) +'&key='+ callbackSettings.options.key +'&type=email&url=' + encodeURIComponent(location.host);
         }
 
-        xhr.open("POST", callbackSettings.options.serverHost+"api/v1/orders", true);
+        xhr.open("POST", callbackSettings.options.serverHost+"api/v1/orders", false);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send(body);
 
         if(xhr.status == 200) {
-          console.log(xhr.responseText);
-          return xhr.responseText;
+          return {status: 'success', data: xhr.responseText};
+        } else {
+          return {status: 'error', data: xhr.responseText};
         }
       },
 
       sendForm: function() {
-        function validateForm(form) {
-          var elem = $(form).find('.required');
-          var error;
+        var widget = document.getElementById('wf-widget'),
+            required = widget.getElementsByClassName('required');
 
-          elem.each(function(index) {
-            if(!this.value || this.value == this.defaultValue ) {
-              $(this).addClass('error');
+        function validateForm(form) {
+              var form = widget.querySelector(form),
+              required = form.getElementsByClassName('required'),
+              error;
+
+          for(var i = 0; i < required.length; i++) {
+            if(!required[i].value || required[i].value == required[i].defaultValue ) {
+              required[i].className = required[i].className + ' error';
               error = true;
             } else {
-              $(this).removeClass('error');
+              required[i].className = required[i].className.replace(/\berror\b/, '');
             }
-          });
+          };
 
           if (error) {
             return false;
@@ -82,18 +100,20 @@
           }
         }
 
-        $('.wf-text form .required').keyup(function(e) {
-          if(!this.value || this.value == this.defaultValue ) {
-            $(this).addClass('error');
-          } else {
-            $(this).removeClass('error');
-          }
-        });
+        for(var i = 0; i < required.length; i++) {
+          required[i].onkeyup = function(event) {
+            if(!this.value || this.value == this.defaultValue ) {
+              this.className = this.className + ' error';
+            } else {
+              this.className = this.className.replace(/\berror\b/, '');
+            }
+          };
+        }
 
         $('.wf-text-phone form').submit(function(e) {
           e.preventDefault();
 
-          var valid = validateForm(e.target);
+          var valid = validateForm('.wf-text-phone form');
           var callbackTime = $(e.target).find('.wf-day .active').data('server-day') +' в '+ $(e.target).find('.wf-time .active').data('server-time');
 
           if(valid) {
@@ -105,17 +125,26 @@
 
             var info = callbackOrder.addOrder(order);
 
-            var message = '<span>— Спасибо,</span>мы обязательно с вами свяжемся!';
+            if(info.status != 'error') {
+              var message = '<span>— Спасибо,</span>мы обязательно с вами свяжемся!';
 
-            $('.wf-text-phone .wf-text-item').html(message);
-            $(this).hide();
+              $('.wf-text-phone .wf-text-item').html(message);
+              $(this).hide();
+            } else {
+              var message = '<span>— Извините,</span>произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время.';
+
+              $('.wf-text-phone .wf-text-item').html(message);
+              $(this).hide();
+
+              console.log(info.data);
+            }
           }
         });
 
         $('.wf-text-subscribe form').submit(function(e) {
           e.preventDefault();
 
-          var valid = validateForm(e.target);
+          var valid = validateForm('.wf-text-subscribe form');
 
           if(valid) {
             var order = {
@@ -127,10 +156,19 @@
 
             var info = callbackOrder.addOrder(order);
 
-            var message = '<span>— Спасибо,</span>мы обязательно с вами свяжемся!';
+            if(info.status != 'error') {
+              var message = '<span>— Спасибо,</span>мы обязательно с вами свяжемся!';
 
-            $('.wf-text-subscribe .wf-text-item').html(message);
-            $(this).hide();
+              $('.wf-text-subscribe .wf-text-item').html(message);
+              $(this).hide();
+            } else {
+              var message = '<span>— Извините,</span>произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время.';
+
+              $('.wf-text-subscribe .wf-text-item').html(message);
+              $(this).hide();
+
+              console.log(info.data);
+            }
           }
         });
       }
@@ -184,7 +222,8 @@
             dayOfWeek = date.getDay(),
             sortDayArray = new Array();
 
-        if($.inArray(dayOfWeek, workDayArray) > -1) {
+        //if($.inArray(dayOfWeek, workDayArray) > -1) {
+        if(workDayArray.indexOf(dayOfWeek) > -1) {
           sortDayArray.push(dayOfWeek);
         }
 
@@ -192,7 +231,9 @@
           if(sortDayArray.length >= 4) { break; }
           var index = nextDay(dayOfWeek+i);
 
-          if($.inArray(index, workDayArray) > -1 && !($.inArray(index, sortDayArray) > -1)) {
+
+          //if($.inArray(index, workDayArray) > -1 && !($.inArray(index, sortDayArray) > -1)) {
+          if(workDayArray.indexOf(index) > -1 && !(sortDayArray.indexOf(index) > -1)) {
             sortDayArray.push(index);
           }
         }
@@ -219,8 +260,8 @@
 
           weekdayDate.setDate(weekdayDate.getDate() + dayIndex);
 
-          if($.inArray(weekdayDate.getDay(), sortDayArray) > -1) {
-
+          //if($.inArray(weekdayDate.getDay(), sortDayArray) > -1) {
+          if(sortDayArray.indexOf(weekdayDate.getDay()) > -1) {
             var numberDay = weekdayDate.getDate() +' '+ monthNames[weekdayDate.getMonth()];
 
             if(dayOfWeek == weekdayDate.getDay()) {
@@ -233,7 +274,7 @@
               stringDay = '';
             }
 
-            selectDay += '<span '+ ((i == 0) ? 'class="active"' : 'class="wf-day-item"') +' data-day="'+ weekDay[weekdayDate.getDay()] +'" data-server-day="'+ weekdayDate.getDate() +' '+ monthNames[weekdayDate.getMonth()] +'">'+ ((stringDay.length) ? stringDay : numberDay) +'</span>';
+            selectDay += '<span '+ ((i == 0) ? 'class="wf-day-active"' : 'class="wf-day-item"') +' data-day="'+ weekDay[weekdayDate.getDay()] +'" data-server-day="'+ weekdayDate.getDate() +' '+ monthNames[weekdayDate.getMonth()] +'">'+ ((stringDay.length) ? stringDay : numberDay) +'</span>';
           }
         };
 
@@ -241,11 +282,14 @@
       },
 
       getListTime: function() {
-        var timeObj = {},
+        var widget = document.getElementById('wf-widget'),
+            timeObj = {},
             weekDay = callbackDate.settings.weekday,
             sortDayArray = callbackDate.getSortDayArray(),
             timeWork = callbackSettings.options.time,
-            daySelect = $('.wf-day .active').data('day'),
+            widgetDay = widget.getElementsByClassName('wf-day-active'),
+            data = widgetDay[0].dataset,
+            daySelect = data.day,
             selectTime = '',
             date = new Date(),
             utcServer = callbackSettings.options.serverUtc,
@@ -283,7 +327,7 @@
           timeObj[daySelect][i].setTime(timeObj[daySelect][i].getTime() + (utc*60*60*1000));
           var serverTime = (timeObj[daySelect][i].getHours() < 10 ? '0'+timeObj[daySelect][i].getHours() : timeObj[daySelect][i].getHours()) +':'+ (timeObj[daySelect][i].getMinutes() < 10 ? '0'+timeObj[daySelect][i].getMinutes() : timeObj[daySelect][i].getMinutes());
 
-          selectTime += '<span '+ ((i == 0) ? 'class="active"' : 'class="wf-time-item"') +' data-server-time="'+ serverTime +'">'+ time +'</span>';
+          selectTime += '<span '+ ((i == 0) ? 'class="wf-time-active"' : 'class="wf-time-item"') +' data-server-time="'+ serverTime +'">'+ time +'</span>';
         }
 
         return selectTime;
@@ -295,8 +339,8 @@
         $('.wf-day').on('click', function() {
           if ($('.wf-day-show').length) {
             if($(event.target).hasClass('wf-day-item')) {
-              $('.wf-day .active').addClass('wf-day-item').removeClass('active');
-              $(event.target).addClass('active').removeClass('wf-day-item');
+              $('.wf-day-active').addClass('wf-day-item').removeClass('wf-day-active');
+              $(event.target).addClass('wf-day-active').removeClass('wf-day-item');
 
               var time = callbackDate.getListTime();
               $('.wf-time').empty();
@@ -319,8 +363,8 @@
         $('.wf-time').on('click', function(e) {
           if ($('.wf-time-show').length) {
             if($(event.target).hasClass('wf-time-item')) {
-              $('.wf-time .active').addClass('wf-time-item').removeClass('active');
-              $(event.target).addClass('active').removeClass('wf-time-item');
+              $('.wf-time-active').addClass('wf-time-item').removeClass('wf-time-active');
+              $(event.target).addClass('wf-time-active').removeClass('wf-time-item');
             }
 
             var child = $('.wf-time-show').children();
@@ -336,11 +380,13 @@
 
     var callbackInit = {
       setWidgetHeight: function() {
-        $('#wf-widget').css('height', callbackSettings.getWindowHeight());
+        var widget = document.getElementById('wf-widget');
 
-        $(window).resize(function() {
-          $('#wf-widget').css('height', callbackSettings.getWindowHeight());
-        });
+        widget.style.height = callbackSettings.getWindowHeight();
+
+        window.onresize = function(event) {
+          widget.style.height = callbackSettings.getWindowHeight();
+        };
       },
 
       setWidgetButtonPosition: function() {
@@ -359,149 +405,185 @@
             break;
         }
 
-        $('#wf-widget .wf-widget-call').css('top', ver);
+        var widget = document.getElementById('wf-widget'),
+            widgetCall = widget.getElementsByClassName('wf-widget-call');
+        widgetCall[0].style.top = ver;
       },
 
       resizeWindow: function() {
-        $(window).resize(function() {
+        window.onresize = function(event) {
           callbackInit.setWidgetButtonPosition();
-        });
+        };
       },
 
       scrollDocument: function() {
-        $(window).scroll(function() {
+        window.onscroll = function(event) {
           callbackInit.setWidgetButtonPosition();
-        });
+        };
       },
 
       rotateButtons: function(id) {
+        var widget = document.getElementById('wf-widget'),
+            nameIcon = widget.querySelector('.wf-widget-name-icon'),
+            phoneIcon = widget.querySelector('.wf-widget-phone-icon');
+
         if(id) {
           window.clearInterval(intervalId);
-          console.log(id);
         } else {
           var intervalId = window.setInterval(function() {
-            if($('#wf-widget .wf-widget-name-icon').hasClass('wf-rotate-icon')) {
-              $('#wf-widget .wf-widget-name-icon').removeClass('wf-rotate-icon');
-              $('#wf-widget .wf-widget-phone-icon').addClass('wf-rotate-icon');
+            if(nameIcon.classList.contains('wf-rotate-icon')) {
+              nameIcon.classList.remove('wf-rotate-icon');
+              phoneIcon.classList.add('wf-rotate-icon');
             } else {
-              $('#wf-widget .wf-widget-phone-icon').removeClass('wf-rotate-icon');
-              $('#wf-widget .wf-widget-name-icon').addClass('wf-rotate-icon');
+              phoneIcon.classList.remove('wf-rotate-icon');
+              nameIcon.classList.add('wf-rotate-icon');
             }
           }, callbackSettings.options.rotate.time);
 
-          return intervalId;
+          return parseInt(intervalId);
         }
       },
 
       hoverButton: function() {
-        /*$('#wf-widget .wf-widget-call').hover(function() {
-          console.log('hover');
-          callbackInit.rotateButtons(true);
-        }, function() {
-          console.log('unhover');
-          callbackInit.rotateButtons(false);
-        });*/
       },
 
       showWidgetContentBlock: function() {
-        $('#wf-widget .wf-widget-call').on('click', function() {
-          $(this).addClass('wf-hide');
-          $('#wf-widget .wf-widget-content').css(callbackSettings.options.position.hor, 0);
+        document.getElementsByClassName('wf-widget-call')[0].onclick = function(event) {
+          var widget = document.getElementById('wf-widget'),
+              widgetContent = widget.getElementsByClassName('wf-widget-content');
+
+          this.className = this.className + ' wf-hide';
+          widgetContent[0].style[callbackSettings.options.position.hor] = 0;
 
           if(callbackSettings.options.sound) {
-              var sound = document.getElementById("open-one-audio");
+              var sound = document.getElementById("wf-open-one-audio");
 
               sound.volume = .2;
               sound.play();
           }
-        });
+        };
       },
 
       hideWidgetContentBlock: function() {
-        $('#wf-widget .wf-close, #wf-widget .wf-arrow ').on('click', function() {
-          $('#wf-widget .wf-widget-call').removeClass('wf-hide');
-          $('#wf-widget .wf-widget-content').css(callbackSettings.options.position.hor, '-350px');
-        });
+        var widget = document.getElementById('wf-widget'),
+            widgetContent = widget.getElementsByClassName('wf-widget-content'),
+            widgetCall = widget.querySelector('.wf-widget-call');
+
+
+        document.getElementsByClassName('wf-close')[0].onclick = function(event) {
+          widgetCall.classList.remove('wf-hide');
+
+          widgetContent[0].style[callbackSettings.options.position.hor] = '-350px';
+        };
+
+        document.getElementsByClassName('wf-arrow')[0].onclick = function(event) {
+          widgetCall.classList.remove('wf-hide');
+
+          widgetContent[0].style[callbackSettings.options.position.hor] = '-350px';
+        };
       },
 
       changeTab: function() {
-        $('#wf-widget .wf-icon').on('click', function() {
-          var index = $(this).index();
+        var widget = document.getElementById('wf-widget'),
+            widgetIcon = widget.getElementsByClassName('wf-icon'),
+            widgetText = widget.getElementsByClassName('wf-text');
 
-          $('#wf-widget .wf-icon').removeClass('wf-active');
-          $(this).addClass('wf-active');
-          $('#wf-widget .wf-body .wf-text ').css('display', 'none');
-          $('#wf-widget .wf-body .wf-text ').eq(index).css('display', 'block');
-        });
+        for(var i = 0; i < widgetIcon.length; i++) {
+          widgetIcon[i].onclick = function(event) {
+
+            var hasClass = this.classList.contains('wf-icon-phone');
+
+            if(hasClass === true) {
+              widgetText[1].style.display = "none";
+              widgetText[0].style.display = "block";
+            } else {
+              widgetText[0].style.display = "none";
+              widgetText[1].style.display = "block";
+            }
+
+            widgetIcon[0].className = widgetIcon[0].className.replace(/\bwf-active\b/, '');
+            widgetIcon[1].className = widgetIcon[1].className.replace(/\bwf-active\b/, '');
+
+            this.className = this.className +' wf-active';
+          };
+        }
       },
 
       init: function() {
-        var widget = '';
+        var widgetBlock = '',
+            widget = document.getElementById('wf-widget'),
+            widgetContent = widget.getElementsByClassName('wf-widget-content'),
+            widgetTriangle = widget.getElementsByClassName('wf-widget-triangle'),
+            widgetArrow = widget.getElementsByClassName('wf-arrow');
 
-        widget += '<div class="wf-widget-wrapper">';
-          widget += '<div class="wf-widget-call" style="top: 0; '+ callbackSettings.options.position.hor +': 75px;">';
-            widget += '<div class="wf-widget-bg" style="background: '+ callbackSettings.options.color +';">';
-              widget += '<span class="wf-widget-triangle"></span>';
-            widget += '</div>';
-            widget += '<span class="wf-widget-icon wf-widget-name-icon wf-rotate-icon"></span>';
-            widget += '<span class="wf-widget-icon wf-widget-phone-icon"></span>';
-          widget += '</div>';
-          widget += '<div class="wf-widget-content">';
-            widget += '<div class="wf-arrow"><span class="wf-arrow-top"></span><span class="wf-arrow-bottom"></span></div>';
-            widget += '<span class="wf-close"></span>';
-            widget += '<div class="wf-icons">';
-              widget += '<div class="wf-icon wf-icon-phone wf-active">';
-                widget += '<span class="wf-img"></span>';
-                widget += '<span>Звонок</span>';
-              widget += '</div>';
-              widget += '<div class="wf-icon wf-icon-subscribe">';
-                widget += '<span class="wf-img"></span>';
-                widget += '<span>Письмо</span>';
-              widget += '</div>';
-            widget += '</div>';
-            widget += '<div class="wf-body">';
-              widget += '<div class="wf-text wf-text-phone">';
-                widget += '<span class="wf-text-item"></span>';
-                widget += '<form>';
-                  widget += '<div class="wf-select-time">';
-                    widget += '<span class="wf-day"></span>';
-                    widget += '<span class="wf-select-time-text">в</span>';
-                    widget += '<span class="wf-time"></span>';
-                  widget += '</div>';
-                  widget += '<input class="required" type="text" name="phone" placeholder="Ваш телефон" value="">';
-                  widget += '<input type="submit" value="Отправить">';
-                widget += '</form>';
-              widget += '</div>';
-              widget += '<div class="wf-text wf-text-subscribe" style="display: none;">';
-                widget += '<span class="wf-text-item"></span>';
-                widget += '<form>';
-                  widget += '<textarea class="required" name="message" placeholder="Напишите вопрос"  value=""></textarea>';
-                  widget += '<input class="required" type="text" name="email" placeholder="Ваш E-mail(для ответа)" value="">';
-                  widget += '<input type="text" name="phone" placeholder="Ваш телефон(по желанию)">';
-                  widget += '<input type="submit" value="Отправить">';
-                widget += '</form>';
-              widget += '</div>';
-            widget += '</div>';
-            widget += '<div class="wf-powered-by"><a href="">Установите виджет к себе на сайт</a></div>';
-          widget += '</div>';
-        widget += '</div>';
+        widgetBlock += '<div class="wf-widget-wrapper">';
+          widgetBlock += '<div class="wf-widget-call" style="top: 0; '+ callbackSettings.options.position.hor +': 75px;">';
+            widgetBlock += '<div class="wf-widget-bg" style="background: '+ callbackSettings.options.color +';">';
+              widgetBlock += '<span class="wf-widget-triangle"></span>';
+            widgetBlock += '</div>';
+            widgetBlock += '<span class="wf-widget-icon wf-widget-name-icon wf-rotate-icon"></span>';
+            widgetBlock += '<span class="wf-widget-icon wf-widget-phone-icon"></span>';
+          widgetBlock += '</div>';
+          widgetBlock += '<div class="wf-widget-content">';
+            widgetBlock += '<div class="wf-arrow"><span class="wf-arrow-top"></span><span class="wf-arrow-bottom"></span></div>';
+            widgetBlock += '<span class="wf-close"></span>';
+            widgetBlock += '<div class="wf-icons">';
+              widgetBlock += '<div class="wf-icon wf-icon-phone wf-active">';
+                widgetBlock += '<span class="wf-img"></span>';
+                widgetBlock += '<span>Звонок</span>';
+              widgetBlock += '</div>';
+              widgetBlock += '<div class="wf-icon wf-icon-subscribe">';
+                widgetBlock += '<span class="wf-img"></span>';
+                widgetBlock += '<span>Письмо</span>';
+              widgetBlock += '</div>';
+            widgetBlock += '</div>';
+            widgetBlock += '<div class="wf-body">';
+              widgetBlock += '<div class="wf-text wf-text-phone">';
+                widgetBlock += '<span class="wf-text-item"></span>';
+                widgetBlock += '<form>';
+                  widgetBlock += '<div class="wf-select-time">';
+                    widgetBlock += '<span class="wf-day"></span>';
+                    widgetBlock += '<span class="wf-select-time-text">в</span>';
+                    widgetBlock += '<span class="wf-time"></span>';
+                  widgetBlock += '</div>';
+                  widgetBlock += '<input class="required" type="text" name="phone" placeholder="Ваш телефон" value="">';
+                  widgetBlock += '<input type="submit" value="Отправить">';
+                widgetBlock += '</form>';
+              widgetBlock += '</div>';
+              widgetBlock += '<div class="wf-text wf-text-subscribe" style="display: none;">';
+                widgetBlock += '<span class="wf-text-item"></span>';
+                widgetBlock += '<form>';
+                  widgetBlock += '<textarea class="required" name="message" placeholder="Напишите вопрос"  value=""></textarea>';
+                  widgetBlock += '<input class="required" type="text" name="email" placeholder="Ваш E-mail(для ответа)" value="">';
+                  widgetBlock += '<input type="text" name="phone" placeholder="Ваш телефон(по желанию)">';
+                  widgetBlock += '<input type="submit" value="Отправить">';
+                widgetBlock += '</form>';
+              widgetBlock += '</div>';
+            widgetBlock += '</div>';
+            widgetBlock += '<div class="wf-powered-by"><a href="">Установите виджет к себе на сайт</a></div>';
+          widgetBlock += '</div>';
+        widgetBlock += '</div>';
 
-        $('#wf-widget').append(widget);
+        widget.innerHTML = widgetBlock;
 
         if(callbackSettings.options.position.hor == 'right') {
-          $('#wf-widget').css('right', 0);
-          $('#wf-widget .wf-widget-triangle').css('borderColor', 'transparent transparent transparent '+ callbackSettings.options.color).css('left', '83px');
-          $('#wf-widget .wf-arrow').addClass('wf-arrow-left');
+          widget.style.right = 0;
+          widgetTriangle[0].style.borderColor = 'transparent transparent transparent '+ callbackSettings.options.color;
+          widgetTriangle[0].style.left = '83px';
+          widgetArrow[0].className = widgetArrow[0].className + ' wf-arrow-left';
         } else {
-          $('#wf-widget').css('left', 0);
-          $('#wf-widget .wf-widget-triangle').css('borderColor', 'transparent '+ callbackSettings.options.color +' transparent transparent').css('right', '83px');
-          $('#wf-widget .wf-arrow').addClass('wf-arrow-right');
+          widget.style.left = 0;
+          widgetTriangle[0].style.borderColor = 'transparent '+ callbackSettings.options.color +' transparent transparent';
+          widgetTriangle[0].style.right = '83px';
+          widgetArrow[0].className = widgetArrow[0].className + ' wf-arrow-right';
         }
 
-        $('#wf-widget .wf-widget-content').css(callbackSettings.options.position.hor, '-350px');
-        $('#wf-widget .wf-widget-content').addClass('wf-schema-'+callbackSettings.options.schema);
-        $('#wf-widget .wf-text-phone .wf-text-item').append('<span>'+ callbackSettings.options.texts.call.text1.title +'</span> '+ callbackSettings.options.texts.call.text1.body);
-        $('#wf-widget .wf-text-subscribe .wf-text-item').append('<span>'+ callbackSettings.options.texts.email.text1.title +'</span> '+ callbackSettings.options.texts.email.text1.body);
+        widgetContent[0].style[callbackSettings.options.position.hor] = '-350px';
+        widgetContent[0].className = widgetContent[0].className + ' wf-schema-'+callbackSettings.options.schema;
+
+
+        widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = '<span>'+ callbackSettings.options.texts.call.text1.title +'</span> '+ callbackSettings.options.texts.call.text1.body;
+        widget.querySelector('.wf-text-subscribe .wf-text-item').innerHTML = '<span>'+ callbackSettings.options.texts.email.text1.title +'</span> '+ callbackSettings.options.texts.email.text1.body;
 
         var date = callbackDate.getListDay();
         callbackDate.showDate(date);
@@ -526,16 +608,17 @@
     };
   };
 
-  var widgetTag = $('#wf-widget'),
-    color = widgetTag.data('color'),
-    schema = widgetTag.data('schema'),
-    pos = widgetTag.data('position'),
-    positionHor = pos.split("-")[0],
-    positionVer = pos.split("-")[1],
-    time  = widgetTag.data('time'),
-    sound = widgetTag.data('sound');
+  var widget = document.getElementById('wf-widget'),
+      data = widget.dataset,
+      color = data.color,
+      schema = data.schema,
+      pos = data.position,
+      positionHor = pos.split("-")[0],
+      positionVer = pos.split("-")[1],
+      time  = JSON.parse(data.time),
+      sound = data.sound,
+      key = data.key;
 
-  var wcb = $.widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, sound: sound, serverHost: 'http://localhost:3000/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, sound: sound, key: key, serverHost: 'http://localhost:3000/'});
   wcb.on();
-
-})(jQuery);
+})();

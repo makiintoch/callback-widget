@@ -15,7 +15,8 @@ ApiV1.addCollection(Orders, {
         var params = this.bodyParams;
         var message = '';
 
-        var widget = Widgets.findOne({'url': this.bodyParams.url});
+        var widget = Widgets.findOne({'key': params.key});
+
         /*check(params, {
           name: String,
           type: String,
@@ -23,16 +24,35 @@ ApiV1.addCollection(Orders, {
           email: String
         });*/
 
-        var order = _.extend(params, {
-          widgetId: widget._id,
-          userId: widget.userId,
-          createdAt: new Date(),
-          status: false
-        });
+        var widgetUrl = widget.url,
+            clientUrl = params.url;
 
-        var orderId = Orders.insert(order);
+        console.log(widgetUrl);
+        console.log(clientUrl);
+
+        if(clientUrl.indexOf(widgetUrl) > -1) {
+        //if(true) {
+          var order = _.extend(params, {
+            widgetId: widget._id,
+            userId: widget.userId,
+            createdAt: new Date(),
+            status: false
+          });
+
+          var orderId = Orders.insert(order);
+        } else {
+          //Meteor.call('sendEmail', {email: userEmail, subject: 'Ошибки в работе сервиса', message: 'Ошибка'});
+          return {
+            statusCode: 500,
+            headers: {
+              'Content-Type': 'text/html'
+            },
+            body: 'Error: url not found'
+          };
+        }
 
         if(orderId) {
+        //if(true) {
           if(params.type == 'email') {
             message += '<h1>С Вашего сайта поступила заявка на email!</h1>';
             message +=  '<table>';
@@ -57,11 +77,23 @@ ApiV1.addCollection(Orders, {
               message: message
             };
 
-            Meteor.call('sendEmail', emailSend);
           };
-          return {status: 'success', data: params};
+
+          return {
+            statusCode: 200,
+            headers: {
+              'Content-Type': 'text/html'
+            },
+            body: 'Success: the order has been successfully added'
+          };
         } else {
-          return {status: 'error', data: 'Order not added'};
+          return {
+            statusCode: 500,
+            headers: {
+              'Content-Type': 'text/html'
+            },
+            body: 'Error: the order has not been added'
+          };
         }
       }
     }
@@ -97,7 +129,8 @@ ApiV1.addCollection(Widgets, {
               headers: {
                 'Content-Type': 'text/html'
               },
-              body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<audio id="open-one-audio" controls="controls" preload="auto" style="display: none;"><source src="'+ Meteor.absoluteUrl() +'widgets/callback/audio/open.mp3"></audio><link href="'+ Meteor.absoluteUrl() +'widgets/callback/css/style.css" rel="stylesheet"><script src="https://code.jquery.com/jquery-1.11.3.min.js"></script><script type="text/javascript" charset="utf-8" src="'+ Meteor.absoluteUrl() +'widgets/callback/js/app.js"></script>\'),addHtml(\'<div id="wf-widget" data-color="'+ widget.color +'" data-schema="'+ widget.schemaColor +'" data-position="'+ widget.position +'" data-time='+ JSON.stringify(widget.time) +' data-sound="'+ widget.sound +'"></div>\');'
+              //body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<audio id="open-one-audio" controls="controls" preload="auto" style="display: none;"><source src="'+ Meteor.absoluteUrl() +'widgets/callback/audio/open.mp3"></audio><link href="'+ Meteor.absoluteUrl() +'widgets/callback/css/style.css" rel="stylesheet"><script src="https://code.jquery.com/jquery-1.11.3.min.js"></script><script type="text/javascript" charset="utf-8" src="'+ Meteor.absoluteUrl() +'widgets/callback/js/app.js"></script>\'),addHtml(\'<div id="wf-widget" data-color="'+ widget.color +'" data-schema="'+ widget.schemaColor +'" data-position="'+ widget.position +'" data-time='+ JSON.stringify(widget.time) +' data-sound="'+ widget.sound +'" data-key="'+ widget.key +'"></div>\');'
+              body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<audio id="wf-open-one-audio" controls="controls" preload="auto" style="display: none;"><source src="'+ Meteor.absoluteUrl() +'widgets/callback/audio/open.mp3"></audio><link href="'+ Meteor.absoluteUrl() +'widgets/callback/css/style.css" rel="stylesheet"></script><script type="text/javascript" charset="utf-8" src="'+ Meteor.absoluteUrl() +'widgets/callback/js/app.js"></script>\'),addHtml(\'<div id="wf-widget" data-color="'+ widget.color +'" data-schema="'+ widget.schemaColor +'" data-position="'+ widget.position +'" data-time='+ JSON.stringify(widget.time) +' data-sound="'+ widget.sound +'" data-key="'+ widget.key +'"></div>\');'
             };
           } else {
             return {status: 'Error'}
