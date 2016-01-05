@@ -50,6 +50,10 @@
         var top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
 
         return top;
+      },
+
+      showText: function(text) {
+        return text;
       }
     };
 
@@ -77,7 +81,9 @@
 
       sendForm: function() {
         var widget = document.getElementById('wf-widget'),
-            required = widget.getElementsByClassName('required');
+            required = widget.getElementsByClassName('required'),
+            phoneForm = widget.querySelector('.wf-text-phone form'),
+            subscribeForm = widget.querySelector('.wf-text-subscribe form');
 
         function validateForm(form) {
               var form = widget.querySelector(form),
@@ -110,67 +116,74 @@
           };
         }
 
-        $('.wf-text-phone form').submit(function(e) {
-          e.preventDefault();
+        phoneForm.onsubmit = function(event) {
+          event.preventDefault();
+
+          var widgetDay = widget.querySelector('.wf-day .wf-day-active'),
+              widgetTime = widget.querySelector('.wf-time .wf-time-active'),
+              inputPhone = widget.querySelector('.wf-text-phone form input[name="phone"]'),
+              widgetTextPhone = widget.querySelector('.wf-text-phone .wf-text-item');
 
           var valid = validateForm('.wf-text-phone form');
-          var callbackTime = $(e.target).find('.wf-day .active').data('server-day') +' в '+ $(e.target).find('.wf-time .active').data('server-time');
+          var callbackTime = widgetDay.dataset.serverDay +' в '+ widgetTime.dataset.serverTime;
 
           if(valid) {
             var order = {
               time: callbackTime,
-              phone: $(e.target).find('input[name="phone"]').val(),
+              phone: inputPhone.value,
               type: 'call'
             };
 
             var info = callbackOrder.addOrder(order);
 
             if(info.status != 'error') {
-              var message = '<span>— Спасибо,</span>мы обязательно с вами свяжемся!';
+              var message = '<span>— Спасибо,</span>мы обязательно с вами свяжемся! <span class="wf-cursor">_</span>';
 
-              $('.wf-text-phone .wf-text-item').html(message);
-              $(this).hide();
+              widgetTextPhone.innerHTML = message;
             } else {
-              var message = '<span>— Извините,</span>произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время.';
+              var message = '<span>— Извините,</span>произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время. <span class="wf-cursor">_</span>';
 
-              $('.wf-text-phone .wf-text-item').html(message);
-              $(this).hide();
-
+              widgetTextPhone.innerHTML = message;
               console.log(info.data);
             }
+
+            phoneForm.style.display = 'none';
           }
-        });
+        };
 
-        $('.wf-text-subscribe form').submit(function(e) {
-          e.preventDefault();
+        subscribeForm.onsubmit = function(event) {
+          event.preventDefault();
 
-          var valid = validateForm('.wf-text-subscribe form');
+          var valid = validateForm('.wf-text-subscribe form'),
+              inputEmail = widget.querySelector('.wf-text-subscribe form input[name="email"]'),
+              inputPhone = widget.querySelector('.wf-text-subscribe form input[name="phone"]'),
+              inputMessage = widget.querySelector('.wf-text-subscribe form textarea[name="message"]'),
+              widgetTextSubscribe = widget.querySelector('.wf-text-subscribe .wf-text-item');
 
           if(valid) {
             var order = {
-              email: $(e.target).find('input[name="email"]').val(),
-              phone: $(e.target).find('input[name="phone"]').val(),
-              message: $(e.target).find('textarea[name="message"]').val(),
+              email: inputEmail.value,
+              phone: inputPhone.value,
+              message: inputMessage.value,
               type: 'email'
             };
 
             var info = callbackOrder.addOrder(order);
 
             if(info.status != 'error') {
-              var message = '<span>— Спасибо,</span>мы обязательно с вами свяжемся!';
+              var message = '<span>— Спасибо,</span>мы обязательно с вами свяжемся! <span class="wf-cursor">_</span>';
 
-              $('.wf-text-subscribe .wf-text-item').html(message);
-              $(this).hide();
+              widgetTextSubscribe.innerHTML = message;
             } else {
-              var message = '<span>— Извините,</span>произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время.';
+              var message = '<span>— Извините,</span>произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время. <span class="wf-cursor">_</span>';
 
-              $('.wf-text-subscribe .wf-text-item').html(message);
-              $(this).hide();
-
+              widgetTextSubscribe.innerHTML = message;
               console.log(info.data);
             }
+
+            subscribeForm.style.display = 'none';
           }
-        });
+        };
       }
     }
 
@@ -222,7 +235,6 @@
             dayOfWeek = date.getDay(),
             sortDayArray = new Array();
 
-        //if($.inArray(dayOfWeek, workDayArray) > -1) {
         if(workDayArray.indexOf(dayOfWeek) > -1) {
           sortDayArray.push(dayOfWeek);
         }
@@ -231,8 +243,6 @@
           if(sortDayArray.length >= 4) { break; }
           var index = nextDay(dayOfWeek+i);
 
-
-          //if($.inArray(index, workDayArray) > -1 && !($.inArray(index, sortDayArray) > -1)) {
           if(workDayArray.indexOf(index) > -1 && !(sortDayArray.indexOf(index) > -1)) {
             sortDayArray.push(index);
           }
@@ -250,7 +260,8 @@
             //day = [7, 1, 2, 3, 4, 5, 6],
             afterTomorrow = ((tomorrow+1) > 6) ? 1 : (tomorrow+1),
             monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня","июля", "августа", "сентября", "октября", "ноября", "декабря"],
-            selectDay = '',
+            selectDay = '<span class="wf-day-show">',
+            activeDay = '',
             stringDay = '';
 
         for(var i = 0; i < sortDayArray.length; i++) {
@@ -260,7 +271,6 @@
 
           weekdayDate.setDate(weekdayDate.getDate() + dayIndex);
 
-          //if($.inArray(weekdayDate.getDay(), sortDayArray) > -1) {
           if(sortDayArray.indexOf(weekdayDate.getDay()) > -1) {
             var numberDay = weekdayDate.getDate() +' '+ monthNames[weekdayDate.getMonth()];
 
@@ -274,11 +284,14 @@
               stringDay = '';
             }
 
-            selectDay += '<span '+ ((i == 0) ? 'class="wf-day-active"' : 'class="wf-day-item"') +' data-day="'+ weekDay[weekdayDate.getDay()] +'" data-server-day="'+ weekdayDate.getDate() +' '+ monthNames[weekdayDate.getMonth()] +'">'+ ((stringDay.length) ? stringDay : numberDay) +'</span>';
+            activeDay += (i == 0) ? '<span class="wf-day-active" data-day="'+ weekDay[weekdayDate.getDay()]+'" data-server-day="'+ weekdayDate.getDate() +' '+ monthNames[weekdayDate.getMonth()] +'">'+ ((stringDay.length) ? stringDay : numberDay) +'</span>' : '';
+            selectDay += '<span class="wf-day-item" data-day="'+ weekDay[weekdayDate.getDay()] +'" data-server-day="'+ weekdayDate.getDate() +' '+ monthNames[weekdayDate.getMonth()] +'">'+ ((stringDay.length) ? stringDay : numberDay) +'</span>';
           }
         };
 
-        return (selectDay.length) ? selectDay : false;
+        selectDay += '</span>';
+
+        return (selectDay.length) ? (activeDay+selectDay) : false;
       },
 
       getListTime: function() {
@@ -290,7 +303,8 @@
             widgetDay = widget.getElementsByClassName('wf-day-active'),
             data = widgetDay[0].dataset,
             daySelect = data.day,
-            selectTime = '',
+            activeTime = '',
+            selectTime = '<span class="wf-time-show">',
             date = new Date(),
             utcServer = callbackSettings.options.serverUtc,
             utcClient = date.getTimezoneOffset() / 60,
@@ -327,54 +341,75 @@
           timeObj[daySelect][i].setTime(timeObj[daySelect][i].getTime() + (utc*60*60*1000));
           var serverTime = (timeObj[daySelect][i].getHours() < 10 ? '0'+timeObj[daySelect][i].getHours() : timeObj[daySelect][i].getHours()) +':'+ (timeObj[daySelect][i].getMinutes() < 10 ? '0'+timeObj[daySelect][i].getMinutes() : timeObj[daySelect][i].getMinutes());
 
-          selectTime += '<span '+ ((i == 0) ? 'class="wf-time-active"' : 'class="wf-time-item"') +' data-server-time="'+ serverTime +'">'+ time +'</span>';
-        }
+          activeTime += (i == 0) ? '<span class="wf-time-active" data-server-time="'+ serverTime +'">'+ time +'</span>' : '';
+          selectTime += '<span class="wf-time-item" data-server-time="'+ serverTime +'">'+ time +'</span>';
+        };
 
-        return selectTime;
+        selectTime += '</div>';
+
+        return (activeTime+selectTime);
       },
 
-      showDate: function(date) {
-        $('.wf-day').append(date);
+      showDate: function(day) {
+        var widget = document.getElementById('wf-widget'),
+            widgetDay = widget.querySelector('.wf-day'),
+            widgetTime = widget.querySelector('.wf-time');
 
-        $('.wf-day').on('click', function() {
-          if ($('.wf-day-show').length) {
-            if($(event.target).hasClass('wf-day-item')) {
-              $('.wf-day-active').addClass('wf-day-item').removeClass('wf-day-active');
-              $(event.target).addClass('wf-day-active').removeClass('wf-day-item');
+        widgetDay.innerHTML = day;
 
-              var time = callbackDate.getListTime();
-              $('.wf-time').empty();
-              $('.wf-time').append(time);
-            }
+        var widgetDayActive = widget.querySelector('.wf-day .wf-day-active'),
+            widgetDayShow = widget.querySelector('.wf-day-show');
 
-            var child = $('.wf-day-show').children();
+        widgetDayActive.onclick = function(event) {
+          var widgetDayItem = widget.getElementsByClassName('wf-day-item');
 
-            $('.wf-day-show').remove();
-            child.appendTo('.wf-day');
+          if(widgetDayShow.style.display == 'block') {
+            widgetDayShow.style.display = 'none';
           } else {
-            $(".wf-day .wf-day-item").wrapAll("<span class='wf-day-show'></span>");
+            widgetDayShow.style.display = 'block';
           }
-        });
+
+          for(var i = 0; i < widgetDayItem.length; i++) {
+            widgetDayItem[i].onclick = function() {
+              widgetDayActive.dataset.day = this.dataset.day;
+              widgetDayActive.dataset.serverDay = this.dataset.serverDay;
+              widgetDayActive.innerText = this.innerText;
+
+              widgetDayShow.style.display = 'none';
+
+              callbackDate.showTime(callbackDate.getListTime());
+            };
+          }
+        };
       },
 
       showTime: function(time) {
-        $('.wf-time').append(time);
+        var widget = document.getElementById('wf-widget'),
+            widgetTime = widget.querySelector('.wf-time');
 
-        $('.wf-time').on('click', function(e) {
-          if ($('.wf-time-show').length) {
-            if($(event.target).hasClass('wf-time-item')) {
-              $('.wf-time-active').addClass('wf-time-item').removeClass('wf-time-active');
-              $(event.target).addClass('wf-time-active').removeClass('wf-time-item');
-            }
+        widgetTime.innerHTML = time;
 
-            var child = $('.wf-time-show').children();
+        var widgetTimeActive = widget.querySelector('.wf-time .wf-time-active'),
+            widgetTimeShow = widget.querySelector('.wf-time .wf-time-show');
 
-            $('.wf-time-show').remove();
-            child.appendTo('.wf-time');
+        widgetTimeActive.onclick = function(event) {
+          var widgetTimeItem = widget.getElementsByClassName('wf-time-item');
+
+          if(widgetTimeShow.style.display == 'block') {
+            widgetTimeShow.style.display = 'none';
           } else {
-            $(".wf-time .wf-time-item").wrapAll("<span class='wf-time-show'></span>");
+            widgetTimeShow.style.display = 'block';
           }
-        });
+
+          for(var i =  0; i < widgetTimeItem.length; i++) {
+            widgetTimeItem[i].onclick = function(event) {
+              widgetTimeActive.dataset.serverTime = this.dataset.serverTime;
+              widgetTimeActive.innerText = this.innerText;
+
+              widgetTimeShow.style.display = 'none';
+            };
+          };
+        };
       }
     }
 
@@ -582,11 +617,12 @@
         widgetContent[0].className = widgetContent[0].className + ' wf-schema-'+callbackSettings.options.schema;
 
 
-        widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = '<span>'+ callbackSettings.options.texts.call.text1.title +'</span> '+ callbackSettings.options.texts.call.text1.body;
-        widget.querySelector('.wf-text-subscribe .wf-text-item').innerHTML = '<span>'+ callbackSettings.options.texts.email.text1.title +'</span> '+ callbackSettings.options.texts.email.text1.body;
+        widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = '<span>'+ callbackSettings.showText(callbackSettings.options.texts.call.text1.title) +'</span> '+ callbackSettings.showText(callbackSettings.options.texts.call.text1.body) +' <span class="wf-cursor">_</span>';
+        widget.querySelector('.wf-text-subscribe .wf-text-item').innerHTML = '<span>'+ callbackSettings.options.texts.email.text1.title +'</span> '+ callbackSettings.options.texts.email.text1.body +' <span class="wf-cursor">_</span>';
 
-        var date = callbackDate.getListDay();
-        callbackDate.showDate(date);
+        var day = callbackDate.getListDay();
+        callbackDate.showDate(day);
+
         var time = callbackDate.getListTime();
         callbackDate.showTime(time);
 
@@ -619,6 +655,6 @@
       sound = data.sound,
       key = data.key;
 
-  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, sound: sound, key: key, serverHost: 'http://localhost:3000/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, sound: sound, key: key, serverHost: 'http://localhost:3000/orders'});
   wcb.on();
 })();

@@ -27,10 +27,7 @@ ApiV1.addCollection(Orders, {
         var widgetUrl = widget.url,
             clientUrl = params.url;
 
-        console.log(widgetUrl);
-        console.log(clientUrl);
-
-        if(clientUrl.indexOf(widgetUrl) > -1) {
+        if(widgetUrl.indexOf(clientUrl) > -1) {
         //if(true) {
           var order = _.extend(params, {
             widgetId: widget._id,
@@ -77,6 +74,7 @@ ApiV1.addCollection(Orders, {
               message: message
             };
 
+            Meteor.call('sendEmail', emailSend);
           };
 
           return {
@@ -129,7 +127,6 @@ ApiV1.addCollection(Widgets, {
               headers: {
                 'Content-Type': 'text/html'
               },
-              //body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<audio id="open-one-audio" controls="controls" preload="auto" style="display: none;"><source src="'+ Meteor.absoluteUrl() +'widgets/callback/audio/open.mp3"></audio><link href="'+ Meteor.absoluteUrl() +'widgets/callback/css/style.css" rel="stylesheet"><script src="https://code.jquery.com/jquery-1.11.3.min.js"></script><script type="text/javascript" charset="utf-8" src="'+ Meteor.absoluteUrl() +'widgets/callback/js/app.js"></script>\'),addHtml(\'<div id="wf-widget" data-color="'+ widget.color +'" data-schema="'+ widget.schemaColor +'" data-position="'+ widget.position +'" data-time='+ JSON.stringify(widget.time) +' data-sound="'+ widget.sound +'" data-key="'+ widget.key +'"></div>\');'
               body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<audio id="wf-open-one-audio" controls="controls" preload="auto" style="display: none;"><source src="'+ Meteor.absoluteUrl() +'widgets/callback/audio/open.mp3"></audio><link href="'+ Meteor.absoluteUrl() +'widgets/callback/css/style.css" rel="stylesheet"></script><script type="text/javascript" charset="utf-8" src="'+ Meteor.absoluteUrl() +'widgets/callback/js/app.js"></script>\'),addHtml(\'<div id="wf-widget" data-color="'+ widget.color +'" data-schema="'+ widget.schemaColor +'" data-position="'+ widget.position +'" data-time='+ JSON.stringify(widget.time) +' data-sound="'+ widget.sound +'" data-key="'+ widget.key +'"></div>\');'
             };
           } else {

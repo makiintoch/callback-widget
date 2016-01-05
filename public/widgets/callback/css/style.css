@@ -187,6 +187,11 @@
   display: block;
   font-size: 24px;
 }
+#wf-widget .wf-text .wf-text-item .wf-cursor {
+  display: inline-block;
+  -webkit-animation: 1s blink ease-in infinite;
+  animation: 1s blink ease-in infinite;
+}
 #wf-widget .wf-text form {
   margin-top: 20%;
 }
@@ -291,6 +296,7 @@
   top: 50px;
   left: 50%;
   z-index: 999;
+  display: none;
   background: #fff;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(50, 50, 50, .35);
@@ -501,7 +507,7 @@
   background: rgba(255, 255, 255, .21);
 }
 #wf-widget .wf-schema-black .wf-text form .wf-select-time .wf-select-time-text {
-  color: #333;
+  color: #cecece;
 }
 
 #wf-widget .wf-schema-black .wf-text form input[type="text"]::-webkit-input-placeholder { color: #cecece; }
@@ -546,5 +552,15 @@
   }
   50% {
    opacity: .5
+  }
+}
+
+@keyframes blink {
+  from,
+  to {
+    opacity: 0
+  }
+  50% {
+    opacity: 1
   }
 }
