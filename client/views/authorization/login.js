@@ -3,11 +3,11 @@ Template.login.events({
     e.preventDefault();
 
     var login = {
-      user: $(e.target).find('[name=login-email]').val(),
+      email: $(e.target).find('[name=email]').val(),
       password: $(e.target).find('[name=login-password]').val()
     };
 
-    Meteor.loginWithPassword(login.user, login.password, function(error){
+    Meteor.loginWithPassword(login.email, login.password, function(error) {
       if (error) {
         throwError(error.reason);
       } else {

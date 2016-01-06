@@ -3,7 +3,6 @@ Template.registration.events({
     e.preventDefault();
 
     var registration = {
-      username: $(e.target).find('[name=username]').val(),
       email: $(e.target).find('[name=email]').val(),
       password: $(e.target).find('[name=password]').val()
     };

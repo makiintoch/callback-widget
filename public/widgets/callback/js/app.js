@@ -446,14 +446,27 @@
       },
 
       resizeWindow: function() {
+        var timer = null;
+
         window.onresize = function(event) {
-          callbackInit.setWidgetButtonPosition();
+          if(timer !== null) { clearTimeout(timer) };
+
+          var timer = setTimeout(function() {
+            callbackInit.setWidgetButtonPosition();
+          }, 1000);
+
         };
       },
 
       scrollDocument: function() {
+        var timer = null;
+
         window.onscroll = function(event) {
-          callbackInit.setWidgetButtonPosition();
+          if(timer !== null) { clearTimeout(timer) };
+
+          var timer = setTimeout(function() {
+            callbackInit.setWidgetButtonPosition();
+          }, 750);
         };
       },
 
