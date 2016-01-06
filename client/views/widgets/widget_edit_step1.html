@@ -1,0 +1,33 @@
+<template name="widgetEditStep1">
+  <div class="item">
+    <p class="title">Имя виджета</p>
+
+    <input name="name" type="text" value="{{widget.name}}" placeholder="Имя виджета">
+  </div>
+
+  <div class="item">
+    <p class="title">URL вашего сайта <span>(с которого будут приходить уведомления)</span></p>
+
+    <input name="url" type="text" value="{{widget.url}}" placeholder="URL вашего сайта">
+  </div>
+
+  <div class="item emails">
+    <p class="title">E-mail <span>(на который будут приходить уведомления)</span></p>
+
+    {{{showEmails}}}
+
+    <a class="link email-add" href="#">Добавить email</a>
+  </div>
+
+  <div class="item">
+    <p class="title">Короткий тип E-mail уведомления <span>(подходит для СМС-рассылки)</span></p>
+
+    <p>Выключен <input class="switch" type="checkbox" name="email-short-notice" checked="{{widget.emailShortNotice}}"> Включен</p>
+  </div>
+
+  <div class="item">
+    <p class="title">Звук <span>(включить/выключить звук виджета)</span></p>
+
+    <p>Выключен <input class="switch" type="checkbox" name="sound" checked="{{widget.sound}}"> Включен</p>
+  </div>
+</template>

@@ -1,0 +1,26 @@
+<template name="widgetEditStep2">
+  <div class="item work-time">
+    <p class="title">Рабочее время <span>(установить время для уведомлений)</span></p>
+
+    {{{getTimeWork}}}
+  </div>
+
+  <div class="item">
+    <p class="title">Сценарии <span>(доступные сценарии виджета)</span></p>
+  </div>
+
+  <!--<div class="item">
+    <p class="title">УТП <span>(уникальное торговое предложение, выводится при попытки уйти с сайта)</span></p>
+  </div>-->
+
+  <div class="item">
+    <p class="title">Цели <span>(помогут ослеживать конверсию виджета)</span></p>
+
+    <p class="subtitle">Google analitics</p>
+
+    <label for="ga-category">Категория</label>
+    <input name="ga-category" id="ga-category" type="text" value="{{widget.target.google.category}}" placeholder="Категория">
+    <label for="ga-event">Событие</label>
+    <input name="ga-event" id="ga-event" type="text" value="{{widget.target.google.event}}" placeholder="Событие">
+  </div>
+</template>

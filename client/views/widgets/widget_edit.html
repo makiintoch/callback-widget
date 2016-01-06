@@ -2,95 +2,24 @@
   <h1>Редактирование виджета</h1>
 
   <form class="form form-widget">
-    <div class="item">
-      <p class="title">Имя виджета</p>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#widget-edit-step1" aria-controls="widget-edit-step1" role="tab" data-toggle="tab">Основные</a></li>
+      <li role="presentation"><a href="#widget-edit-step2" aria-controls="widget-edit-step2" role="tab" data-toggle="tab">Отдел продаж</a></li>
+      <li role="presentation"><a href="#widget-edit-step3" aria-controls="widget-edit-step3" role="tab" data-toggle="tab">Внешний вид</a></li>
+    </ul>
 
-      <input name="name" type="text" value="{{widget.name}}" placeholder="Имя виджета">
-    </div>
-
-    <div class="item">
-      <p class="title">Цвет <span>(выберете цвет)</span></p>
-
-      <input class="color" name="color" type="text" value="{{widget.color}}" placeholder="Выберите цвет">
-
-      <span class="color-show" style="background:{{widget.color}};"></span>
-    </div>
-
-    <div class="item schema">
-      <p class="title">Цветовая схема меню <span>(выберете схему)</span></p>
-        <span class="schema-color gray {{getActiveSchema 'gray'}}" data-schema="gray"></span>
-        <span class="schema-color black {{getActiveSchema 'black'}}" data-schema="black"></span>
-    </div>
-
-    <div class="item">
-      <p class="title">URL вашего сайта <span>(с которого будут приходить уведомления)</span></p>
-
-      <input name="url" type="text" value="{{widget.url}}" placeholder="URL вашего сайта">
-    </div>
-
-    <div class="item emails">
-      <p class="title">E-mail <span>(на который будут приходить уведомления)</span></p>
-
-      {{{showEmails}}}
-
-      <a class="link email-add" href="#">Добавить email</a>
-    </div>
-
-    <div class="item">
-      <p class="title">Короткий тип E-mail уведомления <span>(подходит для СМС-рассылки)</span></p>
-
-      <p>Выключен <input class="switch" type="checkbox" name="email-short-notice" checked="{{widget.emailShortNotice}}"> Включен</p>
-    </div>
-
-    <div class="item work-time">
-      <p class="title">Рабочее время <span>(установить время для уведомлений)</span></p>
-
-      {{{getTimeWork}}}
-    </div>
-
-    <div class="item">
-      <p class="title">Расположение виджета <span>(позиция)</span></p>
-
-      <input class="widget-position" type="hidden" name="position" value="{{widget.position}}">
-
-      <div class="widget-position">
-        <img src="{{absoluteUrl}}img/imac.png" alt="Расположение виджета" width="500">
-
-        <div class="widget-position-item">
-          <img class="{{getActiveClass 'left-top' widget.position}} position-item position-left left-top" data-position="left-top" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
-          <img class="{{getActiveClass 'left-center' widget.position}} position-item position-left left-center" data-position="left-center" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
-          <img class="{{getActiveClass 'left-bottom' widget.position}} position-item position-left left-bottom" data-position="left-bottom" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
-
-          <img class="{{getActiveClass 'right-top' widget.position}} position-item position-right right-top" data-position="right-top" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
-          <img class="{{getActiveClass 'right-center' widget.position}} position-item position-right right-center" data-position="right-center" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
-          <img class="{{getActiveClass 'right-bottom' widget.position}} position-item position-right right-bottom" data-position="right-bottom" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
-        </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="widget-edit-step1">
+        {{>widgetEditStep1}}
       </div>
-    </div>
-
-    <div class="item">
-      <p class="title">Сценарии <span>(доступные сценарии виджета)</span></p>
-    </div>
-
-    <!--<div class="item">
-      <p class="title">УТП <span>(уникальное торговое предложение, выводится при попытки уйти с сайта)</span></p>
-    </div>-->
-
-    <div class="item">
-      <p class="title">Цели <span>(помогут ослеживать конверсию виджета)</span></p>
-
-      <p class="subtitle">Google analitics</p>
-
-      <label for="ga-category">Категория</label>
-      <input name="ga-category" id="ga-category" type="text" value="{{widget.target.google.category}}" placeholder="Категория">
-      <label for="ga-event">Событие</label>
-      <input name="ga-event" id="ga-event" type="text" value="{{widget.target.google.event}}" placeholder="Событие">
-    </div>
-
-    <div class="item">
-      <p class="title">Звук <span>(включить/выключить звук виджета)</span></p>
-
-      <p>Выключен <input class="switch" type="checkbox" name="sound" checked="{{widget.sound}}"> Включен</p>
+      <div role="tabpanel" class="tab-pane" id="widget-edit-step2">
+        {{>widgetEditStep2}}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="widget-edit-step3">
+        {{>widgetEditStep3}}
+      </div>
     </div>
 
     <input class="button" type="submit" value="Сохранить">

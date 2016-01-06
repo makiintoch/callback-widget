@@ -1,0 +1,35 @@
+<template name="widgetEditStep3">
+  <div class="item">
+    <p class="title">Цвет <span>(выберете цвет)</span></p>
+
+    <input class="color" name="color" type="text" value="{{widget.color}}" placeholder="Выберите цвет">
+
+    <span class="color-show" style="background:{{widget.color}};"></span>
+  </div>
+
+  <div class="item schema">
+    <p class="title">Цветовая схема меню <span>(выберете схему)</span></p>
+      <span class="schema-color gray {{getActiveSchema 'gray'}}" data-schema="gray"></span>
+      <span class="schema-color black {{getActiveSchema 'black'}}" data-schema="black"></span>
+  </div>
+
+  <div class="item">
+    <p class="title">Расположение виджета <span>(позиция)</span></p>
+
+    <input class="widget-position" type="hidden" name="position" value="{{widget.position}}">
+
+    <div class="widget-position">
+      <img src="{{absoluteUrl}}img/imac.png" alt="Расположение виджета" width="500">
+
+      <div class="widget-position-item">
+        <img class="{{getActiveClass 'left-top' widget.position}} position-item position-left left-top" data-position="left-top" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
+        <img class="{{getActiveClass 'left-center' widget.position}} position-item position-left left-center" data-position="left-center" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
+        <img class="{{getActiveClass 'left-bottom' widget.position}} position-item position-left left-bottom" data-position="left-bottom" src="{{absoluteUrl}}img/widget-left.png" alt="" width="50">
+
+        <img class="{{getActiveClass 'right-top' widget.position}} position-item position-right right-top" data-position="right-top" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
+        <img class="{{getActiveClass 'right-center' widget.position}} position-item position-right right-center" data-position="right-center" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
+        <img class="{{getActiveClass 'right-bottom' widget.position}} position-item position-right right-bottom" data-position="right-bottom" src="{{absoluteUrl}}img/widget-right.png" alt="" width="50">
+      </div>
+    </div>
+  </div>
+</template>
