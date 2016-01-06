@@ -120,15 +120,36 @@ ApiV1.addCollection(Widgets, {
           return {status: 'error', data: 'Widget not found'};
         } else {
           if(widget.status != false) {
+            var timeWork;
+            if(widget.timeSame) {
+              timeWork = {
+                mon: {start: widget.timeSameDay.same.start, end: widget.timeSameDay.same.end, status: widget.timeSameDay.same.status},
+                tue: {start: widget.timeSameDay.same.start, end: widget.timeSameDay.same.end, status: widget.timeSameDay.same.status},
+                wed: {start: widget.timeSameDay.same.start, end: widget.timeSameDay.same.end, status: widget.timeSameDay.same.status},
+                thu: {start: widget.timeSameDay.same.start, end: widget.timeSameDay.same.end, status: widget.timeSameDay.same.status},
+                fri: {start: widget.timeSameDay.same.start, end: widget.timeSameDay.same.end, status: widget.timeSameDay.same.status},
+                sat: {start: widget.timeSameDay.sat.start, end: widget.timeSameDay.sat.end, status: widget.timeSameDay.sat.status},
+                sun: {start: widget.timeSameDay.sun.start, end: widget.timeSameDay.sun.end, status: widget.timeSameDay.sun.status}
+              };
+
+            } else {
+              timeWork = widget.time;
+            }
             return {
               statusCode: 200,
               headers: {
                 'Content-Type': 'text/html'
               },
-              body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<audio id="wf-open-one-audio" controls="controls" preload="auto" style="display: none;"><source src="'+ Meteor.absoluteUrl() +'widgets/callback/audio/open.mp3"></audio><link href="'+ Meteor.absoluteUrl() +'widgets/callback/css/style.css" rel="stylesheet"></script><script type="text/javascript" charset="utf-8" src="'+ Meteor.absoluteUrl() +'widgets/callback/js/app.js"></script>\'),addHtml(\'<div id="wf-widget" data-color="'+ widget.color +'" data-schema="'+ widget.schemaColor +'" data-position="'+ widget.position +'" data-time='+ JSON.stringify(widget.time) +' data-sound="'+ widget.sound +'" data-key="'+ widget.key +'"></div>\');'
+              body: 'function addHtml(t){var e=document.createElement("div");e.innerHTML=t,document.getElementsByTagName("body")[0].appendChild(e)}document.write(\'<audio id="wf-open-one-audio" controls="controls" preload="auto" style="display: none;"><source src="'+ Meteor.absoluteUrl() +'widgets/callback/audio/open.mp3"></audio><link href="'+ Meteor.absoluteUrl() +'widgets/callback/css/style.css" rel="stylesheet"></script><script type="text/javascript" charset="utf-8" src="'+ Meteor.absoluteUrl() +'widgets/callback/js/app.js"></script>\'),addHtml(\'<div id="wf-widget" data-color="'+ widget.color +'" data-schema="'+ widget.schemaColor +'" data-position="'+ widget.position +'" data-time='+ JSON.stringify(timeWork) +' data-sound="'+ widget.sound +'" data-key="'+ widget.key +'"></div>\');'
             };
           } else {
-            return {status: 'Error'}
+            return {
+              statusCode: 500,
+              headers: {
+                'Content-Type': 'text/html'
+              },
+              body: 'Error: Widget not found'
+            };
           }
         }
       }
