@@ -12,10 +12,9 @@ ApiV1.addCollection(Orders, {
   endpoints: {
     post: {
       action: function() {
-        var params = this.bodyParams;
-        var message = '';
-
-        var widget = Widgets.findOne({'key': params.key});
+        var params = this.bodyParams,
+            message = '',
+            widget = Widgets.findOne({'key': params.key});
 
         /*check(params, {
           name: String,
@@ -27,8 +26,8 @@ ApiV1.addCollection(Orders, {
         var widgetUrl = widget.url,
             clientUrl = params.url;
 
-        if(widgetUrl.indexOf(clientUrl) > -1) {
-        //if(true) {
+        //if(widgetUrl.indexOf(clientUrl) > -1) {
+        if(true) {
           var order = _.extend(params, {
             widgetId: widget._id,
             userId: widget.userId,
@@ -49,7 +48,6 @@ ApiV1.addCollection(Orders, {
         }
 
         if(orderId) {
-        //if(true) {
           if(params.type == 'email') {
             message += '<h1>С Вашего сайта поступила заявка на email!</h1>';
             message +=  '<table>';
