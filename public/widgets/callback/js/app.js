@@ -430,13 +430,13 @@
 
         switch(callbackSettings.options.position.ver) {
           case 'top':
-            var ver = '50px';
+            var ver = '100px';
             break;
           case 'center':
             var ver = (windowHeight - (windowHeight/2 + 45)) + documentScrollHeight + 'px';
             break;
           case 'bottom':
-            var ver = (windowHeight - 150) + documentScrollHeight + 'px';
+            var ver = (windowHeight - 200) + documentScrollHeight + 'px';
             break;
         }
 
@@ -453,7 +453,7 @@
 
           var timer = setTimeout(function() {
             callbackInit.setWidgetButtonPosition();
-          }, 1000);
+          }, 250);
 
         };
       },
@@ -466,7 +466,7 @@
 
           var timer = setTimeout(function() {
             callbackInit.setWidgetButtonPosition();
-          }, 750);
+          }, 100);
         };
       },
 
