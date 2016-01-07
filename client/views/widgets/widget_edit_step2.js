@@ -51,10 +51,10 @@ function showSelectTime(selectedTime) {
   var date = new Date(0)
   var option = '';
 
-  for(var i = 0; i < 1440; i = i+30) {
+  for(var i = 0; i < 1440; i = i+60) {
     var time = (date.getUTCHours() < 10 ? '0'+date.getUTCHours() : date.getUTCHours()) +':'+ (date.getUTCMinutes() < 10 ? '0'+date.getUTCMinutes() : date.getUTCMinutes());
     option += '<option '+ (selectedTime == time ? 'selected="selected"' : '') +'>'+ time +'</option>';
-    date.setMinutes(date.getMinutes() + 30);
+    date.setMinutes(date.getMinutes() + 60);
   }
 
   return option;

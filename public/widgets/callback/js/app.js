@@ -317,12 +317,21 @@
               startTime = new Date(),
               endTime = new Date();
 
-          var start = timeWork[weekDay[sortDayArray[i]]].start.split(":"),
-              end = timeWork[weekDay[sortDayArray[i]]].end.split(":");
+          if(sortDayArray[i] == date.getDay()) {
+            var start = timeWork[weekDay[sortDayArray[i]]].start.split(":"),
+                end = timeWork[weekDay[sortDayArray[i]]].end.split(":");
 
-          startTime.setHours(start[0]);
-          startTime.setMinutes(start[1]);
-          startTime.setTime(startTime.getTime() - (utc*60*60*1000));
+            startTime.setHours(date.getHours()+1);
+            startTime.setMinutes(start[1]);
+            startTime.setTime(startTime.getTime() - (utc*60*60*1000));
+          } else {
+            var start = timeWork[weekDay[sortDayArray[i]]].start.split(":"),
+                end = timeWork[weekDay[sortDayArray[i]]].end.split(":");
+
+            startTime.setHours(start[0]);
+            startTime.setMinutes(start[1]);
+            startTime.setTime(startTime.getTime() - (utc*60*60*1000));
+          }
 
           endTime.setHours(end[0]);
           endTime.setMinutes(end[1]);

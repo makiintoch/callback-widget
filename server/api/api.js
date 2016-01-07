@@ -26,8 +26,8 @@ ApiV1.addCollection(Orders, {
         var widgetUrl = widget.url,
             clientUrl = params.url;
 
-        //if(widgetUrl.indexOf(clientUrl) > -1) {
-        if(true) {
+        if(widgetUrl.indexOf(clientUrl) > -1) {
+        //if(true) {
           var order = _.extend(params, {
             widgetId: widget._id,
             userId: widget.userId,
