@@ -22,6 +22,17 @@ Template.orderItem.events({
       }
     });
   },
+  'click .order-remove': function(e) {
+    e.preventDefault();
+
+    Meteor.call('orderRemove', this._id, function(error) {
+      if (error) {
+        throwError(error.reason);
+      } else {
+        throwMessage('Заявка успешно удалена');
+      }
+    });
+  },
   'click .show-order': function(e) {
     e.preventDefault();
 
