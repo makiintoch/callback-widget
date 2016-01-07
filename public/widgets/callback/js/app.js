@@ -454,7 +454,6 @@
           var timer = setTimeout(function() {
             callbackInit.setWidgetButtonPosition();
           }, 250);
-
         };
       },
 
@@ -470,14 +469,14 @@
         };
       },
 
-      rotateButtons: function(id) {
+      rotateButtons: function() {
         var widget = document.getElementById('wf-widget'),
+            widgetIcon = widget.querySelector('.wf-widget-call'),
             nameIcon = widget.querySelector('.wf-widget-name-icon'),
-            phoneIcon = widget.querySelector('.wf-widget-phone-icon');
+            phoneIcon = widget.querySelector('.wf-widget-phone-icon'),
+            interval = '';
 
-        if(id) {
-          window.clearInterval(intervalId);
-        } else {
+        function setButtonInterval() {
           var intervalId = window.setInterval(function() {
             if(nameIcon.classList.contains('wf-rotate-icon')) {
               nameIcon.classList.remove('wf-rotate-icon');
@@ -488,11 +487,25 @@
             }
           }, callbackSettings.options.rotate.time);
 
-          return parseInt(intervalId);
+          return intervalId;
         }
-      },
 
-      hoverButton: function() {
+        interval = setButtonInterval();
+
+        widgetIcon.onmouseover = function(event) {
+          window.clearInterval(interval);
+          widgetIcon.classList.add('wf-widget-call-hover');
+
+          if(phoneIcon.classList.contains('wf-rotate-icon')) {
+            phoneIcon.classList.remove('wf-rotate-icon');
+            nameIcon.classList.add('wf-rotate-icon');
+          }
+        };
+
+        widgetIcon.onmouseout = function(event) {
+          interval = setButtonInterval();
+          widgetIcon.classList.remove('wf-widget-call-hover');
+        };
       },
 
       showWidgetContentBlock: function() {
@@ -645,9 +658,7 @@
         callbackInit.showWidgetContentBlock();
         callbackInit.hideWidgetContentBlock();
         callbackInit.changeTab();
-        var id = callbackInit.rotateButtons();
-        callbackInit.hoverButton(id);
-
+        callbackInit.rotateButtons();
         callbackOrder.sendForm();
       }
     };
