@@ -430,7 +430,7 @@
 
         switch(callbackSettings.options.position.ver) {
           case 'top':
-            var ver = '100px';
+            var ver = 100 + documentScrollHeight + 'px';
             break;
           case 'center':
             var ver = (windowHeight - (windowHeight/2 + 45)) + documentScrollHeight + 'px';
