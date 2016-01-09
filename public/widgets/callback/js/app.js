@@ -260,7 +260,7 @@
             //day = [7, 1, 2, 3, 4, 5, 6],
             afterTomorrow = ((tomorrow+1) > 6) ? 1 : (tomorrow+1),
             monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня","июля", "августа", "сентября", "октября", "ноября", "декабря"],
-            selectDay = '<span class="wf-day-show">',
+            selectDay = '<div class="wf-day-show">',
             activeDay = '',
             stringDay = '';
 
@@ -289,7 +289,7 @@
           }
         };
 
-        selectDay += '</span>';
+        selectDay += '</div>';
 
         return (selectDay.length) ? (activeDay+selectDay) : false;
       },
@@ -304,7 +304,7 @@
             data = widgetDay[0].dataset,
             daySelect = data.day,
             activeTime = '',
-            selectTime = '<span class="wf-time-show">',
+            selectTime = '<div class="wf-time-show"><ul>',
             date = new Date(),
             utcServer = callbackSettings.options.serverUtc,
             utcClient = date.getTimezoneOffset() / 60,
@@ -351,10 +351,10 @@
           var serverTime = (timeObj[daySelect][i].getHours() < 10 ? '0'+timeObj[daySelect][i].getHours() : timeObj[daySelect][i].getHours()) +':'+ (timeObj[daySelect][i].getMinutes() < 10 ? '0'+timeObj[daySelect][i].getMinutes() : timeObj[daySelect][i].getMinutes());
 
           activeTime += (i == 0) ? '<span class="wf-time-active" data-server-time="'+ serverTime +'">'+ time +'</span>' : '';
-          selectTime += '<span class="wf-time-item" data-server-time="'+ serverTime +'">'+ time +'</span>';
+          selectTime += '<li class="wf-time-item" data-server-time="'+ serverTime +'">'+ time +'</li>';
         };
 
-        selectTime += '</div>';
+        selectTime += '</ul></div>';
 
         return (activeTime+selectTime);
       },
@@ -434,8 +434,13 @@
       },
 
       setWidgetButtonPosition: function() {
-        var windowHeight = callbackSettings.getWindowHeight(),
-            documentScrollHeight = callbackSettings.getDocumentHeightScrollTop();
+        var widget = document.getElementById('wf-widget'),
+            windowHeight = callbackSettings.getWindowHeight(),
+            documentScrollHeight = callbackSettings.getDocumentHeightScrollTop(),
+            widgetCall = widget.getElementsByClassName('wf-widget-call'),
+            widgetCallContent = widget.querySelector('.wf-widget-content '),
+            widgetBody = widget.querySelector('.wf-body'),
+            widgetTimeText = widget.querySelector('.wf-select-time-text');
 
         switch(callbackSettings.options.position.ver) {
           case 'top':
@@ -449,9 +454,15 @@
             break;
         }
 
-        var widget = document.getElementById('wf-widget'),
-            widgetCall = widget.getElementsByClassName('wf-widget-call');
         widgetCall[0].style.top = ver;
+
+        if(windowHeight < 500) {
+          widgetBody.style.marginTop = '10%';
+          widgetCallContent.style.overflowY = 'scroll';
+        } else {
+          widgetBody.style.marginTop = (((windowHeight - widgetBody.clientHeight) / 2) - 150) +'px';
+          widgetCallContent.style.overflowY = 'visible';
+        }
       },
 
       resizeWindow: function() {
@@ -543,13 +554,13 @@
         document.getElementsByClassName('wf-close')[0].onclick = function(event) {
           widgetCall.classList.remove('wf-hide');
 
-          widgetContent[0].style[callbackSettings.options.position.hor] = '-350px';
+          widgetContent[0].style[callbackSettings.options.position.hor] = '-375px';
         };
 
         document.getElementsByClassName('wf-arrow')[0].onclick = function(event) {
           widgetCall.classList.remove('wf-hide');
 
-          widgetContent[0].style[callbackSettings.options.position.hor] = '-350px';
+          widgetContent[0].style[callbackSettings.options.position.hor] = '-375px';
         };
       },
 
@@ -648,7 +659,7 @@
           widgetArrow[0].className = widgetArrow[0].className + ' wf-arrow-right';
         }
 
-        widgetContent[0].style[callbackSettings.options.position.hor] = '-350px';
+        widgetContent[0].style[callbackSettings.options.position.hor] = '-375px';
         widgetContent[0].className = widgetContent[0].className + ' wf-schema-'+callbackSettings.options.schema;
 
 
