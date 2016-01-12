@@ -36,6 +36,13 @@
           sat: {start: '09:00', end: '19:00', status: true},
           sun: {start: '09:00', end: '19:00', status: true}
         },
+        scenarios: {
+          first: {status: false},
+          second: {status: false, time: '8'},
+          third: {status: false, time: '2'},
+          fourth: {status: false},
+          fifth: {status: false}
+        },
         serverUtc: '+3',
         sound: false
       }, options),
@@ -536,12 +543,12 @@
           this.className = this.className + ' wf-hide';
           widgetContent[0].style[callbackSettings.options.position.hor] = 0;
 
-          if(callbackSettings.options.sound) {
+          if(callbackSettings.options.sound == 'true') {
               var sound = document.getElementById("wf-open-one-audio");
 
               sound.volume = .2;
               sound.play();
-          }
+          };
         };
       },
 
@@ -588,6 +595,34 @@
             this.className = this.className +' wf-active';
           };
         }
+      },
+
+      runScenarios: function() {
+        var scenarios = callbackSettings.options.scenarios;
+
+        function showWidget() {
+
+          var widget = document.getElementById('wf-widget'),
+              widgetCall = widget.querySelector('.wf-widget-call'),
+              widgetContent = widget.getElementsByClassName('wf-widget-content');
+
+          widgetCall.className = widgetCall.className + ' wf-hide';
+          widgetContent[0].style[callbackSettings.options.position.hor] = 0;
+
+          if(callbackSettings.options.sound == 'true') {
+              var sound = document.getElementById("wf-open-one-audio");
+
+              sound.volume = .2;
+              sound.play();
+          };
+        };
+
+        if(scenarios.first.status) {
+          showWidget();
+          //var date = new Date(new Date().getTime() + 60 * 1000);
+          //document.cookie = "name=value; path=/; expires=" + date.toUTCString();
+          //console.log(document.cookie);
+        };
       },
 
       init: function() {
@@ -679,6 +714,7 @@
         callbackInit.hideWidgetContentBlock();
         callbackInit.changeTab();
         callbackInit.rotateButtons();
+        callbackInit.runScenarios();
         callbackOrder.sendForm();
       }
     };
@@ -696,9 +732,10 @@
       positionHor = pos.split("-")[0],
       positionVer = pos.split("-")[1],
       time  = JSON.parse(data.time),
+      scenarios  = JSON.parse(data.scenarios),
       sound = data.sound,
       key = data.key;
 
-  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, sound: sound, key: key, serverHost: 'http://localhost:3000/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, scenarios: scenarios, sound: sound, key: key, serverHost: 'http://calling-all.meteor.com/'});
   wcb.on();
 })();

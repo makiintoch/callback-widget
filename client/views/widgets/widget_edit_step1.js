@@ -29,11 +29,3 @@ Template.widgetEditStep1.events({
     $(e.target).parent('p').remove();
   }
 });
-
-Template.widgetEditStep1.rendered = function() {
-  var elems = Array.prototype.slice.call(document.querySelectorAll('.switch'));
-
-  elems.forEach(function(html) {
-    var switchery = new Switchery(html);
-  });
-}

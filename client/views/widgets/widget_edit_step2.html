@@ -5,8 +5,14 @@
     {{{getTimeWork}}}
   </div>
 
-  <div class="item">
+  <div class="item scenarios">
     <p class="title">Сценарии <span>(доступные сценарии виджета)</span></p>
+
+    <p>Выкл. <input class="switch" type="checkbox" name="scenarios-first" checked="{{widget.scenarios.first.status}}"> Вкл. <span class="text">Уведомление при входе на сайт</span></p>
+    <p>Выкл. <input class="switch" type="checkbox" name="scenarios-second" checked="{{widget.scenarios.second.status}}"> Вкл. <span class="text">Уведомление при просмотре более <input type="number" name="scenarios-second-min" min="1" value="{{widget.scenarios.second.time}}"> мин.</span></p>
+    <p>Выкл. <input class="switch" type="checkbox" name="scenarios-third" checked="{{widget.scenarios.third.status}}"> Вкл. <span class="text">Уведомление каждые <input type="number" name="scenarios-third-min" min="1" value="{{widget.scenarios.third.time}}"> мин.</span></p>
+    <p>Выкл. <input class="switch" type="checkbox" name="scenarios-fourth" checked="{{widget.scenarios.fourth.status}}"> Вкл. <span class="text">Уведомление при переходе на другую страницу сайта</span></p>
+    <p>Выкл. <input class="switch" type="checkbox" name="scenarios-fifth" checked="{{widget.scenarios.fifth.status}}"> Вкл. <span class="text">Уведомление при скролле в самый низ страницы</span></p>
   </div>
 
   <!--<div class="item">

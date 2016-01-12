@@ -29,6 +29,7 @@
 }
 #wf-widget .wf-widget-call {
   position: absolute;
+  z-index: 9999;
   cursor: pointer;
   -webkit-transition: all .6s cubic-bezier(.19,1,.22,1);
   transition: all .6s cubic-bezier(.19,1,.22,1);
@@ -310,7 +311,7 @@
   display: block;
 }
 #wf-widget .wf-text form .wf-select-time .wf-time .wf-time-active {
-  padding: 10px 25px;
+  padding: 10px 20px 10px 15px;
   display: block;
 }
 #wf-widget .wf-text form .wf-select-time .wf-day-show,
@@ -367,9 +368,12 @@
 }
 #wf-widget .wf-text form .wf-select-time .wf-day-show .wf-day-item,
 #wf-widget .wf-text form .wf-select-time .wf-time-show .wf-time-item {
+  margin-bottom: 0;
   padding: 7px 0;
   display: block;
+  font: 15px 'Roboto', sans-serif;
   text-align: center;
+  color: #333;
 }
 #wf-widget .wf-text form .wf-select-time .wf-day-show span:first-child {
   border-radius: 5px 5px 0 0;
@@ -378,7 +382,7 @@
   border-radius: 0 0 5px 5px;
 }
 #wf-widget .wf-text form .wf-select-time .wf-day-show span:hover,
-#wf-widget .wf-text form .wf-select-time .wf-time-show span:hover {
+#wf-widget .wf-text form .wf-select-time .wf-time-show li:hover {
   background: rgba(0, 0, 0, .07);
 }
 #wf-widget .wf-text form input[type="submit"]:hover {

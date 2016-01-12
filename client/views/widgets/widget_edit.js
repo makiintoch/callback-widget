@@ -22,6 +22,13 @@ Template.widgetEdit.events({
       emails: emails,
       emailShortNotice: $(e.target).find('[name=email-short-notice]').is(':checked') ? true : false,
       timeSame: timeSameDayActive,
+      scenarios: {
+        first: {status: $(e.target).find('[name=scenarios-first]').is(':checked') ? true : false},
+        second: {status: $(e.target).find('[name=scenarios-second]').is(':checked') ? true : false, time: $(e.target).find('[name=scenarios-second-min]').val()},
+        third: {status: $(e.target).find('[name=scenarios-third]').is(':checked') ? true : false, time: $(e.target).find('[name=scenarios-third-min]').val()},
+        fourth: {status: $(e.target).find('[name=scenarios-fourth]').is(':checked') ? true : false},
+        fifth: {status: $(e.target).find('[name=scenarios-fifth]').is(':checked') ? true : false}
+      },
       position: $(e.target).find('[name=position]').val(),
       sound: $(e.target).find('[name=sound]').is(':checked') ? true : false
     };
@@ -49,3 +56,11 @@ Template.widgetEdit.events({
     });
   },
 });
+
+Template.widgetEdit.rendered = function() {
+  var elems = Array.prototype.slice.call(document.querySelectorAll('.switch'));
+
+  elems.forEach(function(html) {
+    var switchery = new Switchery(html);
+  });
+}
