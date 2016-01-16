@@ -20,7 +20,7 @@ Template.widgetEdit.events({
       schemaColor: $(e.target).find('.schema .active').data('schema'),
       url: $(e.target).find('[name=url]').val(),
       emails: emails,
-      emailShortNotice: $(e.target).find('[name=email-short-notice]').is(':checked') ? true : false,
+      //emailShortNotice: $(e.target).find('[name=email-short-notice]').is(':checked') ? true : false,
       timeSame: timeSameDayActive,
       scenarios: {
         first: {status: $(e.target).find('[name=scenarios-first]').is(':checked') ? true : false},

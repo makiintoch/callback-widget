@@ -261,11 +261,11 @@
       getListDay: function() {
         var date = new Date(),
             dayOfWeek = date.getDay(),
-            tomorrow = ((dayOfWeek+1) > 6) ? 1 : (dayOfWeek+1),
+            tomorrow = ((dayOfWeek+1) > 6) ? 0 : (dayOfWeek+1),
             weekDay = callbackDate.settings.weekday,
             sortDayArray = callbackDate.getSortDayArray(),
             //day = [7, 1, 2, 3, 4, 5, 6],
-            afterTomorrow = ((tomorrow+1) > 6) ? 1 : (tomorrow+1),
+            afterTomorrow = ((tomorrow+1) > 6) ? 0 : (tomorrow+1),
             monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня","июля", "августа", "сентября", "октября", "ноября", "декабря"],
             selectDay = '<div class="wf-day-show">',
             activeDay = '',
@@ -330,7 +330,7 @@
 
             startTime.setHours(date.getHours()+1);
             startTime.setMinutes(start[1]);
-            startTime.setTime(startTime.getTime() - (utc*60*60*1000));
+            //startTime.setTime(startTime.getTime() - (utc*60*60*1000));
           } else {
             var start = timeWork[weekDay[sortDayArray[i]]].start.split(":"),
                 end = timeWork[weekDay[sortDayArray[i]]].end.split(":");
@@ -601,27 +601,77 @@
         var scenarios = callbackSettings.options.scenarios;
 
         function showWidget() {
-
           var widget = document.getElementById('wf-widget'),
               widgetCall = widget.querySelector('.wf-widget-call'),
               widgetContent = widget.getElementsByClassName('wf-widget-content');
 
-          widgetCall.className = widgetCall.className + ' wf-hide';
-          widgetContent[0].style[callbackSettings.options.position.hor] = 0;
+          if(widgetContent[0].style[callbackSettings.options.position.hor] != '0px') {
+            widgetCall.className = widgetCall.className + ' wf-hide';
+            widgetContent[0].style[callbackSettings.options.position.hor] = 0;
 
-          if(callbackSettings.options.sound == 'true') {
+            if (callbackSettings.options.sound == 'true') {
               var sound = document.getElementById("wf-open-one-audio");
 
               sound.volume = .2;
               sound.play();
+            };
+          }
+        };
+
+        function getCookie(name) {
+          var matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+          ));
+          return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        if (scenarios.first.status) {
+          if (!getCookie('scenariosFirstStatus')) {
+            showWidget();
+
+            document.cookie = "scenariosFirstStatus=true; path=/;";
           };
         };
 
-        if(scenarios.first.status) {
-          showWidget();
-          //var date = new Date(new Date().getTime() + 60 * 1000);
-          //document.cookie = "name=value; path=/; expires=" + date.toUTCString();
-          //console.log(document.cookie);
+        if (scenarios.second.status) {
+          if (!getCookie('scenariosSecondStatus')) {
+            var time = parseFloat(scenarios.second.time);
+            setTimeout(showWidget, (time * 60 * 1000));
+          };
+
+          document.cookie = "scenariosSecondStatus=true; path=/;";
+        };
+
+        if (scenarios.third.status) {
+          var time = parseFloat(scenarios.third.time);
+
+          var timerId = setInterval(showWidget, (time * 60 * 1000));
+        };
+
+        if (scenarios.fourth.status) {
+          if (getCookie('startPage') == undefined) {
+            document.cookie = "startPage="+window.location.href+"; path=/;";  
+          };
+          
+          if (getCookie('startPage') != window.location.href) {
+            if (!getCookie('scenariosFourthStatus')) {
+              showWidget();  
+            };
+
+            document.cookie = "scenariosFourthStatus=true; path=/;";
+          };
+        };
+
+        if (scenarios.fifth.status) {
+          window.addEventListener('scroll', function(event) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+              if (!getCookie('scenariosFifthStatus')) {
+                showWidget();  
+              };
+
+              document.cookie = "scenariosFifthStatus=true; path=/;";
+            };
+          }, false);
         };
       },
 

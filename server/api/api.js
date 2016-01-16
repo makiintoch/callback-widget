@@ -16,13 +16,6 @@ ApiV1.addCollection(Orders, {
             message = '',
             widget = Widgets.findOne({'key': params.key});
 
-        /*check(params, {
-          name: String,
-          type: String,
-          url: String,
-          email: String
-        });*/
-
         var widgetUrl = widget.url,
             clientUrl = params.url;
 
