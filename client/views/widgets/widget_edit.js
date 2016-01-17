@@ -13,6 +13,8 @@ Template.widgetEdit.events({
 
     var timeSameDayActive = $(e.target).find('#weekday-same').is(':checked') ? true : false;
 
+    console.log($(e.target).find('select[name="work-time-gmt"]').val());
+
     var widget = {
       id: this._id,
       name: $(e.target).find('[name=name]').val(),
@@ -21,6 +23,7 @@ Template.widgetEdit.events({
       url: $(e.target).find('[name=url]').val(),
       emails: emails,
       //emailShortNotice: $(e.target).find('[name=email-short-notice]').is(':checked') ? true : false,
+      timeGmt: $(e.target).find('select[name="work-time-gmt"]').val(),
       timeSame: timeSameDayActive,
       scenarios: {
         first: {status: $(e.target).find('[name=scenarios-first]').is(':checked') ? true : false},

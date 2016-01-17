@@ -1,4 +1,17 @@
 <template name="widgetEditStep2">
+  <div class="item">
+    <p class="title">GMT <span>(выбор часового пояса)</span></p>
+
+    <div class="info">
+      <ol>
+        <li>По-умолчанию установлено время относительно часового пояса г. Москвы GMT +3</li>
+      </ol>
+    </div>
+
+    {{{getTimeWorkGmt}}}
+  </div>
+  
+
   <div class="item work-time">
     <p class="title">Рабочее время <span>(установить время для уведомлений)</span></p>
 

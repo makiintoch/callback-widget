@@ -71,6 +71,46 @@ Template.widgetEditStep2.helpers({
         sameDayActive = widget.timeSame;
 
     return timeWork(time, sameDay, sameDayActive);
+  },
+  getTimeWorkGmt: function() {
+    var widget = Widgets.findOne({_id: this._id}),
+        arrayGmt = Array (
+          [{key: '-12', value: '-12'}],
+          [{key: '-11', value: '-11'}],
+          [{key: '-10', value: '-10'}],
+          [{key: '-9', value: '-9'}],
+          [{key: '-8', value: '-8'}],
+          [{key: '-7', value: '-7'}],
+          [{key: '-6', value: '-6'}],
+          [{key: '-5', value: '-5'}],
+          [{key: '-4', value: '-4'}],
+          [{key: '-3', value: '-3'}],
+          [{key: '-2', value: '-2'}],
+          [{key: '-1', value: '-1'}],
+          [{key: '0', value: '+0'}],
+          [{key: '1', value: '+1'}],
+          [{key: '2', value: '+2'}],
+          [{key: '3', value: '+3'}],
+          [{key: '4', value: '+4'}],
+          [{key: '5', value: '+5'}],
+          [{key: '6', value: '+6'}],
+          [{key: '7', value: '+7'}],
+          [{key: '8', value: '+8'}],
+          [{key: '9', value: '+9'}],
+          [{key: '10', value: '+10'}],
+          [{key: '11', value: '+11'}],
+          [{key: '12', value: '+12'}],
+          [{key: '13', value: '+13'}],
+          [{key: '14', value: '+14'}]),
+      timeGmtSelect = '<select name="work-time-gmt">';
+
+    for(var i = 0; i < arrayGmt.length; i++) {
+      timeGmtSelect += '<option value="'+ arrayGmt[i][0].key +'" '+ ((widget.timeGmt == arrayGmt[i][0].key) ? 'selected="selected"' : '') +'>'+ arrayGmt[i][0].value +'</option>';
+    };
+
+    timeGmtSelect += '</select>';
+
+    return timeGmtSelect;
   }
 });
 

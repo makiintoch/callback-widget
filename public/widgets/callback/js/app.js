@@ -782,10 +782,11 @@
       positionHor = pos.split("-")[0],
       positionVer = pos.split("-")[1],
       time  = JSON.parse(data.time),
+      timeGmt  = data.gmt,
       scenarios  = JSON.parse(data.scenarios),
       sound = data.sound,
       key = data.key;
 
-  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, scenarios: scenarios, sound: sound, key: key, serverHost: 'http://calling-all.meteor.com/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, sound: sound, key: key, serverHost: 'http://calling-all.meteor.com/'});
   wcb.on();
 })();
