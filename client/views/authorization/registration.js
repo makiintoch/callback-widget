@@ -11,7 +11,7 @@ Template.registration.events({
       if (error) {
         throwError(error.reason);
       } else {
-        Router.go('profile');
+        Router.go('widgetsList');
       }
     });
   }

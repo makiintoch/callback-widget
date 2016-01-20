@@ -1,13 +1,23 @@
 <template name="login">
-  <form class="form form-auth">
-    <div class="item">
-      <input type="text" name="email" placeholder="Email">
-    </div>
+  {{#if resetPassword}}
+    <form class="form form-auth form-auth-new-pass">
+      <div class="item">
+        <input type="password" name="new-password" placeholder="Новый пароль">
+      </div>
 
-    <div class="item">
-      <input type="password" name="login-password" placeholder="Ваш пароль">
-    </div>
+      <input type="submit" value="Изменить пароль">
+    </form>
+  {{else}}
+	  <form class="form form-auth form-auth-login">
+	    <div class="item">
+	      <input type="text" name="email" placeholder="Email">
+	    </div>
 
-    <input class="button" type="submit" value="Войти">
-  </form>
+	    <div class="item">
+	      <input type="password" name="login-password" placeholder="Ваш пароль">
+	    </div>
+
+	    <input class="button" type="submit" value="Войти">
+	  </form>
+  {{/if}}
 </template>
