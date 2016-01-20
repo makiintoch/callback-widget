@@ -1,5 +1,5 @@
 throwMessage = function(message, title) {
-  toastr.success(message, title='Сообщение',
+  toastr.success(message, (title) ? title : 'Сообщение',
   {
     "closeButton": true,
     "debug": false,

@@ -1,5 +1,5 @@
 throwError = function(message, title) {
-  toastr.error(message, title='Ошибка',
+  toastr.error(message, (title) ? title : 'Ошибка',
   {
     "closeButton": true,
     "debug": false,

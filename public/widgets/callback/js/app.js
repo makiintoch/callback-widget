@@ -14,7 +14,8 @@
       options: extend({
         texts: {
           call: {
-            text1: {title: '— Хотите,', body: 'чтобы мы перезвонили Вам и ответили на ваши вопросы?'}
+            text1: {title: '— Хотите,', body: 'чтобы мы перезвонили Вам и ответили на ваши вопросы?'},
+            text2: {title: '— Сейчас сотрудники,', body: 'не в офисе. Но в выбранное время Вам перезвонят.'}
           },
           email: {
             text1: {title: '— Приветствую вас!', body: 'хотите мы напишем Вам письмо?'}
@@ -43,7 +44,7 @@
           fourth: {status: false},
           fifth: {status: false}
         },
-        serverUtc: '+3',
+        serverUtc: '3',
         sound: false
       }, options),
 
@@ -57,10 +58,6 @@
         var top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
 
         return top;
-      },
-
-      showText: function(text) {
-        return text;
       }
     };
 
@@ -760,7 +757,7 @@
         widgetContent[0].className = widgetContent[0].className + ' wf-schema-'+callbackSettings.options.schema;
 
 
-        widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = '<span>'+ callbackSettings.showText(callbackSettings.options.texts.call.text1.title) +'</span> '+ callbackSettings.showText(callbackSettings.options.texts.call.text1.body) +' <span class="wf-cursor">_</span>';
+        widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = '<span>'+ ccallbackSettings.options.texts.call.text1.title +'</span> '+ callbackSettings.options.texts.call.text1.body +' <span class="wf-cursor">_</span>';
         widget.querySelector('.wf-text-subscribe .wf-text-item').innerHTML = '<span>'+ callbackSettings.options.texts.email.text1.title +'</span> '+ callbackSettings.options.texts.email.text1.body +' <span class="wf-cursor">_</span>';
 
         var day = callbackDate.getListDay();
