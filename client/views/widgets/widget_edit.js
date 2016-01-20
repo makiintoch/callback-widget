@@ -13,8 +13,6 @@ Template.widgetEdit.events({
 
     var timeSameDayActive = $(e.target).find('#weekday-same').is(':checked') ? true : false;
 
-    console.log($(e.target).find('select[name="work-time-gmt"]').val());
-
     var widget = {
       id: this._id,
       name: $(e.target).find('[name=name]').val(),
@@ -31,6 +29,14 @@ Template.widgetEdit.events({
         third: {status: $(e.target).find('[name=scenarios-third]').is(':checked') ? true : false, time: $(e.target).find('[name=scenarios-third-min]').val()},
         fourth: {status: $(e.target).find('[name=scenarios-fourth]').is(':checked') ? true : false},
         fifth: {status: $(e.target).find('[name=scenarios-fifth]').is(':checked') ? true : false}
+      },
+      targetYandex: {
+        category: $(e.target).find('[name=ya-category]').val(),
+        eventName: $(e.target).find('[name=ya-event]').val()
+      },
+      targetGoogle: {
+        category: $(e.target).find('[name=ga-category]').val(),
+        eventName: $(e.target).find('[name=ga-event]').val()
       },
       position: $(e.target).find('[name=position]').val(),
       sound: $(e.target).find('[name=sound]').is(':checked') ? true : false

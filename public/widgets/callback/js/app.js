@@ -80,6 +80,15 @@
         xhr.send(body);
 
         if(xhr.status == 200) {
+          if(yandexTarget.id && yandexTarget.name) {
+            var funcName = 'yaCounter'+yandexTarget.id;
+            eval(funcName).reachGoal(yandexTarget.name);
+          };
+
+          /*if(googleTarget.id && googleTarget.name) {
+            console.log(googleTarget.name);
+          };*/
+          
           return {status: 'success', data: xhr.responseText};
         } else {
           return {status: 'error', data: xhr.responseText};
@@ -787,9 +796,11 @@
       time  = JSON.parse(data.time),
       timeGmt  = data.gmt,
       scenarios  = JSON.parse(data.scenarios),
+      yandexTarget = {id: data.yandexTargetId, name: data.yandexTargetName},
+      googleTarget = {id: data.googleTargetId, name: data.googleTargetName},
       sound = data.sound,
       key = data.key;
 
-  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, sound: sound, key: key, serverHost: 'http://calling-all.ru/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://calling-all.ru/'});
   wcb.on();
 })();
