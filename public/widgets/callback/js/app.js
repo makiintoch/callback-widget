@@ -75,7 +75,7 @@
           body = 'email='+ encodeURIComponent(params.email) +'&phone=' + encodeURIComponent(params.phone) +'&message='+ encodeURIComponent(params.message) +'&key='+ callbackSettings.options.key +'&type=email&url=' + encodeURIComponent(location.host);
         }
 
-        xhr.open("POST", callbackSettings.options.serverHost+"api/v1/orders", false);
+        xhr.open("POST", callbackSettings.options.serverHost+"api/v1/orders", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send(body);
 
@@ -787,6 +787,6 @@
       sound = data.sound,
       key = data.key;
 
-  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, sound: sound, key: key, serverHost: 'http://calling-all.meteor.com/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, sound: sound, key: key, serverHost: 'http://calling-all.ru/'});
   wcb.on();
 })();
