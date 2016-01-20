@@ -447,7 +447,8 @@
             widgetCall = widget.getElementsByClassName('wf-widget-call'),
             widgetCallContent = widget.querySelector('.wf-widget-content '),
             widgetBody = widget.querySelector('.wf-body'),
-            widgetTimeText = widget.querySelector('.wf-select-time-text');
+            widgetTimeText = widget.querySelector('.wf-select-time-text'),
+            widgetPoweredBy = widget.querySelector('.wf-powered-by');
 
         switch(callbackSettings.options.position.ver) {
           case 'top':
@@ -466,9 +467,11 @@
         if(windowHeight < 500) {
           widgetBody.style.marginTop = '10%';
           widgetCallContent.style.overflowY = 'scroll';
+          widgetPoweredBy.style.position = 'relative';
         } else {
           widgetBody.style.marginTop = (((windowHeight - widgetBody.clientHeight) / 2) - 150) +'px';
           widgetCallContent.style.overflowY = 'visible';
+          widgetPoweredBy.style.position = 'absolute';
         }
       },
 
@@ -726,7 +729,7 @@
                 widgetBlock += '</form>';
               widgetBlock += '</div>';
             widgetBlock += '</div>';
-            widgetBlock += '<div class="wf-powered-by"><a href="">Установите виджет к себе на сайт</a></div>';
+            widgetBlock += '<div class="wf-powered-by"><a href="http://calling-all.ru/">Установите виджет к себе на сайт</a></div>';
           widgetBlock += '</div>';
         widgetBlock += '</div>';
 
