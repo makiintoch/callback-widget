@@ -67,7 +67,7 @@
     };
 
     var callbackOrder = {
-      addOrder: function(params) {
+      addOrder: function(params, item) {
         var xhr = new XMLHttpRequest(),
             body = '';
 
@@ -79,22 +79,23 @@
 
         xhr.open("POST", callbackSettings.options.serverHost+"api/v1/orders", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send(body);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4) {
+            if(xhr.status == 200) {
+                callbackInit.animateText(item, callbackSettings.options.texts.send.text1.title, callbackSettings.options.texts.send.text1.body);
 
-        if(xhr.status == 200) {
-          if(yandexTarget.id && yandexTarget.name) {
-            var funcName = 'yaCounter'+yandexTarget.id;
-            eval(funcName).reachGoal(yandexTarget.name);
+              if(yandexTarget.id && yandexTarget.name) {
+                var funcName = 'yaCounter'+yandexTarget.id;
+                eval(funcName).reachGoal(yandexTarget.name);
+              };
+            } else {
+              callbackInit.animateText(item, callbackSettings.options.texts.send.text2.title, callbackSettings.options.texts.send.text2.body);
+
+              console.log(xhr.responseText);
+            };
           };
-
-          /*if(googleTarget.id && googleTarget.name) {
-            console.log(googleTarget.name);
-          };*/
-          
-          return {status: 'success', data: xhr.responseText};
-        } else {
-          return {status: 'error', data: xhr.responseText};
-        }
+        };
+        xhr.send(body);
       },
 
       sendForm: function() {
@@ -152,18 +153,10 @@
               type: 'call'
             };
 
-            var info = callbackOrder.addOrder(order);
-
-            if(info.status != 'error') {
-              callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text1.title, callbackSettings.options.texts.send.text1.body);
-            } else {
-              callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text2.title, callbackSettings.options.texts.send.text2.body);
-
-              console.log(info.data);
-            }
+            callbackOrder.addOrder(order, widgetTextPhone);
 
             phoneForm.style.display = 'none';
-          }
+          };
         };
 
         subscribeForm.onsubmit = function(event) {
@@ -183,18 +176,10 @@
               type: 'email'
             };
 
-            var info = callbackOrder.addOrder(order);
-
-            if(info.status != 'error') {
-              callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text1.title, callbackSettings.options.texts.send.text1.body);
-            } else {
-              callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text2.title, callbackSettings.options.texts.send.text2.body);
-
-              console.log(info.data);
-            }
+            callbackOrder.addOrder(order, widgetTextSubscribe);
 
             subscribeForm.style.display = 'none';
-          }
+          };
         };
       }
     }
@@ -837,6 +822,6 @@
       sound = data.sound,
       key = data.key;
 
-  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://calling-all.ru/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://localhost:3000/'});
   wcb.on();
 })();
