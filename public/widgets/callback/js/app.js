@@ -68,7 +68,10 @@
 
     var callbackOrder = {
       addOrder: function(params, item) {
-        var xhr = new XMLHttpRequest(),
+        var widget = document.getElementById('wf-widget'),
+            widgetContent = widget.querySelector('.wf-widget-content'),
+            phoneForm = widget.querySelector('.wf-text-phone form'),
+            xhr = new XMLHttpRequest(),
             body = '';
 
         if(params.type == 'call') {
@@ -82,7 +85,7 @@
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4) {
             if(xhr.status == 200) {
-                callbackInit.animateText(item, callbackSettings.options.texts.send.text1.title, callbackSettings.options.texts.send.text1.body);
+              callbackInit.animateText(item, callbackSettings.options.texts.send.text1.title, callbackSettings.options.texts.send.text1.body);
 
               if(yandexTarget.id && yandexTarget.name) {
                 var funcName = 'yaCounter'+yandexTarget.id;
@@ -93,6 +96,9 @@
 
               console.log(xhr.responseText);
             };
+
+            phoneForm.style.display = 'none';
+            widgetContent.style.cursor = 'default';
           };
         };
         xhr.send(body);
@@ -100,6 +106,7 @@
 
       sendForm: function() {
         var widget = document.getElementById('wf-widget'),
+            widgetContent = widget.querySelector('.wf-widget-content'),
             required = widget.getElementsByClassName('required'),
             phoneForm = widget.querySelector('.wf-text-phone form'),
             subscribeForm = widget.querySelector('.wf-text-subscribe form');
@@ -153,9 +160,8 @@
               type: 'call'
             };
 
+            widgetContent.style.cursor = 'wait';
             callbackOrder.addOrder(order, widgetTextPhone);
-
-            phoneForm.style.display = 'none';
           };
         };
 
@@ -176,9 +182,8 @@
               type: 'email'
             };
 
+            widgetContent.style.cursor = 'wait';
             callbackOrder.addOrder(order, widgetTextSubscribe);
-
-            subscribeForm.style.display = 'none';
           };
         };
       }
@@ -822,6 +827,6 @@
       sound = data.sound,
       key = data.key;
 
-  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://localhost:3000/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://calling-all.ru/'});
   wcb.on();
 })();
