@@ -21,7 +21,8 @@
             text1: {title: '— Приветствую вас!', body: 'хотите мы напишем Вам письмо?'}
           },
           send: {
-            text1: {title: '— Спасибо,', body: 'мы обязательно с вами свяжемся!'}
+            text1: {title: '— Спасибо,', body: 'мы обязательно с вами свяжемся!'},
+            text2: {title: '— Извините,', body: 'произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время.'}
           }
         },
         rotate: {time: 4000},
@@ -58,6 +59,10 @@
         var top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
 
         return top;
+      },
+
+      formatText: function(title, text) {
+        return '<span class="title">'+title+'</span><span class="desc">'+text+'</span> <span class="wf-cursor">_</span>';
       }
     };
 
@@ -150,13 +155,10 @@
             var info = callbackOrder.addOrder(order);
 
             if(info.status != 'error') {
-              var message = '<span>— Спасибо,</span>мы обязательно с вами свяжемся! <span class="wf-cursor">_</span>';
-
-              widgetTextPhone.innerHTML = message;
+              callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text1.title, callbackSettings.options.texts.send.text1.body);
             } else {
-              var message = '<span>— Извините,</span>произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время. <span class="wf-cursor">_</span>';
+              callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text2.title, callbackSettings.options.texts.send.text2.body);
 
-              widgetTextPhone.innerHTML = message;
               console.log(info.data);
             }
 
@@ -184,13 +186,10 @@
             var info = callbackOrder.addOrder(order);
 
             if(info.status != 'error') {
-              var message = '<span>— Спасибо,</span>мы обязательно с вами свяжемся! <span class="wf-cursor">_</span>';
-
-              widgetTextSubscribe.innerHTML = message;
+              callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text1.title, callbackSettings.options.texts.send.text1.body);
             } else {
-              var message = '<span>— Извините,</span>произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время. <span class="wf-cursor">_</span>';
+              callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text2.title, callbackSettings.options.texts.send.text2.body);
 
-              widgetTextSubscribe.innerHTML = message;
               console.log(info.data);
             }
 
@@ -270,7 +269,6 @@
             tomorrow = ((dayOfWeek+1) > 6) ? 0 : (dayOfWeek+1),
             weekDay = callbackDate.settings.weekday,
             sortDayArray = callbackDate.getSortDayArray(),
-            //day = [7, 1, 2, 3, 4, 5, 6],
             afterTomorrow = ((tomorrow+1) > 6) ? 0 : (tomorrow+1),
             monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня","июля", "августа", "сентября", "октября", "ноября", "декабря"],
             selectDay = '<div class="wf-day-show">',
@@ -279,7 +277,6 @@
 
         for(var i = 0; i < sortDayArray.length; i++) {
           var weekdayDate = new Date(),
-              //dayIndex = (weekdayDate.getDay() > day[sortDayArray[i]] ? (day[sortDayArray[i]] + 7) : day[sortDayArray[i]]) - weekdayDate.getDay();
               dayIndex = (weekdayDate.getDay() > sortDayArray[i] ? (sortDayArray[i] + 7) : sortDayArray[i]) - weekdayDate.getDay();
 
           weekdayDate.setDate(weekdayDate.getDate() + dayIndex);
@@ -336,7 +333,6 @@
 
             startTime.setHours(date.getHours()+1);
             startTime.setMinutes(start[1]);
-            //startTime.setTime(startTime.getTime() - (utc*60*60*1000));
           } else {
             var start = timeWork[weekDay[sortDayArray[i]]].start.split(":"),
                 end = timeWork[weekDay[sortDayArray[i]]].end.split(":");
@@ -547,10 +543,21 @@
       showWidgetContentBlock: function() {
         document.getElementsByClassName('wf-widget-call')[0].onclick = function(event) {
           var widget = document.getElementById('wf-widget'),
-              widgetContent = widget.getElementsByClassName('wf-widget-content');
+              widgetContent = widget.getElementsByClassName('wf-widget-content'),
+              widgetTab = widget.querySelectorAll('.wf-icons .wf-icon'),
+              widgetTabActive = widget.querySelector('.wf-icons .wf-active'),
+              indexTab = Array.prototype.indexOf.call(widgetTab, widgetTabActive);
 
           this.className = this.className + ' wf-hide';
           widgetContent[0].style[callbackSettings.options.position.hor] = 0;
+
+          if (indexTab) {
+            callbackInit.animateText(widgetContent[0].querySelector('.wf-text-subscribe .wf-text-item'));
+          } else {
+            callbackInit.animateText(widgetContent[0].querySelector('.wf-text-phone .wf-text-item'));
+          }
+
+          
 
           if(callbackSettings.options.sound == 'true') {
               var sound = document.getElementById("wf-open-one-audio");
@@ -593,9 +600,11 @@
             if(hasClass === true) {
               widgetText[1].style.display = "none";
               widgetText[0].style.display = "block";
+              callbackInit.animateText(widgetText[0].querySelector('.wf-text-item'));
             } else {
               widgetText[0].style.display = "none";
               widgetText[1].style.display = "block";
+              callbackInit.animateText(widgetText[1].querySelector('.wf-text-item'));
             }
 
             widgetIcon[0].className = widgetIcon[0].className.replace(/\bwf-active\b/, '');
@@ -603,7 +612,38 @@
 
             this.className = this.className +' wf-active';
           };
-        }
+        };
+      },
+
+      animateText: function(item, title, desc) {
+        var timer1, timer2, 
+            timer1Count = 0,
+            timer2Count = 0,
+            title = (title) ? title : item.querySelector('.title').innerText,
+            desc = (desc) ? desc : item.querySelector('.desc').innerText;
+
+        item.querySelector('.title').innerText = item.querySelector('.desc').innerText = '';
+
+        function animateTitle() {
+          item.querySelector('.title').textContent += title[timer1Count];
+          timer1Count++;
+
+          if(timer1Count >= title.length) {
+            clearInterval(timer1);
+            timer2 = setInterval(animateDesc, 15);
+          };
+        };
+
+        function animateDesc() {
+          item.querySelector('.desc').textContent += desc[timer2Count];
+          timer2Count++;
+
+          if(timer2Count >= desc.length) {
+            clearInterval(timer2);
+          };
+        };
+
+        timer1 = setInterval(animateTitle, 20);
       },
 
       runScenarios: function() {
@@ -756,9 +796,8 @@
         widgetContent[0].style[callbackSettings.options.position.hor] = '-375px';
         widgetContent[0].className = widgetContent[0].className + ' wf-schema-'+callbackSettings.options.schema;
 
-
-        widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = '<span>'+ ccallbackSettings.options.texts.call.text1.title +'</span> '+ callbackSettings.options.texts.call.text1.body +' <span class="wf-cursor">_</span>';
-        widget.querySelector('.wf-text-subscribe .wf-text-item').innerHTML = '<span>'+ callbackSettings.options.texts.email.text1.title +'</span> '+ callbackSettings.options.texts.email.text1.body +' <span class="wf-cursor">_</span>';
+        widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = callbackSettings.formatText(callbackSettings.options.texts.call.text1.title, callbackSettings.options.texts.call.text1.body);
+        widget.querySelector('.wf-text-subscribe .wf-text-item').innerHTML = callbackSettings.formatText(callbackSettings.options.texts.email.text1.title, callbackSettings.options.texts.email.text1.body);
 
         var day = callbackDate.getListDay();
         callbackDate.showDate(day);

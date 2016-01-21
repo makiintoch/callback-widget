@@ -198,11 +198,15 @@
   transition: all 1s cubic-bezier(.19,1,.22,1);
 }
 #wf-widget .wf-text .wf-text-item {
-  font: 16px 'Roboto', sans-serif;
+  padding: 0 10px;
 }
-#wf-widget .wf-text .wf-text-item span {
+#wf-widget .wf-text .wf-text-item .title {
+  margin-bottom: 12px;
   display: block;
-  font-size: 24px;
+  font: 24px 'Roboto', sans-serif;
+}
+#wf-widget .wf-text .wf-text-item .desc {
+  font: 16px 'Roboto', sans-serif;
 }
 #wf-widget .wf-text .wf-text-item .wf-cursor {
   display: inline-block;
