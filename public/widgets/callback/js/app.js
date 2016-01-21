@@ -197,6 +197,14 @@
         }
       },
 
+      isTodayWorkDay: function() {
+        var date = new Date(),
+            workDayArray = callbackDate.getWorkDayArray(),
+            dayOfWeek = date.getDay();
+
+        return (workDayArray.indexOf(dayOfWeek) > -1) ? true : false;
+      },
+
       getWorkDayArray: function() {
         var workDayArray = new Array(),
             weekDay = callbackDate.settings.weekday,
@@ -786,7 +794,13 @@
         widgetContent[0].style[callbackSettings.options.position.hor] = '-375px';
         widgetContent[0].className = widgetContent[0].className + ' wf-schema-'+callbackSettings.options.schema;
 
-        widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = callbackSettings.formatText(callbackSettings.options.texts.call.text1.title, callbackSettings.options.texts.call.text1.body);
+        if (callbackDate.isTodayWorkDay()) {
+          widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = callbackSettings.formatText(callbackSettings.options.texts.call.text1.title, callbackSettings.options.texts.call.text1.body);
+        } else {
+          widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = callbackSettings.formatText(callbackSettings.options.texts.call.text2.title, callbackSettings.options.texts.call.text2.body);
+        }
+        
+
         widget.querySelector('.wf-text-subscribe .wf-text-item').innerHTML = callbackSettings.formatText(callbackSettings.options.texts.email.text1.title, callbackSettings.options.texts.email.text1.body);
 
         var day = callbackDate.getListDay();
