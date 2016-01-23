@@ -650,11 +650,20 @@
         function showWidget() {
           var widget = document.getElementById('wf-widget'),
               widgetCall = widget.querySelector('.wf-widget-call'),
-              widgetContent = widget.getElementsByClassName('wf-widget-content');
+              widgetContent = widget.getElementsByClassName('wf-widget-content'),
+              widgetTab = widget.querySelectorAll('.wf-icons .wf-icon'),
+              widgetTabActive = widget.querySelector('.wf-icons .wf-active'),
+              indexTab = Array.prototype.indexOf.call(widgetTab, widgetTabActive);
 
           if(widgetContent[0].style[callbackSettings.options.position.hor] != '0px') {
             widgetCall.className = widgetCall.className + ' wf-hide';
             widgetContent[0].style[callbackSettings.options.position.hor] = 0;
+
+            if (indexTab) {
+              callbackInit.animateText(widgetContent[0].querySelector('.wf-text-subscribe .wf-text-item'));
+            } else {
+              callbackInit.animateText(widgetContent[0].querySelector('.wf-text-phone .wf-text-item'));
+            }
 
             if (callbackSettings.options.sound == 'true') {
               var sound = document.getElementById("wf-open-one-audio");
