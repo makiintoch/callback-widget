@@ -7,6 +7,9 @@
     <!--<li><a href="{{pathFor 'billing'}}">Платежи</a></li>-->
     <li><a href="{{pathFor 'callback'}}">Поддержка</a></li>
     <li><a href="{{pathFor 'profile'}}">Профиль</a></li>
+    {{#if isAdminUser}}
+      <li><a href="{{pathFor 'admin'}}">Пользователи</a></li>
+    {{/if}}
     <li><a href="{{pathFor 'profile'}}" class="logout">Выход</a></li>
   </ul>
 </template>
