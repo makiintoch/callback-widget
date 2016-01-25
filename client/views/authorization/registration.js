@@ -7,12 +7,17 @@ Template.registration.events({
       password: $(e.target).find('[name=password]').val()
     };
 
-    Accounts.createUser(registration, function(error) {
-      if (error) {
-        throwError(error.reason);
-      } else {
-        Router.go('widgetsList');
-      }
-    });
+    var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+    if (!pattern.test(registration.email)) {
+      throwError("Введите корректный email");
+    } else {
+      Accounts.createUser(registration, function(error) {
+        if (error) {
+          throwError(error.reason);
+        } else {
+          Router.go('widgetsList');
+        }
+      });
+    };
   }
 });

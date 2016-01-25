@@ -19,7 +19,7 @@ Template.login.events({
 
     Meteor.loginWithPassword(login.email, login.password, function(error) {
       if (error) {
-        throwError(error.reason);
+        throwError("К сожалению произошла ошибка: "+ error.reason);
       } else {
         Router.go('widgetsList');
       }
