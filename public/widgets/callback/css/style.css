@@ -203,10 +203,13 @@
 #wf-widget .wf-text .wf-text-item .title {
   margin-bottom: 12px;
   display: block;
-  font: 24px 'Roboto', sans-serif;
+  font: 300 24px 'Roboto', sans-serif;
+  text-transform: none;
+  color: #333;
 }
 #wf-widget .wf-text .wf-text-item .desc {
-  font: 16px 'Roboto', sans-serif;
+  font: 300 16px 'Roboto', sans-serif;
+  color: #333;
 }
 #wf-widget .wf-text .wf-text-item .wf-cursor {
   display: inline-block;
@@ -214,7 +217,10 @@
   animation: 1s blink ease-in infinite;
 }
 #wf-widget .wf-text form {
-  margin-top: 20%;
+  margin: 20% 0 0;
+  padding: 0;
+  background: none;
+  border: 0 none;
 }
 #wf-widget .wf-text form input[type="text"],
 #wf-widget .wf-text form textarea {
