@@ -2,11 +2,11 @@
   // Server authentication info
   "servers": [
     {
-      "host": "52.29.80.97",
-      "username": "ubuntu",
+      "host": "178.62.85.163",
+      "username": "root",
       //"password": "password"
       // or pem file (ssh based authentication)
-      "pem": "~/.ssh/makiintoch-pc.pem"
+      "pem": "~/.ssh/id_rsa"
     }
   ],
 
@@ -30,11 +30,11 @@
   "appName": "callback",
 
   // Location of app (local directory)
-  "app": ".",
+  "app": "/home/callback",
 
   // Configure environment
   "env": {
-    "ROOT_URL": "http://call-message.com",
+    "ROOT_URL": "http://call-message.com/",
     "MAIL_URL": "smtp://postmaster@sandbox61e3902b3cdc4282861d06013fbc22c6.mailgun.org:Js86da$daJg@smtp.mailgun.org:25"
   },
 
