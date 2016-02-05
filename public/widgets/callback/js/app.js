@@ -782,7 +782,7 @@
                 widgetBlock += '</form>';
               widgetBlock += '</div>';
             widgetBlock += '</div>';
-            widgetBlock += '<div class="wf-powered-by"><a href="http://calling-all.ru/">Установите виджет к себе на сайт</a></div>';
+            widgetBlock += '<div class="wf-powered-by"><a href="http://call-message.com/">Установите виджет к себе на сайт</a></div>';
           widgetBlock += '</div>';
         widgetBlock += '</div>';
 
@@ -850,6 +850,6 @@
       sound = data.sound,
       key = data.key;
 
-  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://calling-all.ru/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://call-message.com/'});
   wcb.on();
 })();

@@ -30,7 +30,7 @@
   "appName": "callback",
 
   // Location of app (local directory)
-  "app": "/home/callback",
+  "app": ".",
 
   // Configure environment
   "env": {
