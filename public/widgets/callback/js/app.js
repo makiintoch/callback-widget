@@ -22,7 +22,8 @@
           },
           send: {
             text1: {title: '— Спасибо,', body: 'мы обязательно с вами свяжемся!'},
-            text2: {title: '— Извините,', body: 'произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время.'}
+            text2: {title: '— Извините,', body: 'произошла ошибка, мы уже знаем о ней, и исправим ее в ближайшее время.'},
+            text3: {title: '— Спасибо,', body: 'мы обрабатываем Вашу заявку!'},
           }
         },
         rotate: {time: 4000},
@@ -70,7 +71,6 @@
       addOrder: function(params, item) {
         var widget = document.getElementById('wf-widget'),
             widgetContent = widget.querySelector('.wf-widget-content'),
-            phoneForm = widget.querySelector('.wf-text-phone form'),
             xhr = new XMLHttpRequest(),
             body = '';
 
@@ -96,8 +96,6 @@
 
               console.log(xhr.responseText);
             };
-
-            phoneForm.style.display = 'none';
             widgetContent.style.cursor = 'default';
           };
         };
@@ -161,6 +159,8 @@
             };
 
             widgetContent.style.cursor = 'wait';
+            phoneForm.style.display = 'none';
+            callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text3.title, callbackSettings.options.texts.send.text3.body);
             callbackOrder.addOrder(order, widgetTextPhone);
           };
         };
@@ -183,6 +183,8 @@
             };
 
             widgetContent.style.cursor = 'wait';
+            subscribeForm.style.display = 'none';
+            callbackInit.animateText(widgetTextSubscribe, callbackSettings.options.texts.send.text3.title, callbackSettings.options.texts.send.text3.body);
             callbackOrder.addOrder(order, widgetTextSubscribe);
           };
         };
