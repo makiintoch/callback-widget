@@ -1,0 +1,60 @@
+<template name="mainTemplate">
+    <div class="main-wrapper">
+        <header class="main-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <a class="main-logo" href="/">call-message.com</a>
+                    </div>
+                    <div class="col-md-5 main-login">
+                        <a href="main-login">Вход</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                <div class="main-info">
+                    <h1 class="main-title">Персональный виджет</h1>
+
+                    <div class="main-desc">
+                        <p>Любые цветовые схемы, индивидуальные настройки цветов.</p>
+                        <br>
+                        <div class="text-right"><p>Текст виджета именно тот, который нужен Вам!</p></div>
+                        <br>
+                        <p>Акции, спец. предложения, распродажи именно вашего товара, в зависимости  от рабочего времени, а не общие фразы типа «Оставьте звонок».</p>
+                    </div>
+                    <form class="main-form" action="/">
+                        <input name ="email" type="email" placeholder="Введите E-mail">
+                        <input name="password" type="password" placeholder="Введите пароль">
+                        <input type="submit" value="Получить доступ">
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="main-footer">
+        <div class="container">
+            <h2>Так же возможно подключить:</h2>
+
+            <ul>
+                <li>Отправка заявок на СМС. (заявки клиентов не на почту, а в виде СМС на телфон. На случай если не стабильный интернет или нет постоянного доступа к почте).</li>
+                <li>Отправка смс клиенту после заполнения формы. (Заранее подготовленное СМС с благодарностью ,  предложением или контактами Вашей компании).</li>
+                <li>Онлай-чат с клиентом.</li>
+                <li>Перезвоним за 5-30 секунд. (время выбираете Вы в зависимости от скорости реакции менеджером).<br>
+                    Пока идет отсчет, виджет по IP телефонии звонит и Вам и клиенту, затем просто соединяет. Вау-эффект обеспечен.
+                </li>
+            </ul>
+
+            <form class="main-form" action="/">
+                <input name="email" type="email" placeholder="Введите E-mail">
+                <input name="password" type="password" placeholder="Введите пароль">
+                <input type="submit" value="Получить доступ">
+            </form>
+        </div>
+    </footer>
+
+    {{>authorization}}
+</template>

@@ -13,7 +13,7 @@ Template.registration.events({
     } else {
         Accounts.createUser(registration, function(error) {
             if (error) {
-                throwError(error.reason);
+                throwError("К сожалению произошла ошибка: "+ error.reason);
             } else {
                 Router.go('widgetsList');
             }

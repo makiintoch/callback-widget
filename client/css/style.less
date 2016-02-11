@@ -276,6 +276,18 @@ h3,
   textarea:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 }
 
+.form-auth {
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+    width: 100%;
+  }
+}
+
+.form-auth-send-email {
+  display: none;
+}
+
 .form-widget {
   font-family: 'Open Sans Condensed', sans-serif;
   font-size: 18px;
@@ -535,4 +547,117 @@ h3,
   .form-widget .emails .email-item {
     width: 100%;
   }
+}
+
+
+/*
+**  Wrapper
+*/
+.main-wrapper {
+  height: 870px;
+  text-shadow: 1px 1px 1px #333;
+  background: url(../img/monkey.jpg) 50% 50% no-repeat;
+}
+/*
+**  Header
+*/
+.main-header {
+  padding: 25px 0;
+  border-bottom: #E44156 1px solid;
+}
+.main-header .main-logo {
+  display: inline-block;
+  font-size: 42px;
+  font-weight: 300;
+  line-height: 60px;
+  text-transform: uppercase;
+  color: white;
+}
+.main-header .main-logo:hover {
+  text-decoration: none;
+  color: #1FB5FF;
+}
+.main-header .main-login {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 60px;
+  text-align: right;
+  color: white;
+}
+.main-header .main-login a {
+  color: white;
+}
+.main-header .main-login a:hover {
+  text-decoration: none;
+  color: #1FB5FF;
+}
+/*
+**  Content
+*/
+.main-info {
+  color: white;
+}
+.main-info .main-title {
+  padding: 65px 0 50px;
+  font-size: 62px;
+  font-weight: 300;
+  text-align: center;
+}
+.main-info .main-desc {
+  margin-bottom: 50px;
+  font-size: 26px;
+  font-weight: 400;
+  font-style: italic;
+}
+/*
+**  Form
+*/
+.main-form {
+  width: 40%;
+  margin: 0 auto;
+}
+.main-form input[type="text"],
+.main-form input[type="email"],
+.main-form input[type="password"] {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 15px;
+  padding: 0 25px;
+  color: #333;
+  border: 0 none;
+  box-shadow: 1px 1px 2px #333;
+}
+.main-form input[type="button"],
+.main-form input[type="submit"] {
+  width: 100%;
+  height: 40px;
+  text-transform: uppercase;
+  color: #fff;
+  background: #E44156;
+  border: 0 none;
+  box-shadow: 1px 1px 2px #333;
+}
+.main-form input[type="button"]:hover,
+.main-form input[type="submit"]:hover {
+  background: #D36D7A;
+}
+/*
+**  Footer
+*/
+.main-footer {
+  margin-bottom: 75px;
+  text-shadow: 1px 1px 1px #ccc;
+}
+.main-footer h2 {
+  padding: 50px 0;
+  font-size: 42px;
+  font-weight: 300;
+  text-align: center;
+}
+.main-footer ul {
+  margin-bottom: 50px;
+}
+.main-footer ul li {
+  margin-bottom: 10px;
+  font-size: 18px;
 }
