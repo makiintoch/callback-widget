@@ -596,50 +596,74 @@ h3,
 */
 .main-info {
   color: white;
+  .main-title {
+    padding: 100px 0 50px;
+    font-size: 62px;
+    font-weight: 300;
+    text-align: center;
+  }
+  .main-subtitle {
+    margin-top: -7px;
+    font-size: 22px;
+    font-weight: 300;
+    text-align: center;
+  }
+  .main-link {
+    font-size: 20px;
+    color: #E44156;
+    a {
+      color: #E44156;
+    }
+  }
+  .main-desc {
+    margin-bottom: 50px;
+    font-size: 26px;
+    font-weight: 400;
+    font-style: italic;
+  }
 }
-.main-info .main-title {
-  padding: 100px 0 50px;
-  font-size: 62px;
-  font-weight: 300;
-  text-align: center;
-}
-.main-info .main-desc {
-  margin-bottom: 50px;
-  font-size: 26px;
-  font-weight: 400;
-  font-style: italic;
-}
+
 /*
 **  Form
 */
 .main-form {
   width: 40%;
   margin: 0 auto;
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+    padding: 0 25px;
+    color: #333;
+    border: 0 none;
+    box-shadow: 1px 1px 2px #333;
+  }
+  input[type="button"],
+  input[type="submit"] {
+    width: 100%;
+    height: 40px;
+    text-transform: uppercase;
+    color: #fff;
+    background: #E44156;
+    border: 0 none;
+    box-shadow: 1px 1px 2px #333;
+  }
+  input[type="button"]:hover,
+  input[type="submit"]:hover {
+    background: #D36D7A;
+  }
 }
-.main-form input[type="text"],
-.main-form input[type="email"],
-.main-form input[type="password"] {
-  width: 100%;
-  height: 40px;
-  margin-bottom: 15px;
-  padding: 0 25px;
-  color: #333;
-  border: 0 none;
-  box-shadow: 1px 1px 2px #333;
-}
-.main-form input[type="button"],
-.main-form input[type="submit"] {
-  width: 100%;
-  height: 40px;
-  text-transform: uppercase;
-  color: #fff;
-  background: #E44156;
-  border: 0 none;
-  box-shadow: 1px 1px 2px #333;
-}
-.main-form input[type="button"]:hover,
-.main-form input[type="submit"]:hover {
-  background: #D36D7A;
+.main-content {
+  .main-form {
+    width: 100%;
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      margin-bottom: 25px;
+    }
+  }
 }
 /*
 **  Footer
@@ -647,17 +671,17 @@ h3,
 .main-footer {
   margin-bottom: 75px;
   text-shadow: 1px 1px 1px #ccc;
-}
-.main-footer h2 {
-  padding: 50px 0;
-  font-size: 42px;
-  font-weight: 300;
-  text-align: center;
-}
-.main-footer ul {
-  margin-bottom: 50px;
-}
-.main-footer ul li {
-  margin-bottom: 10px;
-  font-size: 18px;
+  h2 {
+    padding: 50px 0;
+    font-size: 42px;
+    font-weight: 300;
+    text-align: center;
+  }
+  ul {
+    margin-bottom: 50px;
+    li {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+  }
 }
