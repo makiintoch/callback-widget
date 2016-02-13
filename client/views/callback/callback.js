@@ -17,7 +17,7 @@ Template.callback.events({
 
     var emailSend = {
       subject: 'Письмо: '+ Meteor.absoluteUrl(),
-      email: 'archibald@email.ua',
+      email: 'anton.l@bk.ru',
       message: message
     };
 
