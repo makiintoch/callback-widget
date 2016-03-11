@@ -1,0 +1,16 @@
+<template name="userItem">
+  <tr>
+    <td>  
+      {{#each emails}}
+        {{address}}
+      {{/each}}
+    </td>
+    <td>
+      {{#each widgets}}
+        <p><b>Имя:</b> {{name}}; <b>Сайт:</b> {{url}}</p>
+        <hr>
+      {{/each}}
+    </td>
+    <td>{{date}}</td>
+  </tr>
+</template>

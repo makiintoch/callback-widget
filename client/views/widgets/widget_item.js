@@ -76,7 +76,7 @@ Template.widgetItem.events({
       Modal.hide('widgetShowServiceModal');
       throwMessage('Мы добавим эту услугу в ближайшее время!', 'Спасибо что обратились');
 
-      Meteor.call('sendEmail', {email: 'anton.l@bk.ru', subject: 'Заказ доп. услуги', message: '<p><b>Заказ доп. услуги:</b>'+info+'</p>'});
+      Meteor.call('sendEmail', {email: 'anton.l@bk.ru', subject: 'Заказ доп. услуги от'+ Meteor.user().emails[0].address, message: '<p><b>Заказ доп. услуги:</b>'+info+'</p>'});
     });
   }
 });

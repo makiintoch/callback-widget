@@ -1,0 +1,16 @@
+<template name="accountsAdmin">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>E-mail</th>
+        <th>Виджеты</th>
+        <th>Дата регистрации</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+        {{> userItem}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>
