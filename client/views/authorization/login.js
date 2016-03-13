@@ -46,7 +46,5 @@ Template.login.events({
 
         $('.form-auth-login').hide();
         $('.form-auth-send-email').show();
-
-    console.log('click link');
   }
 });

@@ -4,7 +4,10 @@ Template.registration.events({
 
     var registration = {
         email: $(e.target).find('[name=email]').val(),
-        password: $(e.target).find('[name=password]').val()
+        password: $(e.target).find('[name=password]').val(),
+        profile : {
+            referrer: document.referrer
+        }
     };
 
     var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;

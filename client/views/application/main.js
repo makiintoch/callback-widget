@@ -4,7 +4,10 @@ Template.mainTemplate.events({
 
         var data = {
             email: $(e.target).find('[name=email]').val(),
-            password: $(e.target).find('[name=password]').val()
+            password: $(e.target).find('[name=password]').val(),
+            profile : {
+                referrer: document.referrer
+            }
         };
 
         Meteor.loginWithPassword(data.email, data.password, function(error) {
