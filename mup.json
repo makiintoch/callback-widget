@@ -4,9 +4,9 @@
     {
       "host": "178.62.85.163",
       "username": "root",
-      //"password": "password"
+      "password": "F2Jh5o&w8JGfs@gg"
       // or pem file (ssh based authentication)
-      "pem": "~/.ssh/id_rsa"
+      //"pem": "~/.ssh/id_rsa"
     }
   ],
 

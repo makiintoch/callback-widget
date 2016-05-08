@@ -8,12 +8,12 @@ var gulp        = require('gulp'),
 
 var path = {
     build: {
-        js:    'public/widgets/callback/js/',
-        css:   'public/widgets/callback/css/'
+        js:    'js/',
+        css:   'css/'
     },
     src: {
-        js:    'public/widgets/callback/js/app.js',
-        style: 'public/widgets/callback/css/style.css'
+        js:    'js/app.js',
+        style: 'css/style.css'
     }
 };
 
