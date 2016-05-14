@@ -21,6 +21,7 @@ Template.widgetEdit.events({
       url: $(e.target).find('[name=url]').val(),
       emails: emails,
       //emailShortNotice: $(e.target).find('[name=email-short-notice]').is(':checked') ? true : false,
+      phone: $(e.target).find('[name=phone]').val(),
       timeGmt: $(e.target).find('select[name="work-time-gmt"]').val(),
       timeSame: timeSameDayActive,
       scenarios: {

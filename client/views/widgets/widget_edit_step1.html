@@ -29,10 +29,14 @@
     <p class="title">СМС-рассылка уведомлений <span>(стоимость 300 рублей в месяц)</span></p>
 
     {{#unless widget.smsSubscribe}}
-      <p>Подписка не оформлена. <a href="">Оформить подписку.</a></p>
+      <p>Подписка не оформлена. <a href="{{pathFor 'subscription'}}">Оформить подписку.</a></p>
+
+      <p>Выключен <input class="switch" type="checkbox" name="sms-subscribe" checked="{{widget.smsSubscribe}}" disabled> Включен</p>
+    {{else}}
+      <p>Выключен <input class="switch" type="checkbox" name="sms-subscribe" checked="{{widget.smsSubscribe}}"> Включен</p>
     {{/unless}}
 
-    <p>Выключен <input class="switch" type="checkbox" name="sms-subscribe" checked="{{widget.smsSubscribe}}"> Включен</p>
+    
   </div>
 
   <div class="item">
