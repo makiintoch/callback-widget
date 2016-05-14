@@ -160,7 +160,7 @@
 
             widgetContent.style.cursor = 'wait';
             phoneForm.style.display = 'none';
-            callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text3.title, callbackSettings.options.texts.send.text3.body);
+            //callbackInit.animateText(widgetTextPhone, callbackSettings.options.texts.send.text3.title, callbackSettings.options.texts.send.text3.body);
             callbackOrder.addOrder(order, widgetTextPhone);
           };
         };
@@ -184,7 +184,7 @@
 
             widgetContent.style.cursor = 'wait';
             subscribeForm.style.display = 'none';
-            callbackInit.animateText(widgetTextSubscribe, callbackSettings.options.texts.send.text3.title, callbackSettings.options.texts.send.text3.body);
+            //callbackInit.animateText(widgetTextSubscribe, callbackSettings.options.texts.send.text3.title, callbackSettings.options.texts.send.text3.body);
             callbackOrder.addOrder(order, widgetTextSubscribe);
           };
         };
@@ -852,6 +852,6 @@
       sound = data.sound,
       key = data.key;
 
-  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://call-message.com/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://localhost:3000/'});
   wcb.on();
 })();

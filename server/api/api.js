@@ -31,6 +31,7 @@ ApiV1.addCollection(Orders, {
           var orderId = Orders.insert(order);
         } else {
           //Meteor.call('sendEmail', {email: userEmail, subject: 'Ошибки в работе сервиса', message: 'Ошибка'});
+
           return {
             statusCode: 500,
             headers: {
@@ -56,6 +57,16 @@ ApiV1.addCollection(Orders, {
             message += '<tr><td><b>Телефон:</b></td><td>'+ params.phone +'</td></tr>'
             message += '<tr><td><b>Время звонка:</b></td><td>'+ params.time +'</td></tr>';
             message += '</table>';
+          };
+
+          var smsInfo = sendSMS('anton.l@bk.ru', 'HpNx3EO9Z6I4D1VeQqTbUvlycjl', '79997145627', 'test sms');
+
+          if(smsInfo.status == "success") {
+            console.log("Success: ");
+            console.log(smsInfo.data);
+          } else {
+            console.log("Error: ");
+            console.log(smsInfo.data);
           }
 
           for (var i = 0; i < widget.emails.length; i++) {
@@ -165,3 +176,21 @@ ApiV1.addCollection(Widgets, {
 ApiV1.addRoute('/widget-get', {
   get: function () {}
 });
+
+
+var sendSMS = function(login, password, phone, text) {
+  var fut = new Future();
+
+  request({
+    method: 'GET',
+    uri: 'https://gate.smsaero.ru/send/?user='+login+'&password='+password+'&to='+phone+'&text='+text+'&from=CallMessage&digital=1&answer=json'
+  }, function(error, response, body) {
+    if(!error && response.statusCode == 200) {
+      fut['return']({status: "success", data: JSON.parse(body)});
+    } else {
+      fut['return']({status: "error", data: error});
+    };
+  });
+
+  return fut.wait();
+}

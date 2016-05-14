@@ -19,11 +19,27 @@
     <a class="link email-add" href="#">Добавить email</a>
   </div>
 
-  <!--<div class="item">
+  <div class="item">
+    <p class="title">Номер телефона <span>(на который будут приходить смс)</span></p>
+
+    <input name="phone" type="number" value="{{widget.phone}}" placeholder="Номер телефона">
+  </div>
+
+  <div class="item">
+    <p class="title">СМС-рассылка уведомлений <span>(стоимость 300 рублей в месяц)</span></p>
+
+    {{#unless widget.smsSubscribe}}
+      <p>Подписка не оформлена. <a href="">Оформить подписку.</a></p>
+    {{/unless}}
+
+    <p>Выключен <input class="switch" type="checkbox" name="sms-subscribe" checked="{{widget.smsSubscribe}}"> Включен</p>
+  </div>
+
+  <div class="item">
     <p class="title">Короткий тип E-mail уведомления <span>(подходит для СМС-рассылки)</span></p>
 
     <p>Выключен <input class="switch" type="checkbox" name="email-short-notice" checked="{{widget.emailShortNotice}}"> Включен</p>
-  </div>-->
+  </div>
 
   <div class="item">
     <p class="title">Звук <span>(включить/выключить звук виджета)</span></p>
