@@ -59,7 +59,7 @@ ApiV1.addCollection(Orders, {
             message += '</table>';
           };
 
-          var smsInfo = sendSMS('anton.l@bk.ru', 'HpNx3EO9Z6I4D1VeQqTbUvlycjl', '79997145627', 'test sms');
+          //var smsInfo = sendSMS('anton.l@bk.ru', 'HpNx3EO9Z6I4D1VeQqTbUvlycjl', '79997145627', 'test sms');
 
           if(smsInfo.status == "success") {
             console.log("Success: ");
