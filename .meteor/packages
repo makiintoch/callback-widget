@@ -38,3 +38,5 @@ peppelg:bootstrap-3-modal
 reactive-var
 froatsnook:request
 jaredmartin:future
+jparker:crypto-core
+jparker:crypto-base64

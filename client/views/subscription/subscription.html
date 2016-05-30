@@ -1,23 +1,30 @@
 <template name="subscription">
-  <h2>Оформить подписку</h2>
+	<h2>Оформить подписку</h2>
 
-  <form class="form">
-    <div>
-      Вилжет:
-      <select name="widget" id="">
-      	{{widgetsList}}
-      </select>
-    </div>
-    <div>
-      <p>СМС-рассылка</p>
-    </div>
-    <div>
-      <input class="required" name="number-months" type="number" placeholder="Количество месяцев" min="1" max="60">
-    </div>
-    <div>
-      <h4>Сумма: 300 руб.</h4>
-    </div>
+	<form class="form" method="post" action="https://wl.walletone.com/checkout/checkout/Index" accept-charset="UTF-8">
+		<div>
+			Вилжет:
+			<select name="widget" id="">
+				{{widgetsList}}
+			</select>
+		</div>
+		<div>
+			<p>СМС-рассылка</p>
+		</div>
+		<div>
+			<input class="required" name="number-months" type="number" placeholder="Количество месяцев" min="1" max="60">
+		</div>
+		<div>
+			<h4>Сумма: 300 руб.</h4>
+		</div>
 
-    <input class="button" type="submit" value="Оплатить">
+		{{{getFields}}}
+
+		{{{getSignature}}}
+
+		<input class="button" type="submit" value="Оплатить">
   </form>
+
+
+  
 </template>
