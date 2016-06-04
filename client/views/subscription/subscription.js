@@ -49,11 +49,7 @@ Template.subscription.helpers({
 	Meteor.call('getSignature', values + key, function(error, result) {
     	inputs += createInput('WMI_SIGNATURE', result);
 
-    	console.log(result);
-
     	Session.set('signatureField', inputs);
 	});
-
-	return inputs;
   }
 });
