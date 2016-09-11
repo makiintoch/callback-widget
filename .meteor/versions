@@ -48,6 +48,7 @@ iron:url@1.0.11
 jaredmartin:future@0.0.3
 jparker:crypto-base64@0.1.0
 jparker:crypto-core@0.1.0
+jparker:crypto-md5@0.1.1
 jquery@1.11.4
 launch-screen@1.0.4
 less@2.5.1

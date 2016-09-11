@@ -1,10 +1,13 @@
+Template.subscription.onCreated(function() {
+	Session.set('smsCount', 10);
+});
+
 Template.subscription.helpers({
   widgetsList: function() {
   	var widget = Widgets.find(),
   		option = '<option disabled selected>Выберите виджет</option>';
 
 	widget.forEach(function(item) {
-
 	  option += '<option value="'+item._id+'">'+item.name+'</option>';
 	}); 
 
@@ -14,13 +17,15 @@ Template.subscription.helpers({
   	return Session.get('signatureField')
   },
   getPaymentAmount: function() {
-  	return 300;
+  	var smsCount = Session.get('smsCount');
+
+  	return smsCount*3;
   },
   getFields: function() {
   	var key = '7a7261585c525f685638615f536b74685f5b5776703770716e474e',
-  	    widgetId = 123,
-  	    smsCount = 123,
-  	    paymentAmount = 10.00;
+  	    widgetId = Session.get('widgetId'),
+  	    smsCount = Session.get('smsCount'),
+  	    paymentAmount = (parseFloat(Session.get('smsCount')) * 3).toFixed(2);
 
 	var fields = {
 	  WMI_MERCHANT_ID: '131114291158',
@@ -63,5 +68,39 @@ Template.subscription.helpers({
 
     	Session.set('signatureField', inputs);
 	});
+  }
+});
+
+Template.subscription.events({
+  'click .sms-remove': function(e) {
+    e.preventDefault();
+
+    var smsCountInput = $('.form-subscribe .sms-count'),
+    	smsCount = parseInt(smsCountInput.val()) - 10;
+
+    if(parseInt(smsCountInput.val()) > 10) {
+	    smsCountInput.val(smsCount);
+
+	    Session.set('smsCount', smsCount);
+    };
+  },
+  'click .sms-add': function(e) {
+  	e.preventDefault();
+
+    var smsCountInput = $('.form-subscribe .sms-count'),
+    	smsCount = parseInt(smsCountInput.val()) + 10;
+
+    smsCountInput.val(smsCount);
+
+    Session.set('smsCount', smsCount);
+  },
+  'change .widget-list': function(e) {
+  	e.preventDefault();
+
+  	console.log();
+
+    var widgetId = e.target.value;
+
+    Session.set('widgetId', widgetId);
   }
 });

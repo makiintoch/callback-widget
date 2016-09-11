@@ -39,4 +39,5 @@ reactive-var
 froatsnook:request
 jaredmartin:future
 jparker:crypto-core
+jparker:crypto-md5
 jparker:crypto-base64

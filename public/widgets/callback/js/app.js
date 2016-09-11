@@ -557,7 +557,7 @@
             callbackInit.animateText(widgetContent[0].querySelector('.wf-text-phone .wf-text-item'));
           }
 
-          
+
 
           if(callbackSettings.options.sound == 'true') {
               var sound = document.getElementById("wf-open-one-audio");
@@ -616,7 +616,7 @@
       },
 
       animateText: function(item, title, desc) {
-        var timer1, timer2, 
+        var timer1, timer2,
             timer1Count = 0,
             timer2Count = 0,
             title = (title) ? title : item.querySelector('.title').innerText,
@@ -708,12 +708,12 @@
 
         if (scenarios.fourth.status) {
           if (getCookie('startPage') == undefined) {
-            document.cookie = "startPage="+window.location.href+"; path=/;";  
+            document.cookie = "startPage="+window.location.href+"; path=/;";
           };
-          
+
           if (getCookie('startPage') != window.location.href) {
             if (!getCookie('scenariosFourthStatus')) {
-              showWidget();  
+              showWidget();
             };
 
             document.cookie = "scenariosFourthStatus=true; path=/;";
@@ -724,7 +724,7 @@
           window.addEventListener('scroll', function(event) {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
               if (!getCookie('scenariosFifthStatus')) {
-                showWidget();  
+                showWidget();
               };
 
               document.cookie = "scenariosFifthStatus=true; path=/;";
@@ -810,7 +810,7 @@
         } else {
           widget.querySelector('.wf-text-phone .wf-text-item').innerHTML = callbackSettings.formatText(callbackSettings.options.texts.call.text2.title, callbackSettings.options.texts.call.text2.body);
         }
-        
+
 
         widget.querySelector('.wf-text-subscribe .wf-text-item').innerHTML = callbackSettings.formatText(callbackSettings.options.texts.email.text1.title, callbackSettings.options.texts.email.text1.body);
 
@@ -852,6 +852,6 @@
       sound = data.sound,
       key = data.key;
 
-  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://call-message.com/'});
+  var wcb = widgetCallback({color: color, schema : schema, position: {hor: positionHor, ver: positionVer}, time: time, serverUtc: timeGmt, scenarios: scenarios, yandexTarget: yandexTarget, googleTarget: googleTarget, sound: sound, key: key, serverHost: 'http://localhost:3000/'});
   wcb.on();
 })();
