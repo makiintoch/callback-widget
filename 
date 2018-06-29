@@ -1,0 +1,297 @@
+[33mcommit c0460959e27adede56d9896f141a4432bfbfb585[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Sun Sep 11 20:11:46 2016 +0300
+
+    Change sms sender api
+
+[33mcommit be8326d3a216a5a189c2a32fb3fed4817b99cbcf[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Mon Jun 6 16:32:28 2016 +0300
+
+    Edit subscribe
+
+[33mcommit 7492b7893252ec4a5a4fb8a72d36375a5bc8de71[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Sat Jun 4 14:13:13 2016 +0300
+
+    Edit subscribe
+
+[33mcommit 06b4f9478af506c13fb04e0ac45eafd16a76a8b5[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Mon May 30 11:07:44 2016 +0300
+
+    Edit subscribe
+
+[33mcommit 69fe127b9b0092f9ebc92b6ad654c90ca96c4782[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Mon May 16 13:58:50 2016 +0300
+
+    Add txt file
+
+[33mcommit 5b4a1da7eb5718cb4a802abf83a635ecd8368e10[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Sat May 14 17:00:16 2016 +0300
+
+    Add subscription.js
+
+[33mcommit c0321bff6fb268dcf509bdef61301bb43888d266[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Sat May 14 15:34:06 2016 +0300
+
+    Add subscribe to router and menu
+
+[33mcommit 2b56805f744ce027e4d9b9b4b27c69d1cc30442e[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Sun May 8 12:25:29 2016 +0300
+
+    Edit style
+
+[33mcommit d5a7c3979fdcac9b06f5a6cbc56d9b73a3718057[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Thu May 5 12:52:15 2016 +0300
+
+    Edit accaunts admin
+
+[33mcommit bae27847c87056f68c7c7c06688ef38f577d0eeb[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Sun Mar 13 13:49:32 2016 +0200
+
+    add referrer
+
+[33mcommit 9fae6aa66cb55fdd3503e145f7d588f505a9fd23[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Fri Mar 11 16:51:31 2016 +0200
+
+    edit user list
+
+[33mcommit 9d4e45ad39aab058f095ffc6550a2235a8f5d8ee[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Sat Feb 13 16:26:08 2016 +0200
+
+    Change email
+
+[33mcommit f29e21a52bf2d7276bfdcacb98cd23feba814c8f[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Fri Feb 12 23:53:40 2016 +0200
+
+    add partners
+
+[33mcommit 1a39a97ee719797533bed54f01b6dc572fdc11dc[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Fri Feb 12 18:01:48 2016 +0200
+
+    Edit style.less
+
+[33mcommit 8bd578c187280faa163abb7993c9e990cca3d4e0[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Thu Feb 11 19:29:14 2016 +0200
+
+    Add gulp file
+
+[33mcommit 3d76efc6da392970f82069d6f3e8811cf81b2759[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Thu Feb 11 18:51:43 2016 +0200
+
+    Add main page
+
+[33mcommit a67af934b3a6dfce318a052c207d79bc986a1724[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Sat Feb 6 18:23:02 2016 +0200
+
+    Edit loading text
+
+[33mcommit 3319a408e99f9abe72d955cd1589629c2ddab11a[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Fri Feb 5 17:09:28 2016 +0200
+
+    Change server
+
+[33mcommit bf02eb05874b4d43de616fde130bdd8cad423e0d[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Thu Feb 4 23:12:55 2016 +0200
+
+    Change mup.json
+
+[33mcommit 0740310220a7c66af12afdcfee53907544d5f4f0[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Tue Feb 2 17:04:13 2016 +0200
+
+    Edit admin panel
+
+[33mcommit 48adfed759c8fa6e3050f90b2e4d5f79800a3366[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Mon Jan 25 21:31:16 2016 +0200
+
+    Edit sidebar
+
+[33mcommit ebc69a05ea7e3e6edf0b38349e03d04979506c10[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Mon Jan 25 21:02:09 2016 +0200
+
+    Add accounts admin
+
+[33mcommit d9edbb8b0e84b03bfe67555a343d77a2aa22a4cc[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Mon Jan 25 19:49:07 2016 +0200
+
+    Add validation email
+
+[33mcommit ed30a41e558b7edf7214b6dc5e85b576a0735f9f[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Mon Jan 25 17:56:13 2016 +0200
+
+    Edit style
+
+[33mcommit fcfdddfb2df8b60b3a8f2a056abad78366948531[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Sat Jan 23 14:02:33 2016 +0200
+
+    Edit animation text
+
+[33mcommit 52b732de2b13ea1252c72372e7b9ec9cd3c5b76a[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Thu Jan 21 19:18:41 2016 +0200
+
+    Add offline work time
+
+[33mcommit 241bf1e425437454b29071f0aed0534748d675cd[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Thu Jan 21 18:49:01 2016 +0200
+
+    Add wait cursor after sending form
+
+[33mcommit 8948276125b2c46b63bb566c8bf27c45b54c8bba[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Thu Jan 21 18:15:52 2016 +0200
+
+    Edit send form
+
+[33mcommit 3d04cc8bc24d9feaac0f0e554240d37cb6b90682[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Thu Jan 21 16:29:38 2016 +0200
+
+    Add animation text
+
+[33mcommit b5c8bea52d39b8dd7c8c076fabe0fcda6d917edd[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Wed Jan 20 22:11:51 2016 +0200
+
+    Add a service link
+
+[33mcommit b09330907a98e5b790e4686cf929e807100365f5[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Wed Jan 20 18:41:07 2016 +0200
+
+    add yandex target
+
+[33mcommit bd0a2bea203814a066748359cad2bd686b06fe27[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Wed Jan 20 16:10:42 2016 +0200
+
+    Minify style and js in the client
+
+[33mcommit 7a2574bf962ed99af7925ff75e6f7fe4f7bccf01[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Wed Jan 20 15:27:30 2016 +0200
+
+    Edit reset password
+
+[33mcommit 415f9b3fa1692f4aa3d4d773a3218cedc4e4f99b[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Wed Jan 20 13:52:31 2016 +0200
+
+    Edit powered by
+
+[33mcommit 3744da5642b3c938ec6d810695514ca109d3bcfd[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Wed Jan 20 10:57:52 2016 +0200
+
+    Replacement of synchronous transmission on asynchronous
+
+[33mcommit c90315b4dd09557c3ea7e7443221941169da84b0[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Mon Jan 18 17:43:08 2016 +0200
+
+    Add mup
+
+[33mcommit 61cb20e914e23415c6adb7df13d289981d2c29f1[m
+Author: makiintoch <makiintoch@gmail.com>
+Date:   Sun Jan 17 16:40:37 2016 +0200
+
+    Add gmt time
+
+[33mcommit 8e90ea9daf5b619ded81aecb838fb25f0ef4d080[m
+Author: Игорь Кременчук <Игорь Кременчук>
+Date:   Sat Jan 16 19:37:20 2016 +0200
+
+    Add sorting orders
+
+[33mcommit e934e5866bd090b362036ad369e4dccee8c0a3ec[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Tue Jan 12 18:19:10 2016 +0200
+
+    Add scenarios to the server
+
+[33mcommit 4de8b4a9a66abd3275a18987b715116bc90cb629[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Sat Jan 9 17:17:50 2016 +0200
+
+    Add scroll
+
+[33mcommit 0a0a15556dffcf6cbbdc32c7701d636d4c48b7e4[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Sat Jan 9 14:49:57 2016 +0200
+
+    Add favicon
+
+[33mcommit c2377f65f804332d2ea6381e2ad4ea7fd8a36014[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Thu Jan 7 17:30:53 2016 +0200
+
+    Edit time in the clien
+
+[33mcommit ffc9cd2c2b4e0a55cd67d366de8722557eee5f4c[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Thu Jan 7 17:02:20 2016 +0200
+
+    Add hover effect to button
+
+[33mcommit 351c10160f205820b86c9126c558df46575eb21e[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Thu Jan 7 16:12:08 2016 +0200
+
+    Change default button color
+
+[33mcommit 2b805140b1029c2ca59c7da90646071bec8c107e[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Thu Jan 7 14:08:33 2016 +0200
+
+    Add remove order
+
+[33mcommit d0cbb859e876abc8114e760cd4faa5986f922e70[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Thu Jan 7 12:47:09 2016 +0200
+
+    Edit position widget on the top screen
+
+[33mcommit d18764a2644ed22c03a7c3970fe6497f9e272d1f[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Wed Jan 6 20:22:01 2016 +0200
+
+    Edit some animation
+
+[33mcommit 08f0ff5743fd7254e3998a46f56fde641fa452bb[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Wed Jan 6 20:04:45 2016 +0200
+
+    Added selection of the weekdays
+
+[33mcommit e4b065052041614d91c8ed23cf78ad7b2a60f992[m
+Author: makiintoch <makintoch@gmail.com>
+Date:   Wed Jan 6 17:05:59 2016 +0200
+
+    Add new order in sidebar
+
+[33mcommit ff1c549cb47fb22947825f85a74e285fc86c5dad[m
+Author: makiintoch <makintoch@gmail.com>
+Date:

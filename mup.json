@@ -2,9 +2,9 @@
   // Server authentication info
   "servers": [
     {
-      "host": "178.62.85.163",
+      "host": "localhost",
       "username": "root",
-      "password": "F2Jh5o&w8JGfs@gg"
+      "password": ""
       // or pem file (ssh based authentication)
       //"pem": "~/.ssh/id_rsa"
     }
@@ -34,8 +34,8 @@
 
   // Configure environment
   "env": {
-    "ROOT_URL": "http://call-message.com/",
-    "MAIL_URL": "smtp://postmaster@sandbox61e3902b3cdc4282861d06013fbc22c6.mailgun.org:Js86da$daJg@smtp.mailgun.org:25"
+    "ROOT_URL": "your url",
+    "MAIL_URL": "your url"
   },
 
   // Meteor Up checks if the app comes online just after the deployment
