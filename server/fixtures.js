@@ -1,8 +1,8 @@
 if ( Meteor.users.find().count() === 0 ) {
     var userId = Accounts.createUser({
-        username: 'anton',
-        email: 'anton.l@bk.ru',
-        password: 'gfhjkm123',
+        username: 'your username',
+        email: 'your email',
+        password: 'your password',
         profile: {
             first_name: 'fname',
             last_name: 'lname',

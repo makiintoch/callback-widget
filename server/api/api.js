@@ -71,8 +71,6 @@ ApiV1.addCollection(Orders, {
               console.log("Error: ");
               console.log(smsInfo.data);
             }
-
-            console.log('---------------------------------------------------');
           };
 
           for (var i = 0; i < widget.emails.length; i++) {
